@@ -11,16 +11,16 @@ public class playerMovement : MonoBehaviour
 {
     //Movement variables
     private float maxCrouchSpeed = 5.0f;
-    private float currentHorzSpeed = 0.0f;
+    public float currentHorzSpeed = 0.0f;
     private float maxHorzSpeed = 10f;
-    private float fallSpeed = 0f;
-    private float maxFallSpeed = -5f;
-    private float fastFallSpeed = -10f;
-    private float momentum = 2f;
+    public float fallSpeed = 0f;
+    private float maxFallSpeed = 5f;
+    private float fastFallSpeed = 10f;
+    private float momentum = 0.05f;
     private bool isMovingHorz = false;
     private bool isMovingVert = false;
-    private bool isCrouching = false;
-    private bool isFastFalling = false;
+    public bool isCrouching = false;
+    public bool isFastFalling = false;
     //Jumping+dashing to be added below
 
     //This is a local referecne to the object, and multiple scripts can have references to this SINGLUAR character controller instance
@@ -57,7 +57,7 @@ public class playerMovement : MonoBehaviour
         float deltaX = Input.GetAxis("Horizontal") * currentHorzSpeed;
 
         //Checking to see if the player is falling
-        if (!charController.isGrounded)
+        if (!charController.isGrounded) // NOTE: May need to change isGrounded or fix it for the platforms
         {
             //Having to do with jump things (Phineas)
             //Ex: if player is jumping, give a certain time for positive fall (going up) then negative fall (going down)
@@ -65,12 +65,13 @@ public class playerMovement : MonoBehaviour
         else
         {
             //Player on ground
-            fallSpeed = 0;
+            fallSpeed = 0f;
         }
 
         //Crouching and fastfalling
         if (Input.GetKey(KeyCode.S) /*&& (controller input) */)
         {
+            Debug.Log("player holding s");
             if (charController.isGrounded) //Player crouching on the ground
             {
                 //Crouching
@@ -81,8 +82,9 @@ public class playerMovement : MonoBehaviour
             }
             else //Player fastfalling
             {
-                //Note fallSpeed while falling is negative
-                fallSpeed = Math.Max(fallSpeed - momentum, fastFallSpeed);
+                //Note fallSpeed while falling is positive
+                isFastFalling = true;
+                fallSpeed = Math.Min(fallSpeed + momentum, fastFallSpeed);
             }
         }
         else
@@ -93,7 +95,7 @@ public class playerMovement : MonoBehaviour
         }
 
         //Sets how far the player moves in the vertical position (note: w and s will be the veritcal axis)
-        float deltaY = Input.GetAxis("Vertical") * fallSpeed;
+        float deltaY = -fallSpeed;
         //Create a vectore for the players change in movement in space
         Vector2 movement = new Vector2(deltaX, deltaY); //Note: needs to be combined with the dash and Jump to have comeplete movement
         
