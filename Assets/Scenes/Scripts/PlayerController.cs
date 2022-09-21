@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     // Private
     private bool isGrounded;            // is the player touching a ground object?
     private float movementFactor;       // a value between -1 and 1, which determines the direction the player moves
+    private bool canDash;
     private bool isDashing;             // true while the player is dashing
     private string dashType = "basic";  // TODO: this should be an enum eventually
 
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
     public float percentFrictionX;  // % friction: how quickly does the player come to a halt.
 
     public float basicDashDistance; // How far the basic dash will carry you
+    public float dashVelocity;
 
     // Setup Code
     void Start()
@@ -74,6 +76,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            canDash = true;
         }
     }
 
@@ -114,9 +117,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Whether or not the player is allowed to dash -- prefer this method over the boolean canDash
+    bool CanDash() {
+        return canDash || isGrounded;
+    }
+
     // Dash event --> executes the various dash type coroutines
     void Dash()
     {
+        if(!CanDash()) {
+            return;
+        }
         if(dashType == "basic") {
             StartCoroutine(BasicDash());
         }
@@ -136,17 +147,17 @@ public class PlayerController : MonoBehaviour
 
         rb.gravityScale = 0;
         isDashing = true;
+        canDash = false;
 
         float travelled = 0;
         float gravityTemp = gravityScale;
         while(travelled < basicDashDistance) {
             travelled = Vector2.Distance(pos, rb.position);
-            rb.velocity = new Vector2(direction.x * 200, direction.y * 200);
+            rb.velocity = direction * dashVelocity;
             yield return null;
         }
-        rb.position = pos + (direction * basicDashDistance);
-        rb.velocity = new Vector2(0, 0);
 
+        rb.velocity = new Vector2(0, 0);
         rb.gravityScale = gravityScale;
         isDashing = false;
     }
