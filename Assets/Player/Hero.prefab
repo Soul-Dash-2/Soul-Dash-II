@@ -145,8 +145,8 @@ MonoBehaviour:
   minimumVelocity: 2
   percentFrictionX: 50
   percentFrictionY: 50
-  basicDashTime: 0.12
-  basicDashVelocity: 120
+  basicDashTime: 0.1
+  basicDashVelocity: 100
   dashTrajectoryModificationFactor: 0.3
 --- !u!1 &6931134223910163975
 GameObject:
