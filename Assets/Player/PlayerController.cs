@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
         controls.Player.Jump.performed += _ => Jump();
         // controls.Player.Jump.canceled += _ => EndJump();
         controls.Player.Dash.started += _ => Dash();
+        // controls.Player.Slash.started += _ => Slash();
     }
 
     // Fixed Update occurs whenever unity updates Physics objects, and does not necessarily occur at the same time as the frame update.
@@ -60,10 +61,6 @@ public class PlayerController : MonoBehaviour
         float xVel = CalculateXVelocity();
         float yVel = CalculateYVelocity();
         rb.velocity = new Vector2(xVel, yVel);
-
-
-        Debug.Log("X-Vel: " + xVel);
-        Debug.Log("Y-Vel: " + yVel);
     }
 
     // Enable and Disable events
