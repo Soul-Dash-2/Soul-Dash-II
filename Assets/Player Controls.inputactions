@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Crouch",
+                    "type": "Button",
+                    "id": "2494b5fb-8c22-4337-81d2-a255545be3de",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -38,6 +47,17 @@
                     "name": "",
                     "id": "9d415ab3-0380-4fa1-9a57-f52e12eac2ed",
                     "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8f60fe55-cad5-4d97-881e-fc3b3e529b32",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -91,12 +111,12 @@
                 },
                 {
                     "name": "",
-                    "id": "399188e4-5056-42ee-9035-d024082b6b77",
-                    "path": "<Keyboard>/space",
+                    "id": "9b73d32d-047f-4064-8390-37b58c554c9d",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Dash",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

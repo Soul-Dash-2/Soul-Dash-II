@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     // Private
     private bool isGrounded;            // is the player touching a ground object?
     private float movementFactor;       // a value between -1 and 1, which determines the direction the player moves
-    private bool canDash;
+    private bool canDash;               // true if the player is allowed to dash
     private bool isDashing;             // true while the player is dashing
     private bool isJumping;             // true after the player has executed a jump
     private string dashType = "basic";  // TODO: this should be an enum eventually
@@ -53,11 +53,6 @@ public class PlayerController : MonoBehaviour
     // DeltaTime is not used, because the physics update occurs on a fixed interval, and is therefore not bound to the deltaTime
     void FixedUpdate()
     {
-        if (rb.velocity.y <= 0)
-        {
-            isGrounded = true;
-        }
-
         float xVel = CalculateXVelocity();
         float yVel = CalculateYVelocity();
         rb.velocity = new Vector2(xVel, yVel);
@@ -142,7 +137,7 @@ public class PlayerController : MonoBehaviour
     void Jump()
     {
         // Can only jump if on the ground
-        if (isGrounded || !isDashing)
+        if (isGrounded && !isDashing)
         {
             isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
