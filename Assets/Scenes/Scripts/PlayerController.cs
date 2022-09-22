@@ -31,6 +31,10 @@ public class PlayerController : MonoBehaviour
 
     public float basicDashTime;     // How long the dash lasts
     public float basicDashVelocity; // How quickly does the basic dash move
+    public float dashTrajectoryModificationFactor;  /* How much does the effect of the players velocity before dashing affect the angle of the dash?
+                                                        EXAMPLE: IF the factor is large, then if the player jumps before they dash horizontally, the
+                                                        dash will actually move the player up as well. This can be set to 0 to disable this mechanic
+                                                        altogether.*/
 
     // Setup Code
     void Start()
@@ -137,7 +141,7 @@ public class PlayerController : MonoBehaviour
     void Jump()
     {
         // Can only jump if on the ground
-        if (isGrounded && !isDashing)
+        if (isGrounded)// && !isDashing)
         {
             isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
@@ -175,19 +179,22 @@ public class PlayerController : MonoBehaviour
     // Basic dash
     IEnumerator BasicDash()
     {
+        // Perform the movement
         Vector2 direction = GetDirection();
-        Vector2 ogVelocity = rb.velocity;
+        rb.velocity = (direction * basicDashVelocity) + (rb.velocity * dashTrajectoryModificationFactor);
 
+        // set appropriate flags
         isDashing = true;
         canDash = false;
 
+        // wait to complete dash
         float dashTime = 0;
         while (dashTime < basicDashTime)
         {
             dashTime += Time.deltaTime;
-            rb.velocity = direction * basicDashVelocity;
             yield return null;
         }
+        // finish dash
         isDashing = false;
     }
 }
