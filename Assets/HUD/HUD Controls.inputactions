@@ -1,0 +1,34 @@
+{
+    "name": "HUD Controls",
+    "maps": [
+        {
+            "name": "HUD",
+            "id": "67fdf608-9688-4adb-93af-e05e7dd9bbf9",
+            "actions": [
+                {
+                    "name": "TogglePause",
+                    "type": "Button",
+                    "id": "7af8a6ed-b45c-4a21-8758-24f474620d22",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6650cad2-3d4b-4d1b-840d-1ad533233927",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TogglePause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
