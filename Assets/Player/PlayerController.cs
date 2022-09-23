@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     // Components
     private Rigidbody2D rb;
     private PlayerControls controls;
+    private SpriteRenderer render;
 
     // Private
     private bool isGrounded;            // is the player touching a ground object?
@@ -42,6 +43,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;
 
+        render = GetComponent<SpriteRenderer>();
+
         controls = new PlayerControls();
         controls.Enable();
 
@@ -61,6 +64,16 @@ public class PlayerController : MonoBehaviour
         float xVel = CalculateXVelocity();
         float yVel = CalculateYVelocity();
         rb.velocity = new Vector2(xVel, yVel);
+
+        Vector3 localScale = rb.transform.localScale;
+        if (xVel > 0) {
+            render.flipX = true;
+            return;
+        }
+        if (xVel < 0) {
+            render.flipX = false;
+            return;
+        }
     }
 
     // Enable and Disable events

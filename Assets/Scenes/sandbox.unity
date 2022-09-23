@@ -364,7 +364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &271656423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -853,21 +853,13 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000011444, y: 0.000010014}
   m_SizeDelta: {x: 407.7809, y: 121.3772}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1001 &990511603
+--- !u!1001 &1867099632
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 163945917701923813, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
-      propertyPath: m_Name
-      value: playercam
-      objectReference: {fileID: 0}
-    - target: {fileID: 163945917701923813, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2116670300586362240, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
       propertyPath: m_Name
       value: Hero
