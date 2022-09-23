@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Camera playerCamera;         // The camera following the player
 
     // Components
-    private Rigidbody2D rb;
-    private PlayerControls controls;
-    private SpriteRenderer render;
+    private Rigidbody2D rb;             // the 2d rigid body
+    private PlayerControls controls;    // the input system
+    private SpriteRenderer render;      // the sprite renderer
+    private Camera playerCamera;        // The camera following the player
 
     // Private
     private bool isGrounded;            // is the player touching a ground object?
@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
         rb.gravityScale = gravityScale;
 
         render = GetComponent<SpriteRenderer>();
+        playerCamera = GetComponentInChildren<Camera>();
 
         controls = new PlayerControls();
         controls.Enable();
