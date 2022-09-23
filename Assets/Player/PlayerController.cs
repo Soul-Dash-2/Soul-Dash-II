@@ -180,9 +180,10 @@ public class PlayerController : MonoBehaviour
         Vector2 direction = GetDirection();
         rb.velocity = (direction * basicDashVelocity) + (rb.velocity * dashTrajectoryModificationFactor);
 
-        // set appropriate flags
+        // set appropriate variables
         isDashing = true;
         canDash = false;
+        rb.gravityScale = 0;
 
         // wait to complete dash
         float dashTime = 0;
@@ -192,6 +193,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         // finish dash
+        rb.gravityScale = gravityScale;
         isDashing = false;
     }
 }
