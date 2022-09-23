@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    public Transform hero;          // The player
-    public Camera playerCamera;     // The camera
+    private Transform hero;         // The player
+    private Camera playerCamera;    // The camera
     public float cameraSpeed;       // The speed at which the camera moves
     public float floatBias;         /* Factor which determines how close the camera 
                                         floats to the player, vs the mouse.
                                         Use a value of zero to deactivate camera floating
                                     */
+
+    void Start() {
+        hero = GetComponentInParent<Rigidbody2D>().transform;
+        playerCamera = GetComponent<Camera>();
+    }
 
     void Update()
     {
