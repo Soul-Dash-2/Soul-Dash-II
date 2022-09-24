@@ -18,8 +18,9 @@ public class PlayerController : MonoBehaviour
     private bool isDashing;             // true while the player is dashing
     private bool isJumping;             // true after the player has executed a jump
     private string dashType = "basic";  // TODO: this should be an enum eventually
-    private bool isCrouching;
-    private bool isFastFalling;
+    private bool isCrouching;           // true when player is crouching
+    private bool isFastFalling;         // true while player is fastfalling
+    private bool isTouching;            // true while player is touching anything
 
     // Public Movement variables
     public float jumpVelocity;      // How much power the player's jump has
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
     public float basicDashTime;     // How long the dash lasts
     public float basicDashVelocity; // How quickly does the basic dash move
+    public float slimeDashVelocity; // How quickly the slime dash moves
     public float dashTrajectoryModificationFactor;  /* How much does the effect of the players velocity before dashing affect the angle of the dash?
                                                         EXAMPLE: IF the factor is large, then if the player jumps before they dash horizontally, the
                                                         dash will actually move the player up as well. This can be set to 0 to disable this mechanic
@@ -88,6 +90,7 @@ public class PlayerController : MonoBehaviour
     // Event which occurs when leaving a colliding object
     void OnCollisionExit2D(Collision2D collision)
     {
+        isTouching = false;
         // if the previously collided object was the ground, set isGrounded false
         if (collision.gameObject.CompareTag("Ground"))
         {
@@ -106,6 +109,7 @@ public class PlayerController : MonoBehaviour
             isJumping = false;
             isFastFalling = false;
             isCrouching = false;
+            isTouching = true;
         }
     }
 
@@ -217,6 +221,9 @@ public class PlayerController : MonoBehaviour
         if (dashType == "basic")
         {
             StartCoroutine(BasicDash());
+        }else if(dashType == "slime")
+        {
+            StartCoroutine(SlimeDash());
         }
     }
 
@@ -246,6 +253,55 @@ public class PlayerController : MonoBehaviour
         {
             dashTime += Time.deltaTime;
             yield return null;
+        }
+        // finish dash
+        rb.gravityScale = gravityScale;
+        isDashing = false;
+    }
+
+    //Slime dash
+    IEnumerator SlimeDash()
+    {
+        // Perform the movement
+        Vector2 direction = GetDirection();
+        Vector2 slimeDashDir = direction; //Copies the direction to the slime-dash/bounce to swap it after 
+        slimeDashDir.x = -slimeDashDir.x; //Reflects the x direction for the bounce always
+        if (direction.y < 0) //Checks if the initial dash is a dash going down
+        {
+            slimeDashDir.y = -slimeDashDir.y; //If going down, the bounce goes up
+        }
+        
+        rb.velocity = (direction * basicDashVelocity) + (rb.velocity * dashTrajectoryModificationFactor);
+
+        // set appropriate variables
+        isDashing = true;
+        canDash = false;
+        rb.gravityScale = 0;
+
+        // wait to complete dash
+        float dashTime = 0;
+        while (dashTime < basicDashTime)
+        {
+            dashTime += Time.deltaTime;
+            yield return null;
+        }
+
+        if (isTouching) //checks if the player hits something at the end of the dash 
+        {
+            //add in explosion at end of first dash hitbox
+            //Bounce dash
+            rb.velocity = (slimeDashDir * slimeDashVelocity) + (rb.velocity * dashTrajectoryModificationFactor);
+            // wait to complete dash
+            dashTime = 0;
+            while (dashTime < basicDashTime)
+            {
+                dashTime += Time.deltaTime;
+                yield return null;
+            }
+        }
+        else
+        {
+            //add in explosion at end of dash hitbox 
         }
         // finish dash
         rb.gravityScale = gravityScale;
