@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     private bool isDashing;             // true while the player is dashing
     private bool isJumping;             // true after the player has executed a jump
     private string dashType = "basic";  // TODO: this should be an enum eventually
+    private bool isCrouching;
+    private bool isFastFalling;
 
     // Public Movement variables
     public float jumpVelocity;      // How much power the player's jump has
@@ -54,6 +56,8 @@ public class PlayerController : MonoBehaviour
         controls.Player.Movement.canceled += _ => movementFactor = 0; // sets movement to the float value of the performed action
         controls.Player.Jump.performed += _ => Jump();
         // controls.Player.Jump.canceled += _ => EndJump();
+        controls.Player.Crouch.performed += _ => Crouch();
+        controls.Player.Crouch.canceled += _ => EndCrouch();
         controls.Player.Dash.started += _ => Dash();
         // controls.Player.Slash.started += _ => Slash();
     }
@@ -100,6 +104,8 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
             canDash = true;
             isJumping = false;
+            isFastFalling = false;
+            isCrouching = false;
         }
     }
 
@@ -119,6 +125,10 @@ public class PlayerController : MonoBehaviour
         // if dashing, jumping, or falling, do not apply friction
         if (isDashing || isJumping || rb.velocity.y < 0)
         {
+            if (isFastFalling && rb.velocity.y < 0) //Fastfalling in air increases y friction
+            {
+                return 1.5f;
+            }
             return 1;
         }
         return 1 - (percentFrictionY / 100);
@@ -156,6 +166,37 @@ public class PlayerController : MonoBehaviour
         {
             isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
+        }
+    }
+
+    //Crouch (or fastfall)
+    void Crouch()
+    {
+        if (isGrounded)
+        {
+            //Add in crouch hitbox
+            //Maybe slow the player?
+            isCrouching = true;
+        }
+        else
+        {
+            //Note isFastFalling increases y friction value to 1.5 
+            isFastFalling = true;
+        }
+    }
+
+    //EndCrouch (or endfastfall)
+    void EndCrouch()
+    {
+        if (isCrouching)
+        {
+            //Add in crouch hitbox
+            //Maybe speed back up the player?
+            isCrouching = false;
+        }
+        else if (isFastFalling)
+        {
+            isFastFalling = false;
         }
     }
 
