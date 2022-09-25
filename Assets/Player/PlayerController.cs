@@ -51,7 +51,6 @@ public class PlayerController : MonoBehaviour
     // Setup Code
     void Start()
     {
-        dashType = DashType.BASIC;
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;
 
