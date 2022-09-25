@@ -5,6 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
+    public enum DashType
+    {
+        BASIC, SLIME, GOBLIN, EYE, EAGLE, SANDWORM, EYEBALL, DEMON
+    }
+
     // Components
     private Rigidbody2D rb;             // the 2d rigid body
     private PlayerControls controls;    // the input system
@@ -17,12 +22,12 @@ public class PlayerController : MonoBehaviour
     private bool canDash;               // true if the player is allowed to dash
     private bool isDashing;             // true while the player is dashing
     private bool isJumping;             // true after the player has executed a jump
-    private string dashType = "basic";  // TODO: this should be an enum eventually
     private bool isCrouching;           // true when player is crouching
     private bool isFastFalling;         // true while player is fastfalling
     private bool isTouching;            // true while player is touching anything
 
     // Public Movement variables
+    public DashType dashType;
     public float jumpVelocity;      // How much power the player's jump has
     public float gravityScale;      // How strong the effect of gravity on the player is: 1 = 100%, 0 = 0%
 
@@ -44,6 +49,7 @@ public class PlayerController : MonoBehaviour
     // Setup Code
     void Start()
     {
+        dashType = DashType.BASIC;
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;
 
@@ -73,11 +79,13 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(xVel, yVel);
 
         Vector3 localScale = rb.transform.localScale;
-        if (xVel > 0) {
+        if (xVel > 0)
+        {
             render.flipX = true;
             return;
         }
-        if (xVel < 0) {
+        if (xVel < 0)
+        {
             render.flipX = false;
             return;
         }
@@ -218,10 +226,11 @@ public class PlayerController : MonoBehaviour
             return;
         }
         isJumping = false;
-        if (dashType == "basic")
+        if (dashType == DashType.BASIC)
         {
             StartCoroutine(BasicDash());
-        }else if(dashType == "slime")
+        }
+        else if (dashType == DashType.SLIME)
         {
             StartCoroutine(SlimeDash());
         }
@@ -270,7 +279,7 @@ public class PlayerController : MonoBehaviour
         {
             slimeDashDir.y = -slimeDashDir.y; //If going down, the bounce goes up
         }
-        
+
         rb.velocity = (direction * basicDashVelocity) + (rb.velocity * dashTrajectoryModificationFactor);
 
         // set appropriate variables
