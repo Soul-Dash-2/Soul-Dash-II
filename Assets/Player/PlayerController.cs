@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         // if the previously collided object was the ground, set isGrounded false
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") && collision.relativeVelocity.y > 0)
         {
             isGrounded = true;
             canDash = true;
