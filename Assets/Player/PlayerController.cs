@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     public DashType dashType;
     public float jumpVelocity;      // How much power the player's jump has
     public float gravityScale;      // How strong the effect of gravity on the player is: 1 = 100%, 0 = 0%
+    public float shortHopEndVel;    // The velocity threshold at which a shorthop is said to be complete
+    public float shortHopStrength;  // Higher numbers mean the short hop should be shorter
 
     public float accelerationX;     // the player's maximum acceleration on the x axis
     public float maxVelocityX;      // the player's maximum velocity on the x axis
@@ -63,7 +65,7 @@ public class PlayerController : MonoBehaviour
         controls.Player.Movement.performed += ctx => movementFactor = ctx.ReadValue<float>(); // sets movement to the float value of the performed action
         controls.Player.Movement.canceled += _ => movementFactor = 0; // sets movement to the float value of the performed action
         controls.Player.Jump.performed += _ => Jump();
-        // controls.Player.Jump.canceled += _ => EndJump();
+        controls.Player.Jump.canceled += _ => EndJump();
         controls.Player.Crouch.performed += _ => Crouch();
         controls.Player.Crouch.canceled += _ => EndCrouch();
         controls.Player.Dash.started += _ => Dash();
@@ -77,18 +79,9 @@ public class PlayerController : MonoBehaviour
         float xVel = CalculateXVelocity();
         float yVel = CalculateYVelocity();
         rb.velocity = new Vector2(xVel, yVel);
-
-        Vector3 localScale = rb.transform.localScale;
-        if (xVel > 0)
-        {
-            render.flipX = true;
-            return;
-        }
-        if (xVel < 0)
-        {
-            render.flipX = false;
-            return;
-        }
+        
+        HandleShortHop(yVel);
+        DoFlipIfNeeded(xVel);
     }
 
     // Enable and Disable events
@@ -118,6 +111,30 @@ public class PlayerController : MonoBehaviour
             isFastFalling = false;
             isCrouching = false;
             isTouching = true;
+        }
+    }
+
+    // Disables shorthop when the condition is met
+    private void HandleShortHop(float yVel)
+    {
+        if (yVel < shortHopEndVel)
+        {
+            rb.gravityScale = gravityScale;
+        }
+    }
+
+    // Flip the sprite renderer if necessary
+    private void DoFlipIfNeeded(float xVel)
+    {
+        if (xVel > 0)
+        {
+            render.flipX = true;
+            return;
+        }
+        if (xVel < 0)
+        {
+            render.flipX = false;
+            return;
         }
     }
 
@@ -179,6 +196,17 @@ public class PlayerController : MonoBehaviour
             isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
         }
+    }
+
+    // Endjump --> allows for short hops
+    void EndJump()
+    {
+        // if the shortHopEndvelocity has already been met, then no short hop will occur
+        if (rb.velocity.y < shortHopEndVel)
+        {
+            return;
+        }
+        rb.gravityScale = gravityScale * shortHopStrength;
     }
 
     //Crouch (or fastfall)

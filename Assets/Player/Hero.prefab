@@ -137,8 +137,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ffa264b5a4f67142a68b9c54f76ead9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashType: 0
   jumpVelocity: 40
   gravityScale: 15
+  shortHopEndVel: 10
+  shortHopStrength: 5
   accelerationX: 10
   maxVelocityX: 30
   minimumVelocity: 2
