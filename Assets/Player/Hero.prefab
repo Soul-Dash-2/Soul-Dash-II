@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ffa264b5a4f67142a68b9c54f76ead9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slash: {fileID: 4524076707055429942, guid: 51b55711efbbc6a438c246edbddce37b, type: 3}
   dashType: 0
   jumpVelocity: 40
   gravityScale: 15
