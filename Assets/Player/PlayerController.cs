@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer render;      // the sprite renderer
     private Camera playerCamera;        // The camera following the player
 
+    //Prefabs
+    public GameObject slash;            //The slash prefab
+
     // Private
     private bool isGrounded;            // is the player touching a ground object?
     private float movementFactor;       // a value between -1 and 1, which determines the direction the player moves
@@ -68,7 +71,7 @@ public class PlayerController : MonoBehaviour
         controls.Player.Crouch.performed += _ => Crouch();
         controls.Player.Crouch.canceled += _ => EndCrouch();
         controls.Player.Dash.started += _ => Dash();
-        // controls.Player.Slash.started += _ => Slash();
+        controls.Player.Slash.started += _ => Slash();
     }
 
     // Fixed Update occurs whenever unity updates Physics objects, and does not necessarily occur at the same time as the frame update.
@@ -263,6 +266,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Slashing
+    void Slash()
+    {
+        if (!isDashing) //so player cannot slash while dashing
+        {
+            Vector2 relativeDirection = GetDirection();
+            Vector2 pos = rb.position;
+            Vector2 slashLocation = 3*relativeDirection + pos; //So its 3x further away from the player
+            Instantiate(slash, slashLocation, Quaternion.identity); //TODO: Make the slash change rotation based on mouse
+        }
+    }
+
     // Get the direction for a dash based on the mouse location
     Vector2 GetDirection()
     {
@@ -270,6 +285,9 @@ public class PlayerController : MonoBehaviour
         Vector2 mouse = playerCamera.ScreenToWorldPoint(Input.mousePosition);
         return (mouse - pos).normalized;
     }
+
+    //DASHES BELOW HERE
+    //
 
     // Basic dash
     IEnumerator BasicDash()
