@@ -137,8 +137,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ffa264b5a4f67142a68b9c54f76ead9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashType: 0
   jumpVelocity: 40
   gravityScale: 15
+  shortHopEndVel: 10
+  shortHopStrength: 5
   accelerationX: 10
   maxVelocityX: 30
   minimumVelocity: 2
@@ -146,6 +149,7 @@ MonoBehaviour:
   percentFrictionY: 35
   basicDashTime: 0.1
   basicDashVelocity: 80
+  slimeDashVelocity: 100
   dashTrajectoryModificationFactor: 0
 --- !u!1001 &1446559637053641820
 PrefabInstance:
