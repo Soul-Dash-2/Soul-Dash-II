@@ -5,10 +5,11 @@ using UnityEngine;
 public class SlashInteraction : MonoBehaviour
 {
     private float deathTimer;
+    public float slashTime;
     // Start is called before the first frame update
     void Start()
     {
-        deathTimer = 1f;
+        deathTimer = slashTime;
     }
 
     // Update is called once per frame
