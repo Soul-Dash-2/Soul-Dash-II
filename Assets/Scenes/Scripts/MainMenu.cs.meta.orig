@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+<<<<<<< Updated upstream
+<<<<<<<< Updated upstream:Assets/PikeFallController.cs.meta
+guid: 0de0795d97f2a47aeae03473efbe08a2
+=======
+<<<<<<<< Updated upstream:Assets/FallingTrigger.cs.meta
+guid: 41f83f9eeb57244989b7adafec6062ca
+>>>>>>> Stashed changes
+========
+guid: b9dcde8fafce74fa6ad09ee7eefe853e
+>>>>>>>> Stashed changes:Assets/Scenes/Scripts/MainMenu.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
