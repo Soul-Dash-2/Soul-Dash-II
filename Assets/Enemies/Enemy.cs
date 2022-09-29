@@ -19,20 +19,13 @@ public class Enemy : MonoBehaviour
         checkHealth();
     }
 
-    public string playerDamage(float dmg, string attack)
+    //Method that tracks the player's damage to the enemy
+    public void playerDamage(float dmg)
     {
         health = health - dmg;
-        if(health <= 0)
-        {
-            if (attack.CompareTo("dash") == 1) //checks if killed by dash
-            {
-                return dashType;
-            }
-            return null;
-        }
-        return null;
     }
 
+    //Damage and Health Methods
     float dealDamage()
     {
         return damage;
@@ -44,6 +37,16 @@ public class Enemy : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    public float getHealth()
+    {
+        return health;
+    }
+
+    public string getDashType()
+    {
+        return dashType;
     }
 
 }

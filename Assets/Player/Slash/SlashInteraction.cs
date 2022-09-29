@@ -5,9 +5,11 @@ using UnityEngine;
 public class SlashInteraction : MonoBehaviour
 {
     private float deathTimer;
+    private GameObject player;
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Hero");
         deathTimer = 0.5f;
     }
 
@@ -23,9 +25,10 @@ public class SlashInteraction : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        // if the previously collided object was the ground, set isGrounded false
+        //checks if slash hits an enemy
         if (collision.gameObject.CompareTag("Enemy")){
-            collision.gameObject.GetComponent<Enemy>().playerDamage(2, "slash");
+            collision.gameObject.GetComponent<Enemy>().playerDamage(2);
+            player.GetComponent<PlayerController>().letDash(); //resets the player's dash
         }
     }
 
