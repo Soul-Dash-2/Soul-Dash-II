@@ -45,6 +45,14 @@ public class Slime : MonoBehaviour
         }
     }
 
+    void Stop()
+    {
+        if (touchingGround)
+        {
+            rb.velocity = new Vector2(0.1f, rb.velocity.y);
+        }
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.magenta;
