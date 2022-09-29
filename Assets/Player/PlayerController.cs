@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
     private bool isFastFalling;         // true while player is fastfalling
     private bool isTouching;            // true while player is touching anything
 
+    //Damage things
+    public float dashDamage;
+
     // Public Movement variables
     public DashType dashType;
     public float jumpVelocity;      // How much power the player's jump has
@@ -113,6 +116,16 @@ public class PlayerController : MonoBehaviour
             isFastFalling = false;
             isCrouching = false;
             isTouching = true;
+        }
+
+        //Ignore the stuff below here, maybe make a trigger child to the player (or enemy)
+        if (collision.gameObject.CompareTag("Enemy") && isDashing)
+        {
+            collision.gameObject.GetComponent<Enemy>().playerDamage(3, "dash"); //add taking the dash here
+        }
+        else if (collision.gameObject.CompareTag("Enemy") && !isDashing)
+        {
+            //deal damage to player
         }
     }
 
