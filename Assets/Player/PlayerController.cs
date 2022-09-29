@@ -273,7 +273,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 relativeDirection = GetDirection();
             Vector2 pos = rb.position;
-            Vector2 slashLocation = 3*relativeDirection + pos; //So its 3x further away from the player
+            Vector2 slashLocation = 2*relativeDirection + pos; //So its 3x further away from the player
             Instantiate(slash, slashLocation, Quaternion.identity); //TODO: Make the slash change rotation based on mouse
         }
     }
