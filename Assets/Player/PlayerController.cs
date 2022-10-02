@@ -258,7 +258,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Whether or not the player is allowed to dash -- prefer this method over the boolean canDash
-    bool CanDash()
+    public bool CanDash()
     {
         return canDash || isGrounded;
     }
@@ -332,6 +332,41 @@ public class PlayerController : MonoBehaviour
     public DashType getDashType()
     {
         return dashType;
+    }
+
+    //Returns the dashType as an int - used in dashIconUpdates
+    public int getDashTypeAsInt()
+    {
+        switch(dashType)
+        {
+            case DashType.BASIC:
+                return 0;
+                break;
+            case DashType.SLIME:
+                return 1;
+                break;
+            case DashType.GOBLIN:
+                return 2;
+                break;
+            case DashType.EYE:
+                return 3;
+                break;
+            case DashType.EAGLE:
+                return 4;
+                break;
+            case DashType.SANDWORM:
+                return 5;
+                break;
+            case DashType.EYEBALL:
+                return 6;
+                break;
+            case DashType.DEMON:
+                return 7;
+                break;
+            default:
+                return -1;
+                break;
+        }
     }
 
     // Basic dash
