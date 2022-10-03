@@ -7,11 +7,11 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class EyeballController : MonoBehaviour
 {
-    [SerializeField] float rotationSpeed = 20.0f;
+    [SerializeField] float rotationSpeed = 30.0f;
     [SerializeField] float shunSpeed = 0.3f;
     [SerializeField] float attackModeDistanceToPlayer = 1.0f;
     [SerializeField] float attackModeMovementSpeed = 8.0f;
-    [SerializeField] float attackDelay = 2.0f;
+    [SerializeField] float attackDelay = 1.0f;
     [SerializeField] float attackTime = 2.0f;
     [SerializeField] float laserMovementSpeed = 0.01f; //this value should be smaller than 0.3f;
     [SerializeField] float shunMaxDistanceToPlayer = 30f;
@@ -86,7 +86,7 @@ public class EyeballController : MonoBehaviour
             arcMovementCounter < 3.0f &&
                 Vector2.Distance(player.transform.position, transform.position) < shunMaxDistanceToPlayer))
             {
-                arcMovementCounter += 0.7f * Time.deltaTime;
+                arcMovementCounter += shunSpeed * Time.deltaTime;
 
                 Vector3 m1 = Vector3.Lerp(startPoint, midPoint, arcMovementCounter);
                 Vector3 m2 = Vector3.Lerp(midPoint, dest, arcMovementCounter);
@@ -121,9 +121,12 @@ public class EyeballController : MonoBehaviour
 
     void TurnTowardsPos(float posX, float posY)
     {
+        Debug.Log(transform.rotation.eulerAngles.z);
+        Debug.Log((transform.rotation.eulerAngles.z <= 100 || transform.rotation.eulerAngles.z >= -100));
+        _renderer.flipY = (transform.rotation.eulerAngles.z <= 100 ||transform.rotation.eulerAngles.z >= 260) ? false : true;
         Quaternion _lookRotation = Quaternion.Euler(new Vector3(0, 0, GetAngleToPos(posX, posY)));
         transform.rotation = Quaternion.RotateTowards(transform.rotation, _lookRotation, rotationSpeed * Time.deltaTime);
-        _renderer.flipY = transform.rotation.z <= 90 ? false : true;
+        
 
     }
 
