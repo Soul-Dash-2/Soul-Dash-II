@@ -1428,7 +1428,7 @@ GameObject:
   m_Layer: 0
   m_Name: eye fire blue
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1442,7 +1442,7 @@ Animator:
   m_GameObject: {fileID: 2126984708}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: eaaf9ce6f34a04263861da8cf8eb0e23, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8b6758fb571474fa3af5b643c968742d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1493,12 +1493,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0ce550c566696431188cd065aebe9bdf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e82cd569537f0484ba17f5773554dcc0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.24}
+  m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1511,15 +1511,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2126984708}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.26, y: 8.75, z: -1}
-  m_LocalScale: {x: 10, y: 12, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.17364825, w: 0.9848078}
+  m_LocalPosition: {x: -9.1922, y: 20.8593, z: -1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 674564363}
   m_Father: {fileID: 0}
   m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -20}
 --- !u!70 &2126984712
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1547,8 +1547,8 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 1
-  m_Mass: 2.3309731
+  m_UseAutoMass: 0
+  m_Mass: 10
   m_LinearDrag: 10
   m_AngularDrag: 10
   m_GravityScale: 0
@@ -1569,11 +1569,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a65824e616ca42d186c268a9c04d84e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 90
-  shunSpeed: 0.3
+  rotationSpeed: 120
+  shunSpeed: 1
   attackModeDistanceToPlayer: 12
   attackModeMovementSpeed: 8
-  attackDelay: 2
+  attackDelay: 0.8
   attackTime: 1
   laserMovementSpeed: 0.01
   shunMaxDistanceToPlayer: 15
