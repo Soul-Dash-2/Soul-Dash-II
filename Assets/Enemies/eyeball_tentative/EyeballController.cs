@@ -10,22 +10,26 @@ public class EyeballController : MonoBehaviour
     [SerializeField] float rotationSpeed = 20.0f;
     [SerializeField] float shunSpeed = 0.3f;
     [SerializeField] float attackModeDistanceToPlayer = 1.0f;
-    [SerializeField] float attackModeMovementSpeed = 5.0f;
+    [SerializeField] float attackModeMovementSpeed = 8.0f;
     [SerializeField] float attackDelay = 2.0f;
     [SerializeField] float attackTime = 2.0f;
     [SerializeField] float laserMovementSpeed = 0.01f; //this value should be smaller than 0.3f;
+    [SerializeField] float shunMaxDistanceToPlayer = 30f;
+    [SerializeField] float shunMinDistanceToPlayer = 12f;
 
     bool attackMode = true;
+    bool calMovementMode = false;
     bool shunMode = false;
-    bool attackReady = false;
+    bool attackLeft = true;
 
-
+    float attackPrepareTimer = 0f;
+    private SpriteRenderer _renderer;
     Vector2 shunStartPoint;
     Vector2 shunMidpoint;
     Vector2 shunDestination;
+    Vector2 attackCurrPos;
+    IEnumerator laserController;
 
-    Vector2 laserCurrPos;
-    Vector2 laserDest;
     float arcMovementCounter;
     //assume there will be only one player in the scene
 
@@ -33,6 +37,9 @@ public class EyeballController : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectsWithTag("Player")[0];
+        arcMovementCounter = 0;
+        _renderer = GetComponent<SpriteRenderer>();
+
 
 
     }
@@ -40,17 +47,20 @@ public class EyeballController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(attackMode +" "+ attackReady+ " " + shunMode);
         if (attackMode)
         {
-
+            if (laserController != null) StopCoroutine(laserController);
             TurnTowardsPos(player.transform.position.x,player.transform.position.y);
             moveTowardsPlayer();
 
         }
-        if (shunMode)
+        else if (calMovementMode)
         {
             ShunModeController();
+
+        }
+        else if(shunMode)
+        {
             arcMovementTotheOtherSideOfPlayer(shunStartPoint, shunMidpoint, shunDestination);
         }
        /* if (attackReady)
@@ -61,24 +71,6 @@ public class EyeballController : MonoBehaviour
     }
 
     //attack module
-    void LaserController()
-    {
-        Debug.Log(transform.position.x +" "+ transform.position.y);
-        if (laserCurrPos.x - laserDest.x >0.5f)
-        {
-          //  Physics2D.Raycast(transform.position, new Vector2( transform.position.x, transform.position.y) - laserCurrPos);
-          //  Debug.DrawRay(transform.position, new Vector2(- transform.position.x, - transform.position.y) + laserCurrPos, Color.red, 10.0f);
-          //  laserCurrPos = new Vector2(laserCurrPos.x + laserMovementSpeed, laserCurrPos.y)*Time.deltaTime;
-
-        }
-        else
-        {
-            shunMode = true;
-            attackReady = false;
-        }
-    }
-
-
 
     //movement module
     void arcMovementTotheOtherSideOfPlayer(Vector2 startPoint,Vector2 midPoint, Vector2 dest)
@@ -86,18 +78,30 @@ public class EyeballController : MonoBehaviour
 
         //calculate the destination of the movement
         //shunDestination = (,transform.position.y+2)
-        if (arcMovementCounter < 1.0f)
-        {
-            arcMovementCounter += 0.3f * Time.deltaTime;
 
-            Vector3 m1 = Vector3.Lerp(startPoint, midPoint, arcMovementCounter);
-            Vector3 m2 = Vector3.Lerp(midPoint, dest, arcMovementCounter);
-            transform.position = Vector3.Lerp(m1, m2, arcMovementCounter);
+
+        if (
+        new Vector2 (transform.position.x, transform.position.y) != dest &&
+            (Vector2.Distance(player.transform.position, transform.position)< shunMinDistanceToPlayer||
+            arcMovementCounter < 3.0f &&
+                Vector2.Distance(player.transform.position, transform.position) < shunMaxDistanceToPlayer))
+            {
+                arcMovementCounter += 0.7f * Time.deltaTime;
+
+                Vector3 m1 = Vector3.Lerp(startPoint, midPoint, arcMovementCounter);
+                Vector3 m2 = Vector3.Lerp(midPoint, dest, arcMovementCounter);
+                TurnTowardsPos(Vector3.Lerp(m1, m2, arcMovementCounter).x, Vector3.Lerp(m1, m2, arcMovementCounter).y);
+                transform.position = Vector3.Lerp(m1, m2, arcMovementCounter);
+
+            }
+            else
+            {
+                arcMovementCounter = 0;
+                attackMode = true;
+                calMovementMode = false;
+                shunMode = false;
+            }
         }
-
-        
-
-    }
 
  /*   void avoidObstable()
     {
@@ -119,7 +123,7 @@ public class EyeballController : MonoBehaviour
     {
         Quaternion _lookRotation = Quaternion.Euler(new Vector3(0, 0, GetAngleToPos(posX, posY)));
         transform.rotation = Quaternion.RotateTowards(transform.rotation, _lookRotation, rotationSpeed * Time.deltaTime);
-       
+        _renderer.flipY = transform.rotation.z <= 90 ? false : true;
 
     }
 
@@ -128,11 +132,20 @@ public class EyeballController : MonoBehaviour
     {
         //Vector2.Distance(transform.position, player.transform.position) - attackModeDistanceToPlayer
         if (Vector2.Distance(transform.position, player.transform.position) > attackModeDistanceToPlayer){
-            transform.Translate((player.transform.position- transform.position).normalized* attackModeMovementSpeed* Time.deltaTime);
+            transform.Translate(
+               (player.transform.position.x < transform.position.x ?
+               (- transform.position + player.transform.position ) :
+               (- player.transform.position + transform.position)).normalized
+               * attackModeMovementSpeed* Time.deltaTime);
         }
         else
         {
-            StartCoroutine( AttackDelayController());
+            laserController = AttackDelayController();
+            attackMode = false;
+            calMovementMode = false;
+            shunMode = false;
+            StartCoroutine(laserController);
+
         }
     }
 
@@ -140,13 +153,14 @@ public class EyeballController : MonoBehaviour
     //set the start point, mid point, and destination of the arc movement
     void ShunModeController() {
         shunStartPoint = transform.position;
-        shunMidpoint = new Vector2(player.transform.position.x, transform.position.y + 10.0f);
-        shunDestination = new Vector2(player.transform.position.x < transform.position.x ?
-            2 * player.transform.position.x - transform.position.x - 2.0f :
-            2 * transform.position.x - player.transform.position.x + 3.0f,
-            transform.position.y + 2.5f);
-        attackMode = true;
-        shunMode = false;
+        shunMidpoint = new Vector2(player.transform.position.x, transform.position.y + 3f);
+        shunDestination = new Vector2(
+            2 * player.transform.position.x - transform.position.x,
+            transform.position.y + 8f);
+
+        attackMode = false;
+        calMovementMode = false;
+        shunMode = true;
     }
     //utility functions
     float GetAngleToPos(float posX, float posY)
@@ -159,34 +173,58 @@ public class EyeballController : MonoBehaviour
     //atack timer
     IEnumerator AttackDelayController()
     {
-        yield return new WaitForSeconds(attackDelay);
-        /* if (player.transform.position.x < transform.position.x)
-         {
-             laserCurrPos = new Vector2 (player.transform.position.x + attackDistaince, player.transform.position.y);
-             laserDest = new Vector2(player.transform.position.x - attackDistaince, player.transform.position.y);
-         }
-         else
-         {
-             laserCurrPos = new Vector2(player.transform.position.x - attackDistaince, player.transform.position.y);
-             laserDest = new Vector2(player.transform.position.y + attackDistaince, player.transform.position.y);
-         }
-        */
+
 
 
         float attackTimer = 0f;
-        TurnTowardsPos(player.transform.position.x - 1, player.transform.position.y);
-        while (attackTimer < attackTime)
+        //pre-attack, turn the right or left of the plyer
+        if (transform.position.x > player.transform.position.x)
         {
-            TurnTowardsPos(player.transform.position.x, player.transform.position.y);
-            Debug.DrawRay(transform.position, transform.right, Color.red, 10.0f);
-            attackTimer += Time.deltaTime;
-            yield return null;
+            attackLeft = true;
+            attackCurrPos = new Vector2(player.transform.position.x + 1, player.transform.position.y);
 
         }
-        attackMode = false;
-        shunMode = true;
-       
+        else
+        {
+            attackLeft = false;
+            attackCurrPos = new Vector2(player.transform.position.x - 1, player.transform.position.y);
+        }
+        while (attackPrepareTimer < attackDelay)
+        {
+            TurnTowardsPos(attackCurrPos.x, attackCurrPos.y);
+            attackPrepareTimer += Time.deltaTime;
+            yield return null;
+        }
 
+        //start the laser attack
+        while (attackTimer < attackTime)
+        {
+
+            TurnTowardsPos(attackCurrPos.x, attackCurrPos.y);
+            if (attackLeft) attackCurrPos.x -= laserMovementSpeed;
+            else attackCurrPos.x += laserMovementSpeed;
+
+            Debug.DrawRay(transform.position, -transform.right*20, Color.red, 2.0f, false);
+
+            attackTimer += Time.deltaTime;
+            yield return null;
+            
+
+        }
+        //reset attackTimer
+        attackTimer = 0;
+        attackMode = false;
+        calMovementMode = true ;
+        attackPrepareTimer = 0f;
+
+    }
+
+    void OnDrawGizmos()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.yellow;
+        if(shunDestination!=null)
+        Gizmos.DrawSphere(shunDestination, 1);
     }
 
 
