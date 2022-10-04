@@ -60,7 +60,19 @@ public class EnemyCollider : MonoBehaviour
             //player knockback
         }
     }
-    
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        GameObject enemy = collision.gameObject;
+        if (enemy.CompareTag("Enemy") && !player.GetComponent<PlayerController>().getDashing()) //player not dashing through enemy
+        {
+            Debug.Log("player not dashing into an enemy");
+            float damage = enemy.GetComponent<Enemy>().dealDamage();
+            TakeDamage(damage);
+            //player knockback
+        }
+    }
+
     void TakeDamage(float damage)
     {
         if(takingDamage == false){ //If the player has not taken damage yet
