@@ -17,38 +17,49 @@ public class dashIconUpdate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        dashType = 0;
+        ;
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch(dashType)
+
+        if (hero.GetComponent<PlayerController>().CanDash())
         {
-            case 0:
-                GetComponent<Image>().sprite = dash_none;
-                break;
-            case 1:
-                GetComponent<Image>().sprite = dash_default;
-                break;
-            case 2:
-                GetComponent<Image>().sprite = dash_glide;
-                break;
-            case 3:
-                GetComponent<Image>().sprite = dash_bounce;
-                break;
-            case 4:
-                GetComponent<Image>().sprite = dash_invicibility;
-                break;
-            case 5:
-                GetComponent<Image>().sprite = dash_shieldbreaker;
-                break;
-            case 6:
-                GetComponent<Image>().sprite = dash_teleport;
-                break;
-            default:
-                GetComponent<Image>().sprite = dash_none;
-                break;
+            dashType = hero.GetComponent<PlayerController>().getDashTypeAsInt();
+            switch (dashType)
+            {
+                case 0:
+                    GetComponent<Image>().sprite = dash_default;
+                    break;
+                case 1:
+                    GetComponent<Image>().sprite = dash_bounce;
+                    break;
+                case 2:
+                    Debug.Log("Dash 2");
+                    break;
+                case 3:
+                    Debug.Log("Dash 3");
+                    break;
+                case 4:
+                    Debug.Log("Dash 4");
+                    break;
+                case 5:
+                    GetComponent<Image>().sprite = dash_shieldbreaker;
+                    break;
+                case 6:
+                    GetComponent<Image>().sprite = dash_invicibility;
+                    break;
+                case 7:
+                    GetComponent<Image>().sprite = dash_teleport;
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            GetComponent<Image>().sprite = dash_none;
         }
     }
 }
