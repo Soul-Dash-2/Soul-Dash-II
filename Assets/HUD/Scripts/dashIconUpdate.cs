@@ -6,7 +6,7 @@ using UnityEngine;
 public class dashIconUpdate : MonoBehaviour
 {
     [SerializeField] private GameObject hero;
-    [SerializeField] private int dashType;
+    [SerializeField] private PlayerController.DashType dashType;
     public Sprite dash_none;
     public Sprite dash_default;
     public Sprite dash_glide;
@@ -14,47 +14,38 @@ public class dashIconUpdate : MonoBehaviour
     public Sprite dash_invicibility;
     public Sprite dash_shieldbreaker;
     public Sprite dash_teleport;
-    // Start is called before the first frame update
-    void Start()
-    {
-        ;
-    }
 
     // Update is called once per frame
     void Update()
     {
-
         if (hero.GetComponent<PlayerController>().CanDash())
         {
-            dashType = hero.GetComponent<PlayerController>().getDashTypeAsInt();
-            switch (dashType)
+            dashType = hero.GetComponent<PlayerController>().getDashType();
+            if (dashType == PlayerController.DashType.BASIC)
             {
-                case 0:
-                    GetComponent<Image>().sprite = dash_default;
-                    break;
-                case 1:
-                    GetComponent<Image>().sprite = dash_bounce;
-                    break;
-                case 2:
-                    Debug.Log("Dash 2");
-                    break;
-                case 3:
-                    Debug.Log("Dash 3");
-                    break;
-                case 4:
-                    Debug.Log("Dash 4");
-                    break;
-                case 5:
-                    GetComponent<Image>().sprite = dash_shieldbreaker;
-                    break;
-                case 6:
-                    GetComponent<Image>().sprite = dash_invicibility;
-                    break;
-                case 7:
-                    GetComponent<Image>().sprite = dash_teleport;
-                    break;
-                default:
-                    break;
+                GetComponent<Image>().sprite = dash_default;
+            }
+            else if (dashType == PlayerController.DashType.SLIME)
+            {
+                GetComponent<Image>().sprite = dash_bounce;
+            } else if (dashType == PlayerController.DashType.EYEBALL) {
+                GetComponent<Image>().sprite = dash_glide;
+            }
+            else if (dashType == PlayerController.DashType.SANDWORM)
+            {
+                GetComponent<Image>().sprite = dash_shieldbreaker;
+            }
+            else if (dashType == PlayerController.DashType.GOBLIN)
+            {
+                GetComponent<Image>().sprite = dash_invicibility;
+            }
+            else if (dashType == PlayerController.DashType.DEMON)
+            {
+                GetComponent<Image>().sprite = dash_teleport;
+            }
+            else
+            {
+                Debug.Log("UNRECOGNIZED DASH TYPE");
             }
         }
         else
