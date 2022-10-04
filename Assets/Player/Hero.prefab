@@ -152,6 +152,7 @@ MonoBehaviour:
   basicDashTime: 0.1
   basicDashVelocity: 80
   slimeDashVelocity: 100
+  glideFactor: 0.1
   dashTrajectoryModificationFactor: 0
 --- !u!114 &1002105935098303076
 MonoBehaviour:
