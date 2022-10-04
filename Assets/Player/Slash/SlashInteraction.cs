@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class SlashInteraction : MonoBehaviour
 {
-    private float deathTimer;
+    public float deathTimer;
     private GameObject player;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Hero");
-        deathTimer = 0.5f;
     }
 
     // Update is called once per frame

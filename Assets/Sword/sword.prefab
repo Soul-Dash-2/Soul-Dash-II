@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adaff94f69b37d440b080861f1e38628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSpeed: 60
-  idleSpeed: 5
+  attackSpeed: 90
+  idleSpeed: 10
   returnSpeed: 20
   offset: {x: -1, y: 1.5}

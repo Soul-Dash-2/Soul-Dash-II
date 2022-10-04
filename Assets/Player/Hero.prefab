@@ -139,9 +139,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slash: {fileID: 4524076707055429942, guid: 51b55711efbbc6a438c246edbddce37b, type: 3}
-  dashDamage: 0
   swordPrefab: {fileID: 8304604397180328726, guid: 804576babaaa8484792cfa1d7d31ceef, type: 3}
-  attackRange: 6
+  attackRange: 4
+  dashDamage: 0
   dashType: 0
   jumpVelocity: 40
   gravityScale: 15
