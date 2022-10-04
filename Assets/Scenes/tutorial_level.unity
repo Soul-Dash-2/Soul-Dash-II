@@ -2500,7 +2500,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2116670300586362240, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
       propertyPath: m_Name
-      value: Hero (1)
+      value: Hero
       objectReference: {fileID: 0}
     - target: {fileID: 2116670300586362240, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
       propertyPath: m_Layer
@@ -3571,6 +3571,11 @@ Transform:
 --- !u!1 &702380981 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2116670300586362240, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
+  m_PrefabInstance: {fileID: 384384310}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &702380986 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5900116389296032534, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
   m_PrefabInstance: {fileID: 384384310}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &703243609
@@ -7510,6 +7515,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8415620881468602456, guid: 8020f202a501fed469bde3a18677e070, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 702380986}
     - target: {fileID: 8415620881468602457, guid: 8020f202a501fed469bde3a18677e070, type: 3}
       propertyPath: m_RootOrder
       value: 1
