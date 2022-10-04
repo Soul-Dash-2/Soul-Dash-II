@@ -154,6 +154,7 @@ MonoBehaviour:
   slimeDashTime: 0.4
   basicDashVelocity: 80
   slimeDashVelocity: 260
+  demonDashDistance: 10
   glideFactor: 0.1
   dashTrajectoryModificationFactor: 0
   slimeDashDirection: {x: 0, y: 0}

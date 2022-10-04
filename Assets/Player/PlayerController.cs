@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
     public float slimeDashTime;     // How long the slime dash lasts
     public float basicDashVelocity; // How quickly does the basic dash move
     public float slimeDashVelocity; // How quickly the slime dash moves
+    public float demonDashDistance; // How far the player teleports when they have the demon dash
     public float glideFactor;       // How much weaker is gravity while gliding
     public float dashTrajectoryModificationFactor;  /* How much does the effect of the players velocity before dashing affect the angle of the dash?
                                                         EXAMPLE: IF the factor is large, then if the player jumps before they dash horizontally, the
@@ -292,6 +293,10 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(EyeballDash());
         }
+        else if (dashType == DashType.DEMON)
+        {
+            DemonDash();
+        }
     }
 
     //Slashing
@@ -493,5 +498,20 @@ public class PlayerController : MonoBehaviour
         canDash = true;
         dashType = DashType.BASIC;
         canGlide = true;
+    }
+
+    void DemonDash()
+    {
+        Vector2 direction = GetDirection();
+        Vector3 newPosition = new Vector3(
+            rb.transform.position.x + direction.x * demonDashDistance,
+            rb.transform.position.y + direction.y * demonDashDistance,
+            rb.transform.position.z);
+
+        canDash = false;
+        rb.transform.position = newPosition;
+        rb.velocity = (direction * basicDashVelocity) + (rb.velocity * dashTrajectoryModificationFactor);
+
+        // TODO: AOE explosion
     }
 }
