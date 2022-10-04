@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6931134223941364126}
   - component: {fileID: 6931134223941364121}
   - component: {fileID: 6931134223941364123}
-  - component: {fileID: 1002105935098303076}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -152,10 +151,12 @@ MonoBehaviour:
   percentFrictionX: 35
   percentFrictionY: 35
   basicDashTime: 0.1
+  slimeDashTime: 0.4
   basicDashVelocity: 80
-  slimeDashVelocity: 100
+  slimeDashVelocity: 260
   glideFactor: 0.1
   dashTrajectoryModificationFactor: 0
+  slimeDashDirection: {x: 0, y: 0}
 --- !u!1 &6090876932166429773
 GameObject:
   m_ObjectHideFlags: 0
