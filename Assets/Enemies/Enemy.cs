@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
     }
 
     //Damage and Health Methods
-    float dealDamage()
+    public float dealDamage()
     {
         return damage;
     }

@@ -4,17 +4,31 @@ using UnityEngine;
 
 public class EnemyCollider : MonoBehaviour
 {
-    private GameObject player;
+    private GameObject player;  //player object
+    public float playerHP;     //player's health
+    private float MaxIFrames = 0.2f;   //Amount of time until the player can take damage again
+    private float currentIFrames;
+    private bool takingDamage;
+
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Hero");
+        currentIFrames = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(takingDamage == true) //If the player has gotten hit recently, give them i frames
+        {
+            currentIFrames += Time.deltaTime;   //Iframes based on time
+            if(currentIFrames >= MaxIFrames)    //Once the iframes are gone, reset the taking damage
+            {
+                takingDamage = false;
+            }
+        }
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -41,9 +55,33 @@ public class EnemyCollider : MonoBehaviour
         else if (enemy.CompareTag("Enemy") && !player.GetComponent<PlayerController>().getDashing()) //player not dashing through enemy
         {
             Debug.Log("player not dashing into an enemy");
-            //player damage
+            float damage = enemy.GetComponent<Enemy>().dealDamage();
+            TakeDamage(damage);
             //player knockback
         }
+    }
+    
+    void TakeDamage(float damage)
+    {
+        if(takingDamage == false){ //If the player has not taken damage yet
+            playerHP -= damage;
+            takingDamage = true;
+            currentIFrames = 0f;    //Set the iframes to 0
+            if(playerHP <= 0)
+            {
+                KillPlayer();
+            }
+            return;
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    void KillPlayer()
+    {
+        //reset the scene
     }
 
 }
