@@ -5,10 +5,12 @@ using UnityEngine;
 public class SlashInteraction : MonoBehaviour
 {
     private float deathTimer;
+    private GameObject player;
     // Start is called before the first frame update
     void Start()
     {
-        deathTimer = 1f;
+        player = GameObject.Find("Hero");
+        deathTimer = 0.5f;
     }
 
     // Update is called once per frame
@@ -20,4 +22,14 @@ public class SlashInteraction : MonoBehaviour
         }
         deathTimer -= Time.deltaTime;
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        //checks if slash hits an enemy
+        if (collision.gameObject.CompareTag("Enemy")){
+            collision.gameObject.GetComponent<Enemy>().playerDamage(2);
+            player.GetComponent<PlayerController>().letDash(); //resets the player's dash
+        }
+    }
+
 }

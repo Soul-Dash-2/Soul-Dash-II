@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3644007004356450286}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
@@ -44,9 +44,10 @@ GameObject:
   - component: {fileID: 3644007004420324272}
   - component: {fileID: 3644007004420324239}
   - component: {fileID: 3644007004420324236}
-  m_Layer: 0
+  - component: {fileID: 3985012441285747010}
+  m_Layer: 8
   m_Name: Minion
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -176,6 +177,21 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &3985012441285747010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3644007004420324275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1d59052c39d54c488dc8ac2c1e2a241, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 4
+  damage: 1
+  dashType: 
 --- !u!1 &3644007005128057316
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +201,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3644007005128057317}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}

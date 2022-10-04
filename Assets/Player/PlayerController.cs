@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
     private bool isTouching;            // true while player is touching anything
     private bool canGlide;              // true while the player has the ability to glide --> granted by eyeball dash
 
+    //Damage things
+    public float dashDamage;
+
     // Public Movement variables
     public DashType dashType;
     public float jumpVelocity;      // How much power the player's jump has
@@ -45,6 +48,7 @@ public class PlayerController : MonoBehaviour
     public float percentFrictionY;
 
     public float basicDashTime;     // How long the dash lasts
+    public float slimeDashTime;     // How long the slime dash lasts
     public float basicDashVelocity; // How quickly does the basic dash move
     public float slimeDashVelocity; // How quickly the slime dash moves
     public float glideFactor;       // How much weaker is gravity while gliding
@@ -52,6 +56,7 @@ public class PlayerController : MonoBehaviour
                                                         EXAMPLE: IF the factor is large, then if the player jumps before they dash horizontally, the
                                                         dash will actually move the player up as well. This can be set to 0 to disable this mechanic
                                                         altogether.*/
+    public Vector2 slimeDashDirection;
 
     // Setup Code
     void Start()
@@ -119,6 +124,16 @@ public class PlayerController : MonoBehaviour
             isFastFalling = false;
             isCrouching = false;
             isTouching = true;
+        }
+
+        //Ignore the stuff below here, maybe make a trigger child to the player (or enemy)
+        if (collision.gameObject.CompareTag("Enemy") && isDashing)
+        {
+            collision.gameObject.GetComponent<Enemy>().playerDamage(3);
+        }
+        else if (collision.gameObject.CompareTag("Enemy") && !isDashing)
+        {
+            //deal damage to player
         }
     }
 
@@ -286,7 +301,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 relativeDirection = GetDirection();
             Vector2 pos = rb.position;
-            Vector2 slashLocation = 3 * relativeDirection + pos; //So its 3x further away from the player
+            Vector2 slashLocation = 2*relativeDirection + pos; //So its 3x further away from the player
             Instantiate(slash, slashLocation, Quaternion.identity); //TODO: Make the slash change rotation based on mouse
         }
     }
@@ -324,6 +339,36 @@ public class PlayerController : MonoBehaviour
     //DASHES BELOW HERE
     //
 
+    public bool getDashing()
+    {
+        return isDashing;
+    }
+
+    public void letDash()
+    {
+        canDash = true;
+    }
+
+    public void setDashType(string dash)
+    {
+        Debug.Log("setdashtype called");
+        if (dash.Equals("slime"))
+        {
+            dashType = DashType.SLIME;
+            Debug.Log("gave the player slime dash");
+        }
+        else
+        {
+            //room for other dashes
+        }
+        return;
+    }
+
+    public DashType getDashType()
+    {
+        return dashType;
+    }
+
     // Basic dash
     IEnumerator BasicDash()
     {
@@ -348,17 +393,12 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
     }
 
-    //Slime dash
+    //Slime dash methods
     IEnumerator SlimeDash()
     {
-        // Perform the movement
+        // Perform the movement of basic dash
         Vector2 direction = GetDirection();
-        Vector2 slimeDashDir = direction; //Copies the direction to the slime-dash/bounce to swap it after 
-        slimeDashDir.x = -slimeDashDir.x; //Reflects the x direction for the bounce always
-        if (direction.y < 0) //Checks if the initial dash is a dash going down
-        {
-            slimeDashDir.y = -slimeDashDir.y; //If going down, the bounce goes up
-        }
+        setSlimeDashDir(direction); //Sets the slime dash in the opposite direction 
 
         rb.velocity = (direction * basicDashVelocity) + (rb.velocity * dashTrajectoryModificationFactor);
 
@@ -377,24 +417,53 @@ public class PlayerController : MonoBehaviour
 
         if (isTouching) //checks if the player hits something at the end of the dash 
         {
-            //add in explosion at end of first dash hitbox
-            //Bounce dash
-            rb.velocity = (slimeDashDir * slimeDashVelocity) + (rb.velocity * dashTrajectoryModificationFactor);
-            // wait to complete dash
-            dashTime = 0;
-            while (dashTime < basicDashTime)
-            {
-                dashTime += Time.deltaTime;
-                yield return null;
-            }
+            slimeBounce();
         }
         else
         {
-            //add in explosion at end of dash hitbox 
+            
         }
         // finish dash
         rb.gravityScale = gravityScale;
         isDashing = false;
+        dashType = DashType.BASIC;
+    }
+
+    //Helper method to set the slime dash direction
+    public void setSlimeDashDir(Vector2 direction)
+    {
+        slimeDashDirection = direction; //Copies the direction to the slime-dash/bounce to swap it after 
+        slimeDashDirection.x = -slimeDashDirection.x; //Reflects the x direction for the bounce always
+        if (direction.y < 0) //Checks if the initial dash is a dash going down
+        {
+            slimeDashDirection.y = -slimeDashDirection.y; //If going down, the bounce goes up
+        }
+        return;
+    }
+
+    //The bounce from the slime dash
+    public IEnumerator SlimeBounce()
+    {
+        //add in explosion at end of dash hitbox 
+        rb.velocity = (slimeDashDirection * slimeDashVelocity);
+        Debug.Log("Slime bounce velocity: " + rb.velocity);
+        // wait to complete dash
+        float slimeDashTime = 0;
+        slimeDashTime = 0;
+        while (slimeDashTime < basicDashTime)
+        {
+            slimeDashTime += Time.deltaTime;
+            yield return null;
+        }
+        // finish dash
+        rb.gravityScale = gravityScale;
+        isDashing = false;
+        dashType = DashType.BASIC;
+    }
+
+    public void slimeBounce()
+    {
+        StartCoroutine(SlimeBounce());
     }
 
     IEnumerator EyeballDash()
