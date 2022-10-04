@@ -1067,6 +1067,7 @@ GameObject:
   - component: {fileID: 1135901558}
   - component: {fileID: 1135901557}
   - component: {fileID: 1135901556}
+  - component: {fileID: 1135901560}
   m_Layer: 0
   m_Name: Demon
   m_TagString: Untagged
@@ -1120,7 +1121,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &1135901558
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1188,6 +1189,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1135901560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135901555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ae4b8ea077403f42a3894cba5c8a917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineOfSight: {x: 35, y: 20}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  player: {fileID: 929985276}
+  destinationOffset: 5
+  attackRange: 10
+  cd: 5
 --- !u!1001 &1867099632
 PrefabInstance:
   m_ObjectHideFlags: 0
