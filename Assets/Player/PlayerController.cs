@@ -16,8 +16,13 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer render;      // the sprite renderer
     private Camera playerCamera;        // The camera following the player
 
-    //Prefabs
+    // Prefabs
     public GameObject slash;            //The slash prefab
+    public GameObject swordPrefab;            // The Sword prefab
+
+    // Combat
+    public float attackRange;
+    private Sword sword;
 
     // Private
     private bool isGrounded;            // is the player touching a ground object?
@@ -62,6 +67,8 @@ public class PlayerController : MonoBehaviour
     // Setup Code
     void Start()
     {
+        sword = CreateSword();
+
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;
 
@@ -83,6 +90,14 @@ public class PlayerController : MonoBehaviour
         controls.Player.Glide.performed += _ => Glide();
         controls.Player.Glide.canceled += _ => EndGlide();
 
+    }
+
+    Sword CreateSword()
+    {
+        GameObject swordInstance = Instantiate(swordPrefab);
+        Sword sword = swordInstance.GetComponent<Sword>();
+        sword.Setup(this.gameObject);
+        return sword;
     }
 
     // Fixed Update occurs whenever unity updates Physics objects, and does not necessarily occur at the same time as the frame update.
@@ -306,8 +321,9 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 relativeDirection = GetDirection();
             Vector2 pos = rb.position;
-            Vector2 slashLocation = 2*relativeDirection + pos; //So its 3x further away from the player
+            Vector2 slashLocation = attackRange * relativeDirection + pos; //So its 3x further away from the player
             Instantiate(slash, slashLocation, Quaternion.identity); //TODO: Make the slash change rotation based on mouse
+            sword.Attack(slashLocation);
         }
     }
 
