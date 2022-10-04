@@ -151,6 +151,7 @@ MonoBehaviour:
   basicDashTime: 0.1
   basicDashVelocity: 80
   slimeDashVelocity: 100
+  glideFactor: 0.1
   dashTrajectoryModificationFactor: 0
 --- !u!1001 &1446559637053641820
 PrefabInstance:
