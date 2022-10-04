@@ -42,7 +42,7 @@ public class EnemyCollider : MonoBehaviour
                 enemy.GetComponent<Enemy>().playerDamage(3);
                 return;
             }
-            Debug.Log("player dashing into an enemy");
+            Debug.Log("player dashing into an enemy ");
             enemy.GetComponent<Enemy>().playerDamage(3);
             //check if player killed the enemy with dash
             if (enemy.GetComponent<Enemy>().getHealth() <= 0)
