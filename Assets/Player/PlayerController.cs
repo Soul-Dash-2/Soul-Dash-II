@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private bool isFastFalling;         // true while player is fastfalling
     private bool isTouching;            // true while player is touching anything
     private bool canGlide;              // true while the player has the ability to glide --> granted by eyeball dash
+    private bool isTouchingWallGround;   // true while player is touching the wall or the ground
 
     //Damage things
     public float dashDamage;
@@ -120,6 +121,7 @@ public class PlayerController : MonoBehaviour
     void OnCollisionExit2D(Collision2D collision)
     {
         isTouching = false;
+        isTouchingWallGround = false;
         // if the previously collided object was the ground, set isGrounded false
         if (collision.gameObject.CompareTag("Ground"))
         {
@@ -140,6 +142,11 @@ public class PlayerController : MonoBehaviour
             isFastFalling = false;
             isCrouching = false;
             isTouching = true;
+        }
+
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isTouchingWallGround = true;
         }
 
         //Ignore the stuff below here, maybe make a trigger child to the player (or enemy)
@@ -437,8 +444,9 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
 
-        if (isTouching) //checks if the player hits something at the end of the dash 
+        if (isTouchingWallGround) //checks if the player hits something at the end of the dash 
         {
+            Debug.Log("player slime dashing into wall or floor");
             slimeBounce();
         }
         else
