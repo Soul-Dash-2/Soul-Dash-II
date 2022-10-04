@@ -357,9 +357,10 @@ public class PlayerController : MonoBehaviour
             dashType = DashType.SLIME;
             Debug.Log("gave the player slime dash");
         }
-        else
+        else if(dash.Equals("eyeball"))
         {
-            //room for other dashes
+            dashType = DashType.EYEBALL;
+            Debug.Log("gave the player eyeball dash");
         }
         return;
     }

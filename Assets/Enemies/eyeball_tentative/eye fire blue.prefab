@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2883003925650768748}
   - component: {fileID: 2883003925650768747}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CharacterCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,9 +72,9 @@ GameObject:
   - component: {fileID: 2883003927027694702}
   - component: {fileID: 2883003927027694701}
   - component: {fileID: 2883003927027694700}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: eye fire blue
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
