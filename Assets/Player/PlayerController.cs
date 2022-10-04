@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private bool isCrouching;           // true when player is crouching
     private bool isFastFalling;         // true while player is fastfalling
     private bool isTouching;            // true while player is touching anything
+    private bool canGlide;              // true while the player has the ability to glide --> granted by eyeball dash
 
     // Public Movement variables
     public DashType dashType;
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour
     public float basicDashTime;     // How long the dash lasts
     public float basicDashVelocity; // How quickly does the basic dash move
     public float slimeDashVelocity; // How quickly the slime dash moves
+    public float glideFactor;       // How much weaker is gravity while gliding
     public float dashTrajectoryModificationFactor;  /* How much does the effect of the players velocity before dashing affect the angle of the dash?
                                                         EXAMPLE: IF the factor is large, then if the player jumps before they dash horizontally, the
                                                         dash will actually move the player up as well. This can be set to 0 to disable this mechanic
@@ -72,6 +74,9 @@ public class PlayerController : MonoBehaviour
         controls.Player.Crouch.canceled += _ => EndCrouch();
         controls.Player.Dash.started += _ => Dash();
         controls.Player.Slash.started += _ => Slash();
+        controls.Player.Glide.performed += _ => Glide();
+        controls.Player.Glide.canceled += _ => EndGlide();
+
     }
 
     // Fixed Update occurs whenever unity updates Physics objects, and does not necessarily occur at the same time as the frame update.
@@ -81,7 +86,7 @@ public class PlayerController : MonoBehaviour
         float xVel = CalculateXVelocity();
         float yVel = CalculateYVelocity();
         rb.velocity = new Vector2(xVel, yVel);
-        
+
         HandleShortHop(yVel);
         DoFlipIfNeeded(xVel);
     }
@@ -108,6 +113,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground") && collision.relativeVelocity.y > 0)
         {
             isGrounded = true;
+            canGlide = false;
             canDash = true;
             isJumping = false;
             isFastFalling = false;
@@ -119,7 +125,7 @@ public class PlayerController : MonoBehaviour
     // Disables shorthop when the condition is met
     private void HandleShortHop(float yVel)
     {
-        if (yVel < shortHopEndVel)
+        if (yVel < shortHopEndVel && !canGlide)
         {
             rb.gravityScale = gravityScale;
         }
@@ -204,7 +210,7 @@ public class PlayerController : MonoBehaviour
     void EndJump()
     {
         // if the shortHopEndvelocity has already been met, then no short hop will occur
-        if (rb.velocity.y < shortHopEndVel)
+        if (rb.velocity.y < shortHopEndVel || canGlide)
         {
             return;
         }
@@ -251,10 +257,13 @@ public class PlayerController : MonoBehaviour
     // Dash event --> executes the various dash type coroutines
     void Dash()
     {
+        // check if dashing is possible
         if (!CanDash())
         {
             return;
         }
+
+        // Execute correct dash type
         isJumping = false;
         if (dashType == DashType.BASIC)
         {
@@ -263,6 +272,10 @@ public class PlayerController : MonoBehaviour
         else if (dashType == DashType.SLIME)
         {
             StartCoroutine(SlimeDash());
+        }
+        else if (dashType == DashType.EYEBALL)
+        {
+            StartCoroutine(EyeballDash());
         }
     }
 
@@ -273,9 +286,31 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 relativeDirection = GetDirection();
             Vector2 pos = rb.position;
-            Vector2 slashLocation = 3*relativeDirection + pos; //So its 3x further away from the player
+            Vector2 slashLocation = 3 * relativeDirection + pos; //So its 3x further away from the player
             Instantiate(slash, slashLocation, Quaternion.identity); //TODO: Make the slash change rotation based on mouse
         }
+    }
+
+    // Reduces the strength of gravity on the player --> if we wanted to get fancy we could also lock the movement factor to something?
+    void Glide()
+    {
+        if (!canGlide)
+        {
+            return;
+        }
+        rb.gravityScale = gravityScale * glideFactor;
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+    }
+
+    // Simply restores the gravity scale
+    void EndGlide()
+    {
+        if (!canGlide)
+        {
+            return;
+        }
+        canGlide = false;
+        rb.gravityScale = gravityScale;
     }
 
     // Get the direction for a dash based on the mouse location
@@ -360,5 +395,33 @@ public class PlayerController : MonoBehaviour
         // finish dash
         rb.gravityScale = gravityScale;
         isDashing = false;
+    }
+
+    IEnumerator EyeballDash()
+    {
+        // Perform the movement
+        Vector2 direction = GetDirection();
+        rb.velocity = (direction * basicDashVelocity) + (rb.velocity * dashTrajectoryModificationFactor);
+
+        // set appropriate variables
+        isDashing = true;
+        canDash = false;
+        rb.gravityScale = 0;
+
+        // wait to complete dash
+        float dashTime = 0;
+        while (dashTime < basicDashTime)
+        {
+            dashTime += Time.deltaTime;
+            yield return null;
+        }
+        // finish dash
+        rb.gravityScale = gravityScale;
+        isDashing = false;
+
+        // This section is all that is unique to the eyeball dash
+        canDash = true;
+        dashType = DashType.BASIC;
+        canGlide = true;
     }
 }

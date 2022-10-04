@@ -71,6 +71,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Glide"",
+                    ""type"": ""Button"",
+                    ""id"": ""2f974a4e-4735-48ca-8fd1-c28b9d96a56d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -161,6 +170,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Slash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a4031da4-db16-412a-8f2b-6f51bbc8392b"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""keyboard"",
+                    ""action"": ""Glide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -186,6 +206,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
         m_Player_Slash = m_Player.FindAction("Slash", throwIfNotFound: true);
+        m_Player_Glide = m_Player.FindAction("Glide", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -250,6 +271,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Crouch;
     private readonly InputAction m_Player_Slash;
+    private readonly InputAction m_Player_Glide;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -259,6 +281,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
         public InputAction @Slash => m_Wrapper.m_Player_Slash;
+        public InputAction @Glide => m_Wrapper.m_Player_Glide;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -283,6 +306,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Slash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSlash;
                 @Slash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSlash;
                 @Slash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSlash;
+                @Glide.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGlide;
+                @Glide.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGlide;
+                @Glide.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGlide;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -302,6 +328,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Slash.started += instance.OnSlash;
                 @Slash.performed += instance.OnSlash;
                 @Slash.canceled += instance.OnSlash;
+                @Glide.started += instance.OnGlide;
+                @Glide.performed += instance.OnGlide;
+                @Glide.canceled += instance.OnGlide;
             }
         }
     }
@@ -322,5 +351,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnSlash(InputAction.CallbackContext context);
+        void OnGlide(InputAction.CallbackContext context);
     }
 }
