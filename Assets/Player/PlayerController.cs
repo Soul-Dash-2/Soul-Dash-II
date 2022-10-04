@@ -397,6 +397,15 @@ public class PlayerController : MonoBehaviour
         return dashType;
     }
 
+    public DashType getDashTypeForHud()
+    {
+        if (canGlide)
+        {
+            return DashType.EYEBALL;
+        }
+        return dashType;
+    }
+
     // Basic dash
     IEnumerator BasicDash()
     {

@@ -20,7 +20,7 @@ public class dashIconUpdate : MonoBehaviour
     {
         if (hero.GetComponent<PlayerController>().CanDash())
         {
-            dashType = hero.GetComponent<PlayerController>().getDashType();
+            dashType = hero.GetComponent<PlayerController>().getDashTypeForHud();
             if (dashType == PlayerController.DashType.BASIC)
             {
                 GetComponent<Image>().sprite = dash_default;
@@ -28,7 +28,8 @@ public class dashIconUpdate : MonoBehaviour
             else if (dashType == PlayerController.DashType.SLIME)
             {
                 GetComponent<Image>().sprite = dash_bounce;
-            } else if (dashType == PlayerController.DashType.EYEBALL) {
+            } 
+            else if (dashType == PlayerController.DashType.EYEBALL) {
                 GetComponent<Image>().sprite = dash_glide;
             }
             else if (dashType == PlayerController.DashType.SANDWORM)
