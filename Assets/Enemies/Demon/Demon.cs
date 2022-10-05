@@ -28,6 +28,7 @@ public class Demon : MonoBehaviour
 
     private void FixedUpdate()
     {
+        rb.velocity = new Vector2(0, 0);
         playerInSight = Physics2D.OverlapBox(transform.position, lineOfSight, 0, playerLayer);
         if (playerInSight && !attackStarted)
         {
