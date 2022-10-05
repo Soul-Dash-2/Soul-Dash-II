@@ -2520,11 +2520,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5900116389296032534, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 305.9
+      value: 740
       objectReference: {fileID: 0}
     - target: {fileID: 5900116389296032534, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 19.3
+      value: -231
       objectReference: {fileID: 0}
     - target: {fileID: 5900116389296032534, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2557,6 +2557,14 @@ PrefabInstance:
     - target: {fileID: 5900116389296032534, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090876932166429773, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090876932166429773, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
@@ -2927,11 +2935,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2883003927027694688, guid: 15a9a46336b3e4915a85d3e9919d7245, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 775.2
+      value: 764.3
       objectReference: {fileID: 0}
     - target: {fileID: 2883003927027694688, guid: 15a9a46336b3e4915a85d3e9919d7245, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -226.5
+      value: -228.66
       objectReference: {fileID: 0}
     - target: {fileID: 2883003927027694688, guid: 15a9a46336b3e4915a85d3e9919d7245, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2969,8 +2977,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: eye fire blue
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2883003925650768747, guid: 15a9a46336b3e4915a85d3e9919d7245, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15a9a46336b3e4915a85d3e9919d7245, type: 3}
 --- !u!1 &533236240
 GameObject:

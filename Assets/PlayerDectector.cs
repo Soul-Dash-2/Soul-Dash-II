@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDector : MonoBehaviour
+public class PlayerDectector : MonoBehaviour
 {
-    bool ifEnter = false;
+    private bool ifEnter = false;
     void OnTriggerEnter2D(Collider2D coll)
     {
+        Debug.Log(coll);
         if (coll.CompareTag("Player") && !ifEnter)
         {
             transform.parent.gameObject.GetComponent<EyeballController>().attackMode = true;
