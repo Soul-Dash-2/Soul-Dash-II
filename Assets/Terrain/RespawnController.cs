@@ -10,8 +10,11 @@ public class RespawnController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D test) {
         //since lucien's respawn script doesnot work, I rewrite a new one//
-        Scene scene = SceneManager.GetActiveScene(); 
-        SceneManager.LoadScene(scene.name);
+        if (test.CompareTag("Player")) {
+            Scene scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.name);
+        }
+        
 
        
 

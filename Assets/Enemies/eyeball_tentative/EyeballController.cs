@@ -17,7 +17,7 @@ public class EyeballController : MonoBehaviour
     [SerializeField] float shunMaxDistanceToPlayer = 30f;
     [SerializeField] float shunMinDistanceToPlayer = 12f;
 
-    bool attackMode = true;
+    public bool attackMode = false;
     bool calMovementMode = false;
     bool shunMode = false;
     bool attackLeft = true;
