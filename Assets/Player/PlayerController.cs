@@ -389,6 +389,11 @@ public class PlayerController : MonoBehaviour
             dashType = DashType.EYEBALL;
             Debug.Log("gave the player eyeball dash");
         }
+        else if (dash.Equals("demon"))
+        {
+            dashType = DashType.DEMON;
+            Debug.Log("gave the player demon dash");
+        }
         return;
     }
 
@@ -545,5 +550,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = (direction * basicDashVelocity) + (rb.velocity * dashTrajectoryModificationFactor);
 
         // TODO: AOE explosion
+
+        dashType = DashType.BASIC;
     }
 }

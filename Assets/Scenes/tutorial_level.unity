@@ -2977,6 +2977,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: eye fire blue
       objectReference: {fileID: 0}
+    - target: {fileID: 2883003927027694701, guid: 15a9a46336b3e4915a85d3e9919d7245, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 702380981}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15a9a46336b3e4915a85d3e9919d7245, type: 3}
 --- !u!1 &533236240
