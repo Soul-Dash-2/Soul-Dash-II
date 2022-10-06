@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class EyeballController : MonoBehaviour
 {
@@ -17,7 +16,7 @@ public class EyeballController : MonoBehaviour
     [SerializeField] float shunMaxDistanceToPlayer = 30f;
     [SerializeField] float shunMinDistanceToPlayer = 12f;
 
-    bool attackMode = true;
+    public bool attackMode = false;
     bool calMovementMode = false;
     bool shunMode = false;
     bool attackLeft = true;
@@ -156,10 +155,17 @@ public class EyeballController : MonoBehaviour
     //set the start point, mid point, and destination of the arc movement
     void ShunModeController() {
         shunStartPoint = transform.position;
-        shunMidpoint = new Vector2(player.transform.position.x, transform.position.y + 3f);
+        shunMidpoint = new Vector2(player.transform.position.x+Random.Range(-5.0f, 5.0f), transform.position.y + (Random.Range(-2.0f, 7.0f)));
+
+        if((int) Random.Range(0, 2) ==0){
         shunDestination = new Vector2(
-            2 * player.transform.position.x - transform.position.x,
-            transform.position.y + 8f);
+            2 * player.transform.position.x - transform.position.x+Random.Range(-7.0f, 7.0f),
+            transform.position.y + Random.Range(4f, 10.0f));
+        }else{
+        attackMode = true;
+        calMovementMode = false;
+        shunMode = false; 
+        }
 
         attackMode = false;
         calMovementMode = false;

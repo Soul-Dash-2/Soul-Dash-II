@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     public enum DashType
     {
-        BASIC, SLIME, GOBLIN, EYE, EAGLE, SANDWORM, EYEBALL, DEMON
+        BASIC, SLIME, GOBLIN, SANDWORM, EYEBALL, DEMON
     }
 
     // Components
@@ -16,8 +15,13 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer render;      // the sprite renderer
     private Camera playerCamera;        // The camera following the player
 
-    //Prefabs
+    // Prefabs
     public GameObject slash;            //The slash prefab
+    public GameObject swordPrefab;            // The Sword prefab
+
+    // Combat
+    public float attackRange;
+    private Sword sword;
 
     // Private
     private bool isGrounded;            // is the player touching a ground object?
@@ -29,6 +33,10 @@ public class PlayerController : MonoBehaviour
     private bool isFastFalling;         // true while player is fastfalling
     private bool isTouching;            // true while player is touching anything
     private bool canGlide;              // true while the player has the ability to glide --> granted by eyeball dash
+    private bool isTouchingWallGround;   // true while player is touching the wall or the ground
+
+    //Damage things
+    public float dashDamage;
 
     // Public Movement variables
     public DashType dashType;
@@ -45,17 +53,22 @@ public class PlayerController : MonoBehaviour
     public float percentFrictionY;
 
     public float basicDashTime;     // How long the dash lasts
+    public float slimeDashTime;     // How long the slime dash lasts
     public float basicDashVelocity; // How quickly does the basic dash move
     public float slimeDashVelocity; // How quickly the slime dash moves
+    public float demonDashDistance; // How far the player teleports when they have the demon dash
     public float glideFactor;       // How much weaker is gravity while gliding
     public float dashTrajectoryModificationFactor;  /* How much does the effect of the players velocity before dashing affect the angle of the dash?
                                                         EXAMPLE: IF the factor is large, then if the player jumps before they dash horizontally, the
                                                         dash will actually move the player up as well. This can be set to 0 to disable this mechanic
                                                         altogether.*/
+    public Vector2 slimeDashDirection;
 
     // Setup Code
     void Start()
     {
+        sword = CreateSword();
+
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;
 
@@ -79,6 +92,14 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    Sword CreateSword()
+    {
+        GameObject swordInstance = Instantiate(swordPrefab);
+        Sword sword = swordInstance.GetComponent<Sword>();
+        sword.Setup(this.gameObject);
+        return sword;
+    }
+
     // Fixed Update occurs whenever unity updates Physics objects, and does not necessarily occur at the same time as the frame update.
     // DeltaTime is not used, because the physics update occurs on a fixed interval, and is therefore not bound to the deltaTime
     void FixedUpdate()
@@ -99,6 +120,7 @@ public class PlayerController : MonoBehaviour
     void OnCollisionExit2D(Collision2D collision)
     {
         isTouching = false;
+        isTouchingWallGround = false;
         // if the previously collided object was the ground, set isGrounded false
         if (collision.gameObject.CompareTag("Ground"))
         {
@@ -119,6 +141,21 @@ public class PlayerController : MonoBehaviour
             isFastFalling = false;
             isCrouching = false;
             isTouching = true;
+        }
+
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isTouchingWallGround = true;
+        }
+
+        //Ignore the stuff below here, maybe make a trigger child to the player (or enemy)
+        if (collision.gameObject.CompareTag("Enemy") && isDashing)
+        {
+            collision.gameObject.GetComponent<Enemy>().playerDamage(3);
+        }
+        else if (collision.gameObject.CompareTag("Enemy") && !isDashing)
+        {
+            //deal damage to player
         }
     }
 
@@ -249,7 +286,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Whether or not the player is allowed to dash -- prefer this method over the boolean canDash
-    bool CanDash()
+    public bool CanDash()
     {
         return canDash || isGrounded;
     }
@@ -277,6 +314,10 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(EyeballDash());
         }
+        else if (dashType == DashType.DEMON)
+        {
+            DemonDash();
+        }
     }
 
     //Slashing
@@ -286,8 +327,9 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 relativeDirection = GetDirection();
             Vector2 pos = rb.position;
-            Vector2 slashLocation = 3 * relativeDirection + pos; //So its 3x further away from the player
+            Vector2 slashLocation = attackRange * relativeDirection + pos; //So its 3x further away from the player
             Instantiate(slash, slashLocation, Quaternion.identity); //TODO: Make the slash change rotation based on mouse
+            sword.Attack(slashLocation);
         }
     }
 
@@ -324,6 +366,51 @@ public class PlayerController : MonoBehaviour
     //DASHES BELOW HERE
     //
 
+    public bool getDashing()
+    {
+        return isDashing;
+    }
+
+    public void letDash()
+    {
+        canDash = true;
+    }
+
+    public void setDashType(string dash)
+    {
+        Debug.Log("setdashtype called");
+        if (dash.Equals("slime"))
+        {
+            dashType = DashType.SLIME;
+            Debug.Log("gave the player slime dash");
+        }
+        else if (dash.Equals("eyeball"))
+        {
+            dashType = DashType.EYEBALL;
+            Debug.Log("gave the player eyeball dash");
+        }
+        else if (dash.Equals("demon"))
+        {
+            dashType = DashType.DEMON;
+            Debug.Log("gave the player demon dash");
+        }
+        return;
+    }
+
+    public DashType getDashType()
+    {
+        return dashType;
+    }
+
+    public DashType getDashTypeForHud()
+    {
+        if (canGlide)
+        {
+            return DashType.EYEBALL;
+        }
+        return dashType;
+    }
+
     // Basic dash
     IEnumerator BasicDash()
     {
@@ -348,17 +435,12 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
     }
 
-    //Slime dash
+    //Slime dash methods
     IEnumerator SlimeDash()
     {
-        // Perform the movement
+        // Perform the movement of basic dash
         Vector2 direction = GetDirection();
-        Vector2 slimeDashDir = direction; //Copies the direction to the slime-dash/bounce to swap it after 
-        slimeDashDir.x = -slimeDashDir.x; //Reflects the x direction for the bounce always
-        if (direction.y < 0) //Checks if the initial dash is a dash going down
-        {
-            slimeDashDir.y = -slimeDashDir.y; //If going down, the bounce goes up
-        }
+        setSlimeDashDir(direction); //Sets the slime dash in the opposite direction 
 
         rb.velocity = (direction * basicDashVelocity) + (rb.velocity * dashTrajectoryModificationFactor);
 
@@ -375,26 +457,56 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
 
-        if (isTouching) //checks if the player hits something at the end of the dash 
+        if (isTouchingWallGround) //checks if the player hits something at the end of the dash 
         {
-            //add in explosion at end of first dash hitbox
-            //Bounce dash
-            rb.velocity = (slimeDashDir * slimeDashVelocity) + (rb.velocity * dashTrajectoryModificationFactor);
-            // wait to complete dash
-            dashTime = 0;
-            while (dashTime < basicDashTime)
-            {
-                dashTime += Time.deltaTime;
-                yield return null;
-            }
+            Debug.Log("player slime dashing into wall or floor");
+            slimeBounce();
         }
         else
         {
-            //add in explosion at end of dash hitbox 
+
         }
         // finish dash
         rb.gravityScale = gravityScale;
         isDashing = false;
+        dashType = DashType.BASIC;
+    }
+
+    //Helper method to set the slime dash direction
+    public void setSlimeDashDir(Vector2 direction)
+    {
+        slimeDashDirection = direction; //Copies the direction to the slime-dash/bounce to swap it after 
+        slimeDashDirection.x = -slimeDashDirection.x; //Reflects the x direction for the bounce always
+        if (direction.y < 0) //Checks if the initial dash is a dash going down
+        {
+            slimeDashDirection.y = -slimeDashDirection.y; //If going down, the bounce goes up
+        }
+        return;
+    }
+
+    //The bounce from the slime dash
+    public IEnumerator SlimeBounce()
+    {
+        //add in explosion at end of dash hitbox 
+        rb.velocity = (slimeDashDirection * slimeDashVelocity);
+        Debug.Log("Slime bounce velocity: " + rb.velocity);
+        // wait to complete dash
+        float slimeDashTime = 0;
+        slimeDashTime = 0;
+        while (slimeDashTime < basicDashTime)
+        {
+            slimeDashTime += Time.deltaTime;
+            yield return null;
+        }
+        // finish dash
+        rb.gravityScale = gravityScale;
+        isDashing = false;
+        dashType = DashType.BASIC;
+    }
+
+    public void slimeBounce()
+    {
+        StartCoroutine(SlimeBounce());
     }
 
     IEnumerator EyeballDash()
@@ -423,5 +535,22 @@ public class PlayerController : MonoBehaviour
         canDash = true;
         dashType = DashType.BASIC;
         canGlide = true;
+    }
+
+    void DemonDash()
+    {
+        Vector2 direction = GetDirection();
+        Vector3 newPosition = new Vector3(
+            rb.transform.position.x + direction.x * demonDashDistance,
+            rb.transform.position.y + direction.y * demonDashDistance,
+            rb.transform.position.z);
+
+        canDash = false;
+        rb.transform.position = newPosition;
+        rb.velocity = (direction * basicDashVelocity) + (rb.velocity * dashTrajectoryModificationFactor);
+
+        // TODO: AOE explosion
+
+        dashType = DashType.BASIC;
     }
 }

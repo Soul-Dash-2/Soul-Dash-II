@@ -9,8 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883003925650768748}
-  - component: {fileID: 2883003925650768747}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CharacterCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,32 +31,6 @@ Transform:
   m_Father: {fileID: 2883003927027694688}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &2883003925650768747
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2883003925650768749}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3, y: 2}
-  m_EdgeRadius: 0
 --- !u!1 &2883003927027694691
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,9 +45,10 @@ GameObject:
   - component: {fileID: 2883003927027694702}
   - component: {fileID: 2883003927027694701}
   - component: {fileID: 2883003927027694700}
-  m_Layer: 0
+  - component: {fileID: 2161018754053053047}
+  m_Layer: 8
   m_Name: eye fire blue
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,6 +183,7 @@ MonoBehaviour:
   laserMovementSpeed: 0.01
   shunMaxDistanceToPlayer: 15
   shunMinDistanceToPlayer: 12
+  attackMode: 0
   player: {fileID: 0}
 --- !u!58 &2883003927027694700
 CircleCollider2D:
@@ -226,3 +201,18 @@ CircleCollider2D:
   m_Offset: {x: 0.0000019073486, y: 0}
   serializedVersion: 2
   m_Radius: 4
+--- !u!114 &2161018754053053047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2883003927027694691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1d59052c39d54c488dc8ac2c1e2a241, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 4
+  damage: 1
+  dashType: eyeball
