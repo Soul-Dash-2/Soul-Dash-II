@@ -34,7 +34,8 @@ public class EnemyCollider : MonoBehaviour
     {
         GameObject enemy = collision.gameObject;
         //checks if the player is hitting an enemy
-        if (enemy.CompareTag("Enemy") && player.GetComponent<PlayerController>().getDashing()) //player dashing through enemy
+        //@Nick: delete the "|| enemy.CompareTag("Projectile")" in the next line if we dont want to allow the palyer dash through the projectile. Otherwise leave it there.
+        if (enemy.CompareTag("Enemy")|| enemy.CompareTag("Projectile") && player.GetComponent<PlayerController>().getDashing()) //player dashing through enemy
         {
             if(player.GetComponent<PlayerController>().getDashType() == PlayerController.DashType.SLIME) //player slime dashing into an enemy
             {
@@ -52,9 +53,9 @@ public class EnemyCollider : MonoBehaviour
                 player.GetComponent<PlayerController>().setDashType(enemy.GetComponent<Enemy>().getDashType()); //Gives the player the special dash
             }
         }
-        else if (enemy.CompareTag("Enemy") && !player.GetComponent<PlayerController>().getDashing()) //player not dashing through enemy
+        else if (enemy.CompareTag("Enemy") || enemy.CompareTag("Projectile") && !player.GetComponent<PlayerController>().getDashing()) //player not dashing through enemy
         {
-            Debug.Log("player not dashing into an enemy");
+            Debug.Log("player not dashing into an enemy/projectile");
             float damage = enemy.GetComponent<Enemy>().dealDamage();
             TakeDamage(damage);
             //player knockback

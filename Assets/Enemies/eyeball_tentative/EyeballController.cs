@@ -120,8 +120,6 @@ public class EyeballController : MonoBehaviour
 
     void TurnTowardsPos(float posX, float posY)
     {
-        Debug.Log(transform.rotation.eulerAngles.z);
-        Debug.Log((transform.rotation.eulerAngles.z <= 100 || transform.rotation.eulerAngles.z >= -100));
         _renderer.flipY = (transform.rotation.eulerAngles.z <= 100 ||transform.rotation.eulerAngles.z >= 260) ? false : true;
         Quaternion _lookRotation = Quaternion.Euler(new Vector3(0, 0, GetAngleToPos(posX, posY)));
         transform.rotation = Quaternion.RotateTowards(transform.rotation, _lookRotation, rotationSpeed * Time.deltaTime);
