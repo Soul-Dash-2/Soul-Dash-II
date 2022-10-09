@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Pike
   - dashIcon
+  - Projectile
   layers:
   - Default
   - TransparentFX
