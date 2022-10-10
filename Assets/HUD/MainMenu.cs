@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayButton()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void QuitButton() {
@@ -19,5 +19,15 @@ public class MainMenu : MonoBehaviour
     public void OptionsButton() {
         Debug.Log("Options button working");
         //Options menu will be implemented later
+    }
+
+    public void SandboxButton()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void CreditsButton()
+    {
+        SceneManager.LoadScene(3);
     }
 }
