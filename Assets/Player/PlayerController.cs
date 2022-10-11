@@ -592,6 +592,7 @@ public class PlayerController : MonoBehaviour
         //invisiblity part
         float invisbleTime = 0;
         isInvisible = true;
+        dashType = DashType.BASIC;
         render.color = new Color(render.color.r, render.color.g, render.color.b, render.color.a == 0.01f ? 0.05f : 0.01f); //Color changes to be the same as the goblin ones
         while (invisbleTime < 1.5) //1.5 seconds as of now
         {  
@@ -600,6 +601,5 @@ public class PlayerController : MonoBehaviour
         }
         isInvisible = false;
         render.color = new Color(render.color.r, render.color.g, render.color.b, 1); //Color changes to be the same as the goblin ones new Color
-        dashType = DashType.BASIC;
     }
 }
