@@ -56,9 +56,22 @@ public class EnemyCollider : MonoBehaviour
         else if (enemy.CompareTag("Enemy") && !player.GetComponent<PlayerController>().getDashing()) //player not dashing through enemy
         {
             Debug.Log("player not dashing into an enemy");
-            float damage = enemy.GetComponent<Enemy>().dealDamage();
+            if (player.GetComponent<PlayerController>().getInvisible())
+            {
+                //take no dmg
+            }
+            else
+            {
+                float damage = enemy.GetComponent<Enemy>().dealDamage();
+                TakeDamage(damage);
+                //player knockback
+            }
+        }
+
+        if (enemy.CompareTag("Projectile"))
+        {
+            float damage = enemy.GetComponent<FireballController>().dealDamage();
             TakeDamage(damage);
-            //player knockback
         }
     }
 
@@ -68,9 +81,16 @@ public class EnemyCollider : MonoBehaviour
         if (enemy.CompareTag("Enemy") && !player.GetComponent<PlayerController>().getDashing()) //player not dashing through enemy
         {
             Debug.Log("player not dashing into an enemy");
-            float damage = enemy.GetComponent<Enemy>().dealDamage();
-            TakeDamage(damage);
-            //player knockback
+            if (player.GetComponent<PlayerController>().getInvisible())
+            {
+                //take no dmg
+            }
+            else
+            {
+                float damage = enemy.GetComponent<Enemy>().dealDamage();
+                TakeDamage(damage);
+                //player knockback
+            }
         }
     }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FireballController : MonoBehaviour
 {
+    public float damage = 2f;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,5 +25,10 @@ public class FireballController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    public float dealDamage()
+    {
+        return damage;
     }
 }

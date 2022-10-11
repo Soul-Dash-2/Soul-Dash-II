@@ -420,6 +420,11 @@ public class PlayerController : MonoBehaviour
         return dashType;
     }
 
+    public bool getInvisible()
+    {
+        return isInvisible;
+    }
+
     // Basic dash
     IEnumerator BasicDash()
     {
@@ -595,5 +600,6 @@ public class PlayerController : MonoBehaviour
         }
         isInvisible = false;
         render.color = new Color(render.color.r, render.color.g, render.color.b, 1); //Color changes to be the same as the goblin ones new Color
+        dashType = DashType.BASIC;
     }
 }
