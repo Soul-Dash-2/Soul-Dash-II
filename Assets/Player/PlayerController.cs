@@ -33,7 +33,8 @@ public class PlayerController : MonoBehaviour
     private bool isFastFalling;         // true while player is fastfalling
     private bool isTouching;            // true while player is touching anything
     private bool canGlide;              // true while the player has the ability to glide --> granted by eyeball dash
-    private bool isTouchingWallGround;   // true while player is touching the wall or the ground
+    private bool isTouchingWallGround;  // true while player is touching the wall or the ground
+    private bool isInvisible;           // true while player is invisible (after goblin dash)
 
     //Damage things
     public float dashDamage;
@@ -318,6 +319,10 @@ public class PlayerController : MonoBehaviour
         {
             DemonDash();
         }
+        else if (dashType == DashType.GOBLIN)
+        {
+            StartCoroutine(GoblinDash());
+        }
     }
 
     //Slashing
@@ -393,6 +398,10 @@ public class PlayerController : MonoBehaviour
         {
             dashType = DashType.DEMON;
             Debug.Log("gave the player demon dash");
+        }else if (dash.Equals("goblin"))
+        {
+            dashType = DashType.GOBLIN;
+            Debug.Log("gave the player goblin dash");
         }
         return;
     }
@@ -552,5 +561,39 @@ public class PlayerController : MonoBehaviour
         // TODO: AOE explosion
 
         dashType = DashType.BASIC;
+    }
+    IEnumerator GoblinDash()
+    {
+        // Perform the movement
+        Vector2 direction = GetDirection();
+        rb.velocity = (direction * basicDashVelocity) + (rb.velocity * dashTrajectoryModificationFactor);
+
+        // set appropriate variables
+        isDashing = true;
+        canDash = false;
+        rb.gravityScale = 0;
+
+        // wait to complete dash
+        float dashTime = 0;
+        while (dashTime < basicDashTime)
+        {
+            dashTime += Time.deltaTime;
+            yield return null;
+        }
+        // finish dash
+        rb.gravityScale = gravityScale;
+        isDashing = false;
+       
+        //invisiblity part
+        float invisbleTime = 0;
+        isInvisible = true;
+        render.color = new Color(render.color.r, render.color.g, render.color.b, render.color.a == 0.01f ? 0.05f : 0.01f); //Color changes to be the same as the goblin ones
+        while (invisbleTime < 1.5) //1.5 seconds as of now
+        {  
+            invisbleTime += Time.deltaTime;
+            yield return null;
+        }
+        isInvisible = false;
+        render.color = new Color(render.color.r, render.color.g, render.color.b, 1); //Color changes to be the same as the goblin ones new Color
     }
 }
