@@ -43,6 +43,12 @@ public class EnemyCollider : MonoBehaviour
                 enemy.GetComponent<Enemy>().playerDamage(3);
                 return;
             }
+            if(player.GetComponent<PlayerController>().getDashType() == PlayerController.DashType.SANDWORM)
+            {
+                player.GetComponent<PlayerController>().sandwormExplosion();
+                enemy.GetComponent<Enemy>().playerDamage(3);
+                return;
+            }
             Debug.Log("player dashing into an enemy ");
             enemy.GetComponent<Enemy>().playerDamage(3);
             //check if player killed the enemy with dash

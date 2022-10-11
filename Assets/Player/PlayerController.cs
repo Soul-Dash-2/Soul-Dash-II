@@ -402,6 +402,10 @@ public class PlayerController : MonoBehaviour
         {
             dashType = DashType.GOBLIN;
             Debug.Log("gave the player goblin dash");
+        }else if (dash.Equals("sandworm"))
+        {
+            dashType = DashType.SANDWORM;
+            Debug.Log("gave the player sandworm dash");
         }
         return;
     }
@@ -601,5 +605,34 @@ public class PlayerController : MonoBehaviour
         }
         isInvisible = false;
         render.color = new Color(render.color.r, render.color.g, render.color.b, 1); //Color changes to be the same as the goblin ones new Color
+    }
+
+    IEnumerator SandwormDash()
+    {
+        // Perform the movement
+        Vector2 direction = GetDirection();
+        rb.velocity = (direction * basicDashVelocity) + (rb.velocity * dashTrajectoryModificationFactor);
+
+        // set appropriate variables
+        isDashing = true;
+        canDash = false;
+        rb.gravityScale = 0;
+
+        // wait to complete dash
+        float dashTime = 0;
+        while (dashTime < basicDashTime)
+        {
+            dashTime += Time.deltaTime;
+            yield return null;
+        }
+        // finish dash
+        rb.gravityScale = gravityScale;
+        isDashing = false;
+        dashType = DashType.BASIC;
+    }
+
+    public void sandwormExplosion()
+    {
+
     }
 }
