@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     private bool isFastFalling;         // true while player is fastfalling
     private bool isTouching;            // true while player is touching anything
     private bool canGlide;              // true while the player has the ability to glide --> granted by eyeball dash
+    private bool isTouchingWallGround;   // true while player is touching the wall or the ground
+    private float prevYVel;             // the value representing the players velocity on the last fixed update
     private bool isTouchingWallGround;  // true while player is touching the wall or the ground
     private bool isInvisible;           // true while player is invisible (after goblin dash)
 
@@ -107,6 +109,7 @@ public class PlayerController : MonoBehaviour
     {
         float xVel = CalculateXVelocity();
         float yVel = CalculateYVelocity();
+        prevYVel = yVel;
         rb.velocity = new Vector2(xVel, yVel);
 
         HandleShortHop(yVel);
@@ -237,7 +240,7 @@ public class PlayerController : MonoBehaviour
     void Jump()
     {
         // Can only jump if on the ground
-        if (isGrounded)// && !isDashing)
+        if (onGround())// && !isDashing)
         {
             isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
@@ -258,7 +261,7 @@ public class PlayerController : MonoBehaviour
     //Crouch (or fastfall)
     void Crouch()
     {
-        if (isGrounded)
+        if (onGround())
         {
             //Add in crouch hitbox
             //Maybe slow the player?
@@ -289,7 +292,12 @@ public class PlayerController : MonoBehaviour
     // Whether or not the player is allowed to dash -- prefer this method over the boolean canDash
     public bool CanDash()
     {
-        return canDash || isGrounded;
+        return canDash || onGround();
+    }
+
+    // replaces uses of 'isGrounded' to check for feet on the floor.
+    public bool onGround() {
+        return (rb.velocity.y == 0) && (prevYVel == 0);
     }
 
     // Dash event --> executes the various dash type coroutines

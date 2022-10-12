@@ -6,16 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class RespawnController : MonoBehaviour
 {
-
+    [SerializeField] private Transform player;
+    [SerializeField] private Transform respawnPoint;
 
     void OnTriggerEnter2D(Collider2D test) {
-        //since lucien's respawn script doesnot work, I rewrite a new one//
-        if (test.CompareTag("Player")) {
-            SceneManager.LoadScene("tutorial_level");
+        //We can comment out the code for our final respawn system depending which one we like better. I've included both here -Lucien
+        if (test.tag == "Player") {
+            //Checkpoint system
+            player.transform.position = respawnPoint.transform.position;
 
+            //Reload scene system (Nick)
+            //SceneManager.LoadScene("tutorial_level");
         }
-
-
 
 
     }
