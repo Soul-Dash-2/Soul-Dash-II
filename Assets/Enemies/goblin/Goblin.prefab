@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1618659112009883872}
   - component: {fileID: 1618659112009883873}
   - component: {fileID: 1618659112009883874}
-  - component: {fileID: 1618659112009883875}
+  - component: {fileID: 4889656999959656203}
   m_Layer: 8
   m_Name: Goblin
   m_TagString: Enemy
@@ -159,7 +159,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.8}
   m_Size: {x: 2, y: 3}
   m_Direction: 0
---- !u!50 &1618659112009883875
+--- !u!50 &4889656999959656203
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -168,12 +168,12 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1618659112009883884}
   m_BodyType: 0
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
-  m_LinearDrag: 5
-  m_AngularDrag: 5
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
