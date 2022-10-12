@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   damage: 5
-  dashType: 
+  dashType: goblin
 --- !u!70 &7303807989524647886
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -168,7 +168,7 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7303807989524647872}
   m_BodyType: 0
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 20

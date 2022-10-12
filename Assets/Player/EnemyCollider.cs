@@ -6,7 +6,7 @@ public class EnemyCollider : MonoBehaviour
 {
     private GameObject player;  //player object
     public float playerHP;     //player's health
-    private float MaxIFrames = 0.2f;   //Amount of time until the player can take damage again
+    private float MaxIFrames = 0.4f;   //Amount of time until the player can take damage again
     private float currentIFrames;
     private bool takingDamage;
 
@@ -43,6 +43,12 @@ public class EnemyCollider : MonoBehaviour
                 enemy.GetComponent<Enemy>().playerDamage(3);
                 return;
             }
+            if(player.GetComponent<PlayerController>().getDashType() == PlayerController.DashType.SANDWORM)
+            {
+                player.GetComponent<PlayerController>().sandwormExplosion();
+                enemy.GetComponent<Enemy>().playerDamage(3);
+                return;
+            }
             Debug.Log("player dashing into an enemy ");
             enemy.GetComponent<Enemy>().playerDamage(3);
             //check if player killed the enemy with dash
@@ -56,9 +62,22 @@ public class EnemyCollider : MonoBehaviour
         else if (enemy.CompareTag("Enemy") && !player.GetComponent<PlayerController>().getDashing()) //player not dashing through enemy
         {
             Debug.Log("player not dashing into an enemy");
-            float damage = enemy.GetComponent<Enemy>().dealDamage();
+            if (player.GetComponent<PlayerController>().getInvisible())
+            {
+                //take no dmg
+            }
+            else
+            {
+                float damage = enemy.GetComponent<Enemy>().dealDamage();
+                TakeDamage(damage);
+                //player knockback
+            }
+        }
+
+        if (enemy.CompareTag("Projectile"))
+        {
+            float damage = enemy.GetComponent<FireballController>().dealDamage();
             TakeDamage(damage);
-            //player knockback
         }
     }
 
@@ -68,9 +87,16 @@ public class EnemyCollider : MonoBehaviour
         if (enemy.CompareTag("Enemy") && !player.GetComponent<PlayerController>().getDashing()) //player not dashing through enemy
         {
             Debug.Log("player not dashing into an enemy");
-            float damage = enemy.GetComponent<Enemy>().dealDamage();
-            TakeDamage(damage);
-            //player knockback
+            if (player.GetComponent<PlayerController>().getInvisible())
+            {
+                //take no dmg
+            }
+            else
+            {
+                float damage = enemy.GetComponent<Enemy>().dealDamage();
+                TakeDamage(damage);
+                //player knockback
+            }
         }
     }
 
