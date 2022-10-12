@@ -23,6 +23,7 @@ public class EyeballController : MonoBehaviour
 
     float attackPrepareTimer = 0f;
     private SpriteRenderer _renderer;
+    private LineRenderer _lineRenderer;
     Vector2 shunStartPoint;
     Vector2 shunMidpoint;
     Vector2 shunDestination;
@@ -38,8 +39,9 @@ public class EyeballController : MonoBehaviour
         player = GameObject.FindGameObjectsWithTag("Player")[0];
         arcMovementCounter = 0;
         _renderer = GetComponent<SpriteRenderer>();
-
-
+        _lineRenderer = transform.Find("LaserBeam").GetComponent<LineRenderer>();
+        _lineRenderer.startWidth = 0.2f;
+        _lineRenderer.endWidth = 1f;
 
     }
 
@@ -181,7 +183,7 @@ public class EyeballController : MonoBehaviour
     IEnumerator AttackDelayController()
     {
 
-
+       
 
         float attackTimer = 0f;
         //pre-attack, turn the right or left of the plyer
@@ -211,6 +213,19 @@ public class EyeballController : MonoBehaviour
             if (attackLeft) attackCurrPos.x -= laserMovementSpeed;
             else attackCurrPos.x += laserMovementSpeed;
 
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.right * 20);
+            StartCoroutine(LaserBeanController());
+            if (hit.collider)
+            {
+
+                if (hit.transform.gameObject.CompareTag("Player")) { }
+                
+                //deal damage to the player.
+            }
+            else
+            {
+
+            }
             Debug.DrawRay(transform.position, -transform.right*20, Color.red, 2.0f, false);
 
             attackTimer += Time.deltaTime;
@@ -235,5 +250,11 @@ public class EyeballController : MonoBehaviour
     }
 
 
+    IEnumerator LaserBeanController()
+    {
+         _lineRenderer.SetPosition(1,_renderer.flipY? transform.right * 30: -transform.right * 30);
+        yield return new WaitForSeconds(1f);
+        _lineRenderer.SetPosition(1, new Vector3(0, 0, 0));
+    }
 
 }
