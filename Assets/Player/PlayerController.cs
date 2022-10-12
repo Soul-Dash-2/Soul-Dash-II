@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
     private bool canGlide;              // true while the player has the ability to glide --> granted by eyeball dash
     private bool isTouchingWallGround;   // true while player is touching the wall or the ground
     private float prevYVel;             // the value representing the players velocity on the last fixed update
-    private bool isTouchingWallGround;  // true while player is touching the wall or the ground
     private bool isInvisible;           // true while player is invisible (after goblin dash)
 
     //Damage things
