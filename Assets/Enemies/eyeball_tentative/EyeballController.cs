@@ -16,7 +16,7 @@ public class EyeballController : MonoBehaviour
     [SerializeField] float shunMaxDistanceToPlayer = 30f;
     [SerializeField] float shunMinDistanceToPlayer = 12f;
 
-    public bool attackMode = false;
+    bool attackMode = false;
     bool calMovementMode = false;
     bool shunMode = false;
     bool attackLeft = true;
@@ -34,6 +34,12 @@ public class EyeballController : MonoBehaviour
     //assume there will be only one player in the scene
 
     [SerializeField] private GameObject player;
+
+    public bool AttackMode
+    {
+        get { return attackMode; }
+        set { attackMode = value; }
+    }
     void Start()
     {
         player = GameObject.FindGameObjectsWithTag("Player")[0];
