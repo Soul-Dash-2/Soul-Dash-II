@@ -5,34 +5,41 @@ using UnityEngine;
 public class SandwormManager : MonoBehaviour
 {
     [SerializeField] List<GameObject> bodyParts = new List<GameObject>();
+    [SerializeField] Vector2 territory;
     [SerializeField] float scale;
     [SerializeField] float distanceBetweenBodyParts = 0.2f;
     [SerializeField] float speed = 10f;
     [SerializeField] float warningTime = 0.5f;
     [SerializeField] float gravityScale = 1;
     [SerializeField] float groundLevel;
+    [SerializeField] LayerMask playerLayer;
+    [SerializeField] Transform player;
 
     private List<GameObject> sandwormBody = new List<GameObject>();
-    private bool startedMoving = false;
+    private bool playerInSight;
+    private bool readyToMove = true;
+    private static System.Random rnd;
 
     float count = 0;
     // Start is called before the first frame update
     void Start()
     {
+        rnd = new System.Random();
         //CreateBodyParts();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        playerInSight = Physics2D.OverlapBox(transform.position, territory, 0, playerLayer);
         if (bodyParts.Count > 0)
         {
             CreateBodyParts();
         }
-        if (!startedMoving)
+        if (readyToMove && playerInSight)
         {
             StartCoroutine(Move());
-            startedMoving = true;
+            readyToMove = false;
         }
         UpdateRotation();
         UpdateBodyParts();
@@ -41,9 +48,19 @@ public class SandwormManager : MonoBehaviour
     IEnumerator Move()
     {
         yield return new WaitForSeconds(warningTime);
-        Vector2 target = new Vector2(-32, 13f);
+        sandwormBody[0].transform.position = rnd.Next(0, 2) == 0 ? new Vector2(player.position.x - 15 - rnd.Next(0,20), sandwormBody[0].transform.position.y) : new Vector2(player.position.x + 15 + rnd.Next(0, 20), sandwormBody[0].transform.position.y);
+        Vector2 target;
+        if (player.position.x - sandwormBody[0].transform.position.x > 0)
+        {
+            target = new Vector2(player.position.x - 5f, player.position.y + 12f);
+        }
+        else
+        {
+            target = new Vector2(player.position.x + 6f, player.position.y + 12f);
+        }
         Vector2 vel = new Vector2((target.x - sandwormBody[0].transform.position.x) * speed, (target.y - sandwormBody[0].transform.position.y) * speed);
         sandwormBody[0].GetComponent<Rigidbody2D>().velocity = vel;
+        yield return new WaitForSeconds(0.5f);
         sandwormBody[0].GetComponent<Rigidbody2D>().gravityScale = gravityScale;
     }
 
@@ -64,41 +81,29 @@ public class SandwormManager : MonoBehaviour
         {
             for (int i = 1; i < sandwormBody.Count; i++)
             {
-                MarkerManager markM = sandwormBody[i - 1].GetComponent<MarkerManager>();
-                sandwormBody[i].transform.position = markM.markerList[0].position;
-                sandwormBody[i].transform.rotation = markM.markerList[0].rotation;
-                markM.markerList.RemoveAt(0);
+                MarkerManager previousMarkerM = sandwormBody[i - 1].GetComponent<MarkerManager>();
+                sandwormBody[i].transform.position = new Vector3(previousMarkerM.markerList[0].position.x, previousMarkerM.markerList[0].position.y, previousMarkerM.markerList[0].position.z + 0.1f);
+                sandwormBody[i].transform.rotation = previousMarkerM.markerList[0].rotation;
+                previousMarkerM.markerList.RemoveAt(0);
             }
         }
     }
 
     void CreateBodyParts()
     {
-        if (sandwormBody.Count == 0)
-        {
-            GameObject temp = Instantiate(bodyParts[0], transform.position, transform.rotation, transform);
-            if (!temp.GetComponent<MarkerManager>())
-                temp.AddComponent<MarkerManager>();
-            if (!temp.GetComponent<Rigidbody2D>())
-            {
-                temp.AddComponent<Rigidbody2D>();
-                temp.GetComponent<Rigidbody2D>().gravityScale = 0;
-            }
-
-            temp.transform.localScale = new Vector3(scale, scale, scale);
-            sandwormBody.Add(temp);
-            bodyParts.RemoveAt(0);
-        }
-
-        MarkerManager markM = sandwormBody[sandwormBody.Count - 1].GetComponent<MarkerManager>();
-        if (count == 0)
-        {
-            markM.ClearMarkerList();
-        }
         count += Time.deltaTime;
-        if (count >= distanceBetweenBodyParts)
+        if (count >= distanceBetweenBodyParts || sandwormBody.Count == 0)
         {
-            GameObject temp = Instantiate(bodyParts[0], markM.markerList[0].position, markM.markerList[0].rotation, transform);
+            GameObject temp;
+            if (sandwormBody.Count != 0)
+            {
+                MarkerManager previousMarkerM = sandwormBody[sandwormBody.Count - 1].GetComponent<MarkerManager>();
+                temp = Instantiate(bodyParts[0], new Vector3 (previousMarkerM.markerList[0].position.x, previousMarkerM.markerList[0].position.y, previousMarkerM.markerList[0].position.z + 0.1f), previousMarkerM.markerList[0].rotation, transform);
+            }
+            else
+            {
+                temp = Instantiate(bodyParts[0], new Vector3 (transform.position.x, transform.position.y, 0.1f), transform.rotation, transform);
+            }
             if (!temp.GetComponent<MarkerManager>())
                 temp.AddComponent<MarkerManager>();
             if (!temp.GetComponent<Rigidbody2D>())
@@ -112,5 +117,10 @@ public class SandwormManager : MonoBehaviour
             temp.GetComponent<MarkerManager>().ClearMarkerList();
             count = 0;
         }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireCube(transform.position, territory);
     }
 }
