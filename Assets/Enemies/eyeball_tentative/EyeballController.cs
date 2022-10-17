@@ -46,8 +46,8 @@ public class EyeballController : MonoBehaviour
         arcMovementCounter = 0;
         _renderer = GetComponent<SpriteRenderer>();
         _lineRenderer = transform.Find("LaserBeam").GetComponent<LineRenderer>();
-        _lineRenderer.startWidth = 0.2f;
-        _lineRenderer.endWidth = 1f;
+        _lineRenderer.startWidth = 0.4f;
+        _lineRenderer.endWidth = 0.4f;
 
     }
 
@@ -196,13 +196,13 @@ public class EyeballController : MonoBehaviour
         if (transform.position.x > player.transform.position.x)
         {
             attackLeft = true;
-            attackCurrPos = new Vector2(player.transform.position.x + 1, player.transform.position.y);
+            attackCurrPos = new Vector2(player.transform.position.x, player.transform.position.y);
 
         }
         else
         {
             attackLeft = false;
-            attackCurrPos = new Vector2(player.transform.position.x - 1, player.transform.position.y);
+            attackCurrPos = new Vector2(player.transform.position.x , player.transform.position.y);
         }
         while (attackPrepareTimer < attackDelay)
         {
@@ -232,7 +232,6 @@ public class EyeballController : MonoBehaviour
             {
 
             }
-            Debug.DrawRay(transform.position, -transform.right*20, Color.red, 2.0f, false);
 
             attackTimer += Time.deltaTime;
             yield return null;
@@ -258,9 +257,11 @@ public class EyeballController : MonoBehaviour
 
     IEnumerator LaserBeanController()
     {
-         _lineRenderer.SetPosition(1,_renderer.flipY? transform.right * 30: -transform.right * 30);
-        yield return new WaitForSeconds(1f);
+        _lineRenderer.SetPosition(0, _renderer.flipY ? new Vector3(0,2f,0) : new Vector3(0,0,0));
+        _lineRenderer.SetPosition(1,_renderer.flipY? transform.right * 30: -transform.right * 30);
+        yield return new WaitForEndOfFrame();
         _lineRenderer.SetPosition(1, new Vector3(0, 0, 0));
+        _lineRenderer.SetPosition(0, new Vector3(0, 0, 0));
     }
 
 }
