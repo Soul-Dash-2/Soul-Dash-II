@@ -14,11 +14,13 @@ public class SandwormManager : MonoBehaviour
     [SerializeField] float groundLevel;
     [SerializeField] LayerMask playerLayer;
     [SerializeField] Transform player;
+    [SerializeField] float coolDown;
 
     private List<GameObject> sandwormBody = new List<GameObject>();
     private bool playerInSight;
     private bool readyToMove = true;
     private static System.Random rnd;
+    private bool aboveGround = false;
 
     float count = 0;
     // Start is called before the first frame update
@@ -43,6 +45,13 @@ public class SandwormManager : MonoBehaviour
         }
         UpdateRotation();
         UpdateBodyParts();
+        if (aboveGround && sandwormBody[0].transform.position.y < transform.position.y)
+        {
+            sandwormBody[0].GetComponent<Rigidbody2D>().gravityScale = 0;
+            sandwormBody[0].GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            aboveGround = false;
+            StartCoroutine(StartCoolDown());
+        }
     }
 
     IEnumerator Move()
@@ -62,6 +71,13 @@ public class SandwormManager : MonoBehaviour
         sandwormBody[0].GetComponent<Rigidbody2D>().velocity = vel;
         yield return new WaitForSeconds(0.5f);
         sandwormBody[0].GetComponent<Rigidbody2D>().gravityScale = gravityScale;
+        aboveGround = true;
+    }
+
+    IEnumerator StartCoolDown()
+    {
+        yield return new WaitForSeconds(coolDown);
+        readyToMove = true;
     }
 
     private void UpdateRotation()
