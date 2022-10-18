@@ -312,7 +312,9 @@ public class PlayerController : MonoBehaviour
         isJumping = false;
         if (dashType == DashType.BASIC)
         {
+            SFX_manager.PlaySound("dashSound");
             StartCoroutine(BasicDash());
+            
         }
         else if (dashType == DashType.SLIME)
         {
