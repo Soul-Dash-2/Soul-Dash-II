@@ -277,14 +277,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 120
-  shunSpeed: 10
-  attackModeDistanceToPlayer: 12
+  maxShunModeTime: 2
   attackModeMovementSpeed: 8
   attackDelay: 0.8
   attackTime: 1
-  laserMovementSpeed: 0.03
-  shunMaxDistanceToPlayer: 15
-  shunMinDistanceToPlayer: 12
+  laserMovementSpeed: 0.05
+  maxDistanceToPlayer: 30
+  minDistanceToPlayer: 10
+  laserBeamLength: 40
   player: {fileID: 0}
 --- !u!58 &3472953791901181384
 CircleCollider2D:
