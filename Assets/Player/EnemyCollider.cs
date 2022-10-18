@@ -33,7 +33,6 @@ public class EnemyCollider : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject enemy = collision.gameObject;
-        Debug.Log(enemy.name);
         //checks if the player is hitting an enemy
         if (enemy.CompareTag("Enemy") && player.GetComponent<PlayerController>().getDashing()) //player dashing through enemy
         {

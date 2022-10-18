@@ -10,7 +10,6 @@ public class GoblinController : MonoBehaviour
     [SerializeField] float moveDistance = 10f;
     [SerializeField] private GameObject player;
     [SerializeField] GameObject fireballPrefab;
-    [SerializeField] float backswingTime = 1f;
     [SerializeField] float fireballSpeed = 20f;
     [SerializeField] float fireballRange= 40f;
     private bool ifRun = true;
