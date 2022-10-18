@@ -3033,11 +3033,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5900116389296032534, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 869.2
+      value: 1004.5
       objectReference: {fileID: 0}
     - target: {fileID: 5900116389296032534, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -235.2
+      value: -251
       objectReference: {fileID: 0}
     - target: {fileID: 5900116389296032534, guid: 26a210a4719f37947be0b6295a06161e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11320,6 +11320,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8750433520824552996, guid: da07337b755bf3f4bb2f93c1a92f0862, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 10.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 8750433520824552996, guid: da07337b755bf3f4bb2f93c1a92f0862, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 10.24
+      objectReference: {fileID: 0}
     - target: {fileID: 8750433520824552997, guid: da07337b755bf3f4bb2f93c1a92f0862, type: 3}
       propertyPath: player
       value: 
@@ -12214,26 +12222,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 702380981}
-    - target: {fileID: 3472953791901181385, guid: c7bd45209b23047d486a2723c2e14168, type: 3}
-      propertyPath: shunSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3472953791901181385, guid: c7bd45209b23047d486a2723c2e14168, type: 3}
-      propertyPath: attackTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3472953791901181385, guid: c7bd45209b23047d486a2723c2e14168, type: 3}
-      propertyPath: laserMovementSpeed
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 8289133969703530197, guid: c7bd45209b23047d486a2723c2e14168, type: 3}
-      propertyPath: m_Positions.Array.data[0].x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8289133969703530197, guid: c7bd45209b23047d486a2723c2e14168, type: 3}
-      propertyPath: m_Positions.Array.data[1].x
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7bd45209b23047d486a2723c2e14168, type: 3}
 --- !u!1001 &3989470506278753027
