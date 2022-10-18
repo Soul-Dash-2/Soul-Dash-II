@@ -14,7 +14,7 @@ public class EyeballController : MonoBehaviour
     [SerializeField] float attackTime = 2.0f;
     [SerializeField] float laserMovementSpeed = 0.01f; //this value should be smaller than 0.3f;
     [SerializeField] float maxDistanceToPlayer = 30f;
-    [SerializeField] float minDistanceToPlayer = 10f;
+    [SerializeField] float minDistanceToPlayer = 20f;
     [SerializeField] float laserBeamLength = 40f;
     bool attackMode = false;
     bool calMovementMode = false;
@@ -47,6 +47,8 @@ public class EyeballController : MonoBehaviour
         _lineRenderer = transform.Find("LaserBeam").GetComponent<LineRenderer>();
         _lineRenderer.startWidth = 0.4f;
         _lineRenderer.endWidth = 0.4f;
+        shunDestination = transform.position;
+        shunMidpoint = transform.position;
 
     }
 
@@ -58,7 +60,7 @@ public class EyeballController : MonoBehaviour
         {
             if (laserController != null) StopCoroutine(laserController);
             TurnTowardsPos(player.transform.position.x,player.transform.position.y);
-            if (Vector2.Distance(player.transform.position, transform.position) > laserBeamLength/1.6)
+            if (Vector2.Distance(player.transform.position, transform.position) > minDistanceToPlayer)
             {
                 moveTowardsPlayer();
             }
@@ -102,6 +104,7 @@ public class EyeballController : MonoBehaviour
        ( distanceToPlayer < maxDistanceToPlayer &&
             arcMovementCounter < maxShunModeTime))
             {
+
                 arcMovementCounter += Time.deltaTime;
 
             //ideally a bezier curve
@@ -169,8 +172,8 @@ public class EyeballController : MonoBehaviour
             
             shunDestination = new Vector2(
                 (transform.position.x - player.transform.position.x) > 0 ?
-                player.transform.position.x + Random.Range(10f, 14f) :
-                player.transform.position.x - Random.Range(10f, 14f),
+                player.transform.position.x + Random.Range(5f, 14f) :
+                player.transform.position.x - Random.Range(5f, 14f),
                 (player.transform.position.y + 13f < transform.position.y + 15f) ?
                 player.transform.position.y + 13f :
                 transform.position.y + 15f
