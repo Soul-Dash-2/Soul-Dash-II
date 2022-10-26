@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
     public DashType dashType;
     public float jumpVelocity;      // How much power the player's jump has
     public float gravityScale;      // How strong the effect of gravity on the player is: 1 = 100%, 0 = 0%
+    public float maxFallSpeed;      // Maximum (minimum) speed that the player can be falling
     public float shortHopEndVel;    // The velocity threshold at which a shorthop is said to be complete
     public float shortHopStrength;  // Higher numbers mean the short hop should be shorter
 
@@ -232,7 +233,11 @@ public class PlayerController : MonoBehaviour
 
     float CalculateYVelocity()
     {
-        return rb.velocity.y * GetFrictionFactorY();
+        float yVel = rb.velocity.y * GetFrictionFactorY();
+        if (yVel < maxFallSpeed && !isDashing) {
+            return maxFallSpeed;
+        }
+        return yVel;
     }
 
     // Jump event

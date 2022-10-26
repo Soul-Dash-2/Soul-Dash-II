@@ -15,7 +15,7 @@ public class RespawnController : MonoBehaviour
             //Checkpoint system
             // player.transform.position = respawnPoint.transform.position;
 
-            //Reload scene system (Nick)
+            //Reload scene system
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
