@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 502078362457065109}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: platform 4 blocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,6 +40,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 502078362457065109}
     m_Modifications:
+    - target: {fileID: 4027298204955520012, guid: d9d3a418c3bb2b344ad7556f27844124, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4323541990577017505, guid: d9d3a418c3bb2b344ad7556f27844124, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -84,9 +88,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5593950380362974466, guid: d9d3a418c3bb2b344ad7556f27844124, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7544727198184922763, guid: d9d3a418c3bb2b344ad7556f27844124, type: 3}
       propertyPath: m_Name
       value: Platform 2 blocks
+      objectReference: {fileID: 0}
+    - target: {fileID: 7544727198184922763, guid: d9d3a418c3bb2b344ad7556f27844124, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9d3a418c3bb2b344ad7556f27844124, type: 3}
@@ -102,6 +114,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 502078362457065109}
     m_Modifications:
+    - target: {fileID: 4027298204955520012, guid: d9d3a418c3bb2b344ad7556f27844124, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4323541990577017505, guid: d9d3a418c3bb2b344ad7556f27844124, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -146,9 +162,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5593950380362974466, guid: d9d3a418c3bb2b344ad7556f27844124, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7544727198184922763, guid: d9d3a418c3bb2b344ad7556f27844124, type: 3}
       propertyPath: m_Name
       value: Platform 2 blocks (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7544727198184922763, guid: d9d3a418c3bb2b344ad7556f27844124, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9d3a418c3bb2b344ad7556f27844124, type: 3}
