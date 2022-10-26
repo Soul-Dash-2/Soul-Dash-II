@@ -3574,7 +3574,7 @@ PrefabInstance:
     - target: {fileID: 8321862116462194208, guid: 8020f202a501fed469bde3a18677e070, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 705002726}
     - target: {fileID: 8321862116462194211, guid: 8020f202a501fed469bde3a18677e070, type: 3}
       propertyPath: m_Name
       value: Slime (2)
@@ -5475,6 +5475,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hero
       objectReference: {fileID: 0}
+    - target: {fileID: 5855859585168730573, guid: 7da4f52277bac4fdd88bbb61a5b9f7b3, type: 3}
+      propertyPath: gravityScale
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5855859585168730573, guid: 7da4f52277bac4fdd88bbb61a5b9f7b3, type: 3}
+      propertyPath: jumpVelocity
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5855859585168730573, guid: 7da4f52277bac4fdd88bbb61a5b9f7b3, type: 3}
+      propertyPath: maxVelocityX
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 6959477622332771136, guid: 7da4f52277bac4fdd88bbb61a5b9f7b3, type: 3}
       propertyPath: m_RootOrder
       value: 19
@@ -5521,6 +5533,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7da4f52277bac4fdd88bbb61a5b9f7b3, type: 3}
+--- !u!4 &705002726 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6959477622332771136, guid: 7da4f52277bac4fdd88bbb61a5b9f7b3, type: 3}
+  m_PrefabInstance: {fileID: 705002725}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &705002727 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3182788137802679766, guid: 7da4f52277bac4fdd88bbb61a5b9f7b3, type: 3}
+  m_PrefabInstance: {fileID: 705002725}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705337576
 GameObject:
   m_ObjectHideFlags: 0
@@ -5639,6 +5661,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8750433520824552997, guid: da07337b755bf3f4bb2f93c1a92f0862, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 705002726}
     - target: {fileID: 8750433520824552998, guid: da07337b755bf3f4bb2f93c1a92f0862, type: 3}
       propertyPath: m_Name
       value: Demon
@@ -8996,7 +9022,7 @@ PrefabInstance:
     - target: {fileID: 8321862116462194208, guid: 8020f202a501fed469bde3a18677e070, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 705002726}
     - target: {fileID: 8321862116462194211, guid: 8020f202a501fed469bde3a18677e070, type: 3}
       propertyPath: m_Name
       value: Slime (1)
@@ -11237,6 +11263,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1618659112009883872, guid: 18df64cb0bbb76c42aab3dd00b207936, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 705002727}
     - target: {fileID: 1618659112009883884, guid: 18df64cb0bbb76c42aab3dd00b207936, type: 3}
       propertyPath: m_Name
       value: Goblin
@@ -12938,7 +12968,7 @@ PrefabInstance:
     - target: {fileID: 8750433520824552997, guid: da07337b755bf3f4bb2f93c1a92f0862, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 705002726}
     - target: {fileID: 8750433520824552998, guid: da07337b755bf3f4bb2f93c1a92f0862, type: 3}
       propertyPath: m_Name
       value: Demon (1)
@@ -14306,7 +14336,7 @@ PrefabInstance:
     - target: {fileID: 3472953791901181385, guid: c7bd45209b23047d486a2723c2e14168, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 705002727}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7bd45209b23047d486a2723c2e14168, type: 3}
 --- !u!1001 &3989470506278753027

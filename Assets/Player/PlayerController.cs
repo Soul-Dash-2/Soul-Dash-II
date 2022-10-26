@@ -347,8 +347,17 @@ public class PlayerController : MonoBehaviour
             Vector2 relativeDirection = GetDirection();
             Vector2 pos = rb.position;
             Vector2 slashLocation = attackRange * relativeDirection + pos; //So its 3x further away from the player
-            Instantiate(slash, slashLocation, Quaternion.identity); //TODO: Make the slash change rotation based on mouse
+
+            float angle = Vector3.Angle(relativeDirection, Vector3.right);
+            if (relativeDirection.y < 0) {
+                angle = -angle;
+            }
+
+            Instantiate(slash, slashLocation, Quaternion.Euler(0, 0, angle)); //TODO: Make the slash change rotation based on mouse
             sword.Attack(slashLocation);
+            // Debug.Log(Vector3.Angle(rb.position, new Vector3(slashLocation.x, slashLocation.y, 0)));
+            Debug.Log(relativeDirection);
+            Vector3.Angle(relativeDirection, Vector3.right);
         }
     }
 
