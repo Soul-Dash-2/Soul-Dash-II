@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour
     public float jumpVelocity;      // How much power the player's jump has
     public float gravityScale;      // How strong the effect of gravity on the player is: 1 = 100%, 0 = 0%
     public float maxFallSpeed;      // Maximum (minimum) speed that the player can be falling
+    private float fallSpeed;         // current max fall speed
+    public float fastFallFac;
     public float shortHopEndVel;    // The velocity threshold at which a shorthop is said to be complete
     public float shortHopStrength;  // Higher numbers mean the short hop should be shorter
 
@@ -70,6 +72,7 @@ public class PlayerController : MonoBehaviour
     // Setup Code
     void Start()
     {
+        fallSpeed = maxFallSpeed;
         sword = CreateSword();
 
         rb = GetComponent<Rigidbody2D>();
@@ -143,6 +146,7 @@ public class PlayerController : MonoBehaviour
             canDash = true;
             isJumping = false;
             isFastFalling = false;
+            fallSpeed = maxFallSpeed;
             isCrouching = false;
             isTouching = true;
         }
@@ -234,8 +238,8 @@ public class PlayerController : MonoBehaviour
     float CalculateYVelocity()
     {
         float yVel = rb.velocity.y * GetFrictionFactorY();
-        if (yVel < maxFallSpeed && !isDashing) {
-            return maxFallSpeed;
+        if (yVel < fallSpeed && !isDashing) {
+            return fallSpeed;
         }
         return yVel;
     }
@@ -275,6 +279,7 @@ public class PlayerController : MonoBehaviour
         {
             //Note isFastFalling increases y friction value to 1.5 
             isFastFalling = true;
+            fallSpeed = maxFallSpeed * fastFallFac;
         }
     }
 
@@ -289,6 +294,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (isFastFalling)
         {
+            fallSpeed = maxFallSpeed;
             isFastFalling = false;
         }
     }

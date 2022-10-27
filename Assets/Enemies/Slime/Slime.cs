@@ -9,7 +9,7 @@ public class Slime : MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] Vector2 boxSize;
-    [SerializeField] Transform player;
+    private Transform player;
     
     //private float horizontalMovement = 1;
     private bool facingRight = true;
@@ -24,6 +24,7 @@ public class Slime : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }

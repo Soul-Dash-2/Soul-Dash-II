@@ -13,7 +13,7 @@ public class SandwormManager : MonoBehaviour
     [SerializeField] float gravityScale = 1;
     [SerializeField] float groundLevel;
     [SerializeField] LayerMask playerLayer;
-    [SerializeField] Transform player;
+    private Transform player;
     [SerializeField] float coolDown;
 
     private List<GameObject> sandwormBody = new List<GameObject>();
@@ -26,6 +26,7 @@ public class SandwormManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Transform>();
         rnd = new System.Random();
         //CreateBodyParts();
     }

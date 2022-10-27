@@ -146,11 +146,12 @@ MonoBehaviour:
   dashType: 0
   jumpVelocity: 40
   gravityScale: 15
-  maxFallSpeed: -100
+  maxFallSpeed: -60
+  fastFallFac: 1.4
   shortHopEndVel: 10
   shortHopStrength: 5
   accelerationX: 10
-  maxVelocityX: 30
+  maxVelocityX: 20
   minimumVelocity: 2
   percentFrictionX: 35
   percentFrictionY: 35

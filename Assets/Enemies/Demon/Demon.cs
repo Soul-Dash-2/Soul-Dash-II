@@ -11,7 +11,7 @@ public class Demon : MonoBehaviour
     [SerializeField] Vector2 lineOfSight;
     [SerializeField] LayerMask playerLayer;
     private bool playerInSight;
-    [SerializeField] Transform player;
+    private Transform player;
     [SerializeField] float destinationOffset;
     [SerializeField] float attackRange;
     [SerializeField] float cd;
@@ -22,6 +22,7 @@ public class Demon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         boxcollider = GetComponent<BoxCollider2D>();
     }
