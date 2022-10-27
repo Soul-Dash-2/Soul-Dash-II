@@ -28,6 +28,6 @@ public class healthBar : MonoBehaviour
         health = (float)target.GetComponent<Enemy>().getHealth();
         fill_width = health / maxHealth;
         bar_fill.transform.localScale = new Vector3(1.0f * fill_width, 1.0f, 1.0f);
-        Debug.Log("HEALTH %: " + fill_width);
+        // Debug.Log("HEALTH %: " + fill_width);
     }
 }

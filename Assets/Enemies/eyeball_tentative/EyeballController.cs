@@ -55,7 +55,7 @@ public class EyeballController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(attackMode + " " + calMovementMode + " " + shunMode);
+        // Debug.Log(attackMode + " " + calMovementMode + " " + shunMode);
         if (attackMode)
         {
             if (laserController != null) StopCoroutine(laserController);

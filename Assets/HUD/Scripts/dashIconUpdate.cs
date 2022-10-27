@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class dashIconUpdate : MonoBehaviour
 {
-    [SerializeField] private GameObject hero;
+    private GameObject hero;
     [SerializeField] private PlayerController.DashType dashType;
     public Sprite dash_none;
     public Sprite dash_default;
@@ -14,6 +14,10 @@ public class dashIconUpdate : MonoBehaviour
     public Sprite dash_invicibility;
     public Sprite dash_shieldbreaker;
     public Sprite dash_teleport;
+
+    void Start() {
+        hero = this.transform.parent.gameObject.transform.parent.gameObject;
+    }
 
     // Update is called once per frame
     void Update()

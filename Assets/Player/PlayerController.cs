@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
     public DashType dashType;
     public float jumpVelocity;      // How much power the player's jump has
     public float gravityScale;      // How strong the effect of gravity on the player is: 1 = 100%, 0 = 0%
+    public float maxFallSpeed;      // Maximum (minimum) speed that the player can be falling
     public float shortHopEndVel;    // The velocity threshold at which a shorthop is said to be complete
     public float shortHopStrength;  // Higher numbers mean the short hop should be shorter
 
@@ -232,7 +233,11 @@ public class PlayerController : MonoBehaviour
 
     float CalculateYVelocity()
     {
-        return rb.velocity.y * GetFrictionFactorY();
+        float yVel = rb.velocity.y * GetFrictionFactorY();
+        if (yVel < maxFallSpeed && !isDashing) {
+            return maxFallSpeed;
+        }
+        return yVel;
     }
 
     // Jump event
@@ -342,8 +347,17 @@ public class PlayerController : MonoBehaviour
             Vector2 relativeDirection = GetDirection();
             Vector2 pos = rb.position;
             Vector2 slashLocation = attackRange * relativeDirection + pos; //So its 3x further away from the player
-            Instantiate(slash, slashLocation, Quaternion.identity); //TODO: Make the slash change rotation based on mouse
+
+            float angle = Vector3.Angle(relativeDirection, Vector3.right);
+            if (relativeDirection.y < 0) {
+                angle = -angle;
+            }
+
+            Instantiate(slash, slashLocation, Quaternion.Euler(0, 0, angle)); //TODO: Make the slash change rotation based on mouse
             sword.Attack(slashLocation);
+            // Debug.Log(Vector3.Angle(rb.position, new Vector3(slashLocation.x, slashLocation.y, 0)));
+            Debug.Log(relativeDirection);
+            Vector3.Angle(relativeDirection, Vector3.right);
         }
     }
 

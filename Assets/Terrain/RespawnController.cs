@@ -13,10 +13,10 @@ public class RespawnController : MonoBehaviour
         //We can comment out the code for our final respawn system depending which one we like better. I've included both here -Lucien
         if (test.tag == "Player") {
             //Checkpoint system
-            player.transform.position = respawnPoint.transform.position;
+            // player.transform.position = respawnPoint.transform.position;
 
-            //Reload scene system (Nick)
-            //SceneManager.LoadScene("tutorial_level");
+            //Reload scene system
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
 
