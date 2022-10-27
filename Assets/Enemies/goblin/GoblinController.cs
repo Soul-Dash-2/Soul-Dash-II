@@ -8,7 +8,7 @@ public class GoblinController : MonoBehaviour
     private Animator _animator;
     [SerializeField] float moveSpeed =10f;
     [SerializeField] float moveDistance = 10f;
-    [SerializeField] private GameObject player;
+    private GameObject player;
     [SerializeField] GameObject fireballPrefab;
     [SerializeField] float fireballSpeed = 20f;
     [SerializeField] float fireballRange= 40f;
@@ -17,6 +17,7 @@ public class GoblinController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectsWithTag("Player")[0];
         _renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectsWithTag("Player")[0];
