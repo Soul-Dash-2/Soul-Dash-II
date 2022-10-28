@@ -13,7 +13,7 @@ public class PlayerCamera : MonoBehaviour
                                     */
 
     void Start() {
-        hero = GetComponentInParent<Rigidbody2D>().transform;
+        hero = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Transform>();
         playerCamera = GetComponent<Camera>();
     }
 

@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
         rb.gravityScale = gravityScale;
 
         render = GetComponent<SpriteRenderer>();
-        playerCamera = GetComponentInChildren<Camera>();
+        playerCamera = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Camera>();
 
         controls = new PlayerControls();
         controls.Enable();
