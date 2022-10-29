@@ -6,7 +6,8 @@ public class SandwormManager : MonoBehaviour
 {
     [SerializeField] List<GameObject> bodyParts = new List<GameObject>();
     [SerializeField] Vector2 territory;
-    [SerializeField] float scale;
+    [SerializeField] float spriteScale;
+    [SerializeField] float colliderRadius;
     [SerializeField] float distanceBetweenBodyParts = 0.2f;
     [SerializeField] float speed = 10f;
     [SerializeField] float warningTime = 0.5f;
@@ -124,11 +125,13 @@ public class SandwormManager : MonoBehaviour
             if (!temp.GetComponent<MarkerManager>())
                 temp.AddComponent<MarkerManager>();
             if (!temp.GetComponent<Rigidbody2D>())
-            {
                 temp.AddComponent<Rigidbody2D>();
-                temp.GetComponent<Rigidbody2D>().gravityScale = 0;
-            }
-            temp.transform.localScale = new Vector3(scale, scale, scale);
+            if (!temp.GetComponent<CircleCollider2D>())
+                temp.AddComponent<CircleCollider2D>();
+            temp.GetComponent<Rigidbody2D>().gravityScale = 0;
+            temp.GetComponent<CircleCollider2D>().isTrigger = true;
+            temp.GetComponent<CircleCollider2D>().radius = colliderRadius;
+            temp.transform.localScale = new Vector3(spriteScale, spriteScale, spriteScale);
             sandwormBody.Add(temp);
             bodyParts.RemoveAt(0);
             temp.GetComponent<MarkerManager>().ClearMarkerList();

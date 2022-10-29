@@ -76,7 +76,8 @@ MonoBehaviour:
   - {fileID: 1473831364864808989, guid: ba57cfbfebbb43245837af6be47b4b4a, type: 3}
   - {fileID: 5801333001738738203, guid: a0a52937c2972f24f82c60dc6bcc7df8, type: 3}
   territory: {x: 60, y: 50}
-  scale: 8
+  spriteScale: 8
+  colliderRadius: 0.2
   distanceBetweenBodyParts: 0.11
   speed: 0.8
   warningTime: 2
@@ -85,5 +86,4 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  player: {fileID: 0}
   coolDown: 3
