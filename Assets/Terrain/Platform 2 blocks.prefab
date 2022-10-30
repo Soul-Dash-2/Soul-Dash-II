@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4027298204955520049}
   - component: {fileID: 4027298204955520014}
   - component: {fileID: 4027298204955520015}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 'grass ground '
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 2231581524541465590}
   - component: {fileID: 8781483342176897278}
   - component: {fileID: 1481067150168198669}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: grass ground  (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4323541990577017505}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform 2 blocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
