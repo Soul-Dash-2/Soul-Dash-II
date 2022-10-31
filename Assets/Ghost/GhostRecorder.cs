@@ -18,7 +18,7 @@ public class GhostRecorder : MonoBehaviour
     [SerializeField] GameObject recordedObject;
 
     private AnimationClip clip;
-    private bool canRecord = true;
+    private bool canRecord = false;
 
     private void CreateNewClip()
     {

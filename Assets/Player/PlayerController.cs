@@ -4,14 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //move the player to respawn point
-    private void Awake()
-    {
 
-        GameObject LC = GameObject.Find("LevelController");
-        if(LC.GetComponent<LevelController>().repawnPoint!=new Vector3())
-       gameObject.transform.position= LC.GetComponent<LevelController>().repawnPoint;
-    }
     public enum DashType
     {
         BASIC, SLIME, GOBLIN, SANDWORM, EYEBALL, DEMON
@@ -77,6 +70,14 @@ public class PlayerController : MonoBehaviour
                                                         altogether.*/
     public Vector2 slimeDashDirection;
 
+    //move the player to respawn point
+    private void Awake()
+    {
+        GameObject LC = GameObject.Find("LevelController");
+        if (LC.GetComponent<LevelController>().repawnPoint != new Vector3())
+            gameObject.transform.position = LC.GetComponent<LevelController>().repawnPoint;
+    }
+
     // Setup Code
     void Start()
     {
@@ -105,6 +106,7 @@ public class PlayerController : MonoBehaviour
         controls.Player.Glide.canceled += _ => EndGlide();
 
     }
+
 
     Sword CreateSword()
     {

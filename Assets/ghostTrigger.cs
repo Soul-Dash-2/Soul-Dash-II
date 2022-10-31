@@ -7,6 +7,7 @@ public class ghostTrigger : MonoBehaviour
 {
     [SerializeField] GameObject ghostPrefab;
     [SerializeField] AnimationClip anim;
+    [SerializeField] AnimatorOverrideController aoc;
     [SerializeField] float demoTimeInSec = 5;
     [SerializeField] float cooldownBeforeRegen = 2;
     private bool ghostAlive = false;
@@ -29,11 +30,11 @@ public class ghostTrigger : MonoBehaviour
         if (col.gameObject.tag == "Player" && !ghostAlive)
         {
             ghostAlive = true;
-            currGhost = Instantiate(ghostPrefab, gameObject.transform, false);
+            currGhost = Instantiate(ghostPrefab, transform.position,Quaternion.identity);
             Animator animator = currGhost.GetComponent<Animator>();
-            AnimatorOverrideController aoc = new AnimatorOverrideController(animator.runtimeAnimatorController);
             animator.runtimeAnimatorController = aoc;
             aoc["defaultAnim"] = anim;
+            Debug.LogWarning(aoc["defaultAnim"]);
             StartCoroutine(endDemo());
 
 
