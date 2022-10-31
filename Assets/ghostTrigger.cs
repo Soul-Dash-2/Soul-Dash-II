@@ -7,8 +7,8 @@ public class ghostTrigger : MonoBehaviour
 {
     [SerializeField] GameObject ghostPrefab;
     [SerializeField] AnimationClip anim;
-    [SerializeField] int demoTimeInSec = 5;
-    [SerializeField] int cooldownBeforeRegen = 2;
+    [SerializeField] float demoTimeInSec = 5;
+    [SerializeField] float cooldownBeforeRegen = 2;
     private bool ghostAlive = false;
     private GameObject currGhost;
 
