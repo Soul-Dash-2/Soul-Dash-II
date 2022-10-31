@@ -74,7 +74,7 @@ public class GhostRecorder : MonoBehaviour
         Debug.Log("Animation Recording for " + gameObject + " has STOPPED");
         //stop recording
         canRecord = false;
-        recorder.SaveToClip(clip); 
+        recorder.SaveToClip(clip);
         AssetDatabase.CreateAsset(clip, saveLocation + clipName + ".anim");
         Debug.Log(saveLocation + clipName + ".anim");
         AssetDatabase.SaveAssets();
