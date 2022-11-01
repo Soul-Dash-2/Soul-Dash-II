@@ -17,6 +17,7 @@ public class Demon : MonoBehaviour
     [SerializeField] float cd;
     private bool attackStarted;
     private BoxCollider2D boxcollider;
+    private Animator animator;
 
 
     // Start is called before the first frame update
@@ -25,6 +26,7 @@ public class Demon : MonoBehaviour
         player = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         boxcollider = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -40,9 +42,11 @@ public class Demon : MonoBehaviour
 
     IEnumerator Attack()
     {
-        yield return new WaitForSeconds(1);
+        FlipTowardsPlayer();
+        animator.SetTrigger("teleport");
+        yield return new WaitForSeconds(1.2f);
         Teleport();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.4f);
         Vector2 original_size = boxcollider.size;
         Vector2 original_offset = boxcollider.offset;
         boxcollider.offset = new Vector2((boxcollider.offset.x + attackRange / 2.0f), boxcollider.offset.y);
@@ -56,7 +60,6 @@ public class Demon : MonoBehaviour
 
     private void Teleport()
     {
-        FlipTowardsPlayer();
         float Xdistance = player.position.x - transform.position.x;
         float newX;
         if (Xdistance < 0)
