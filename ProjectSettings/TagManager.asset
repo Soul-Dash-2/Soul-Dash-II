@@ -9,6 +9,7 @@ TagManager:
   - Pike
   - dashIcon
   - Projectile
+  - LevelController
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Ground
   - Player
   - Enemy
-  - 
+  - Ghost
   - 
   - 
   - 
