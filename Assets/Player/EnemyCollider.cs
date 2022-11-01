@@ -122,4 +122,9 @@ public class EnemyCollider : MonoBehaviour
         //reset the scene
     }
 
+    public float GetPlayerHP()
+    {
+        return playerHP;
+    }
+
 }
