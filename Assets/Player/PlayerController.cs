@@ -15,10 +15,12 @@ public class PlayerController : MonoBehaviour
     private PlayerControls controls;    // the input system
     private SpriteRenderer render;      // the sprite renderer
     private Camera playerCamera;        // The camera following the player
+    private Animator _animator;
 
     // Prefabs
     public GameObject slash;            //The slash prefab
     public GameObject swordPrefab;            // The Sword prefab
+    public GameObject sandwormExplosionn; //explosion prefab
 
     // Combat
     public float attackRange;
@@ -93,6 +95,8 @@ public class PlayerController : MonoBehaviour
         controls = new PlayerControls();
         controls.Enable();
 
+        _animator = GetComponent<Animator>();
+
         // See the PlayerControls object in the assets folder to view which keybinds activate the different movement events
         controls.Player.Movement.performed += ctx => movementFactor = ctx.ReadValue<float>(); // sets movement to the float value of the performed action
         controls.Player.Movement.canceled += _ => movementFactor = 0; // sets movement to the float value of the performed action
@@ -127,6 +131,9 @@ public class PlayerController : MonoBehaviour
 
         HandleShortHop(yVel);
         DoFlipIfNeeded(xVel);
+        CheckDashingAnimation();
+        CheckWalkingAnimation();
+        CheckFallingAnimation();
     }
 
     // Enable and Disable events
@@ -159,6 +166,7 @@ public class PlayerController : MonoBehaviour
             fallSpeed = maxFallSpeed;
             isCrouching = false;
             isTouching = true;
+            _animator.SetBool("isFalling", false);
         }
 
         if (collision.gameObject.CompareTag("Ground"))
@@ -249,6 +257,7 @@ public class PlayerController : MonoBehaviour
     {
         float yVel = rb.velocity.y * GetFrictionFactorY();
         if (yVel < fallSpeed && !isDashing) {
+            _animator.SetBool("isFalling", true);
             return fallSpeed;
         }
         return yVel;
@@ -479,6 +488,7 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         canDash = false;
         rb.gravityScale = 0;
+        CheckDashingAnimation();
 
         // wait to complete dash
         float dashTime = 0;
@@ -490,6 +500,7 @@ public class PlayerController : MonoBehaviour
         // finish dash
         rb.gravityScale = gravityScale;
         isDashing = false;
+        CheckDashingAnimation();
     }
 
     //Slime dash methods
@@ -505,7 +516,7 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         canDash = false;
         rb.gravityScale = 0;
-
+        CheckDashingAnimation();
         // wait to complete dash
         float dashTime = 0;
         while (dashTime < basicDashTime)
@@ -527,6 +538,7 @@ public class PlayerController : MonoBehaviour
         rb.gravityScale = gravityScale;
         isDashing = false;
         dashType = DashType.BASIC;
+        CheckDashingAnimation();
     }
 
     //Helper method to set the slime dash direction
@@ -576,7 +588,7 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         canDash = false;
         rb.gravityScale = 0;
-
+        CheckDashingAnimation();
         // wait to complete dash
         float dashTime = 0;
         while (dashTime < basicDashTime)
@@ -592,6 +604,7 @@ public class PlayerController : MonoBehaviour
         canDash = true;
         dashType = DashType.BASIC;
         canGlide = true;
+        CheckDashingAnimation();
     }
 
     void DemonDash()
@@ -620,7 +633,7 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         canDash = false;
         rb.gravityScale = 0;
-
+        CheckDashingAnimation();
         // wait to complete dash
         float dashTime = 0;
         while (dashTime < basicDashTime)
@@ -631,7 +644,7 @@ public class PlayerController : MonoBehaviour
         // finish dash
         rb.gravityScale = gravityScale;
         isDashing = false;
-       
+        CheckDashingAnimation();
         //invisiblity part
         float invisbleTime = 0;
         isInvisible = true;
@@ -656,7 +669,7 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         canDash = false;
         rb.gravityScale = 0;
-
+        CheckDashingAnimation();
         // wait to complete dash
         float dashTime = 0;
         while (dashTime < basicDashTime)
@@ -668,10 +681,50 @@ public class PlayerController : MonoBehaviour
         rb.gravityScale = gravityScale;
         isDashing = false;
         dashType = DashType.BASIC;
+        CheckDashingAnimation();
     }
 
     public void sandwormExplosion()
     {
+        Vector2 pos = rb.position;
+        Instantiate(sandwormExplosionn, pos, Quaternion.Euler(0, 0, 0));
+    }
 
+    public void CheckDashingAnimation()
+    {
+        if (isDashing)
+        {
+            _animator.SetBool("isDashingSide", true);
+        }else if (!isDashing)
+        {
+            _animator.SetBool("isDashingSide", false);
+        }
+    }
+
+    public void CheckWalkingAnimation()
+    {
+        float xVel = CalculateXVelocity();
+        float yVel = CalculateYVelocity();
+        if ((xVel != 0) && (yVel == 0))
+        {
+            _animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            _animator.SetBool("isWalking", false);
+        }
+    }
+
+    public void CheckFallingAnimation()
+    {
+        float yVel = CalculateYVelocity();
+        if (rb.gravityScale != 0 && yVel <0)
+        {
+            _animator.SetBool("isFalling", true);
+        }
+        else
+        {
+            _animator.SetBool("isFalling", false);
+        }
     }
 }

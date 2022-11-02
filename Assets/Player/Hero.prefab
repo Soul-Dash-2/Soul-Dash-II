@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5855859585168730568}
   - component: {fileID: 5855859585168730575}
   - component: {fileID: 5855859585168730573}
+  - component: {fileID: 6606349420535267161}
   m_Layer: 7
   m_Name: Hero
   m_TagString: Player
@@ -140,6 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slash: {fileID: 4524076707055429942, guid: 51b55711efbbc6a438c246edbddce37b, type: 3}
   swordPrefab: {fileID: 8304604397180328726, guid: 804576babaaa8484792cfa1d7d31ceef, type: 3}
+  sandwormExplosionn: {fileID: 4474066842950701708, guid: 6bddb3a482bfc2040aa0e18d6cd0f4f0, type: 3}
   attackRange: 6.5
   dashDamage: 0
   dashType: 0
@@ -162,6 +164,26 @@ MonoBehaviour:
   glideFactor: 0.1
   dashTrajectoryModificationFactor: 0
   slimeDashDirection: {x: 0, y: 0}
+--- !u!95 &6606349420535267161
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3182788137802679766}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 91bff58f9ed5e964dab8ca2f1e36521d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7346286689074621467
 GameObject:
   m_ObjectHideFlags: 0
