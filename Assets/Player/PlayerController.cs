@@ -266,6 +266,9 @@ public class PlayerController : MonoBehaviour
     // Jump event
     void Jump()
     {
+        if (rb == null) {
+            return;
+        }
         // Can only jump if on the ground
         if (onGround())// && !isDashing)
         {
@@ -277,6 +280,9 @@ public class PlayerController : MonoBehaviour
     // Endjump --> allows for short hops
     void EndJump()
     {
+        if (rb == null) {
+            return;
+        }
         // if the shortHopEndvelocity has already been met, then no short hop will occur
         if (rb.velocity.y < shortHopEndVel || canGlide)
         {
@@ -288,6 +294,9 @@ public class PlayerController : MonoBehaviour
     //Crouch (or fastfall)
     void Crouch()
     {
+        if (rb == null) {
+            return;
+        }
         if (onGround())
         {
             //Add in crouch hitbox
@@ -305,6 +314,9 @@ public class PlayerController : MonoBehaviour
     //EndCrouch (or endfastfall)
     void EndCrouch()
     {
+        if (rb == null) {
+            return;
+        }
         if (isCrouching)
         {
             //Add in crouch hitbox
@@ -332,6 +344,10 @@ public class PlayerController : MonoBehaviour
     // Dash event --> executes the various dash type coroutines
     void Dash()
     {
+        if (rb == null) {
+            return;
+        }
+
         // check if dashing is possible
         if (!CanDash())
         {
@@ -367,6 +383,9 @@ public class PlayerController : MonoBehaviour
     //Slashing
     void Slash()
     {
+        if (rb == null) {
+            return;
+        }
         if (!isDashing) //so player cannot slash while dashing
         {
             Vector2 relativeDirection = GetDirection();
@@ -380,8 +399,6 @@ public class PlayerController : MonoBehaviour
 
             Instantiate(slash, slashLocation, Quaternion.Euler(0, 0, angle)); //TODO: Make the slash change rotation based on mouse
             sword.Attack(slashLocation);
-            // Debug.Log(Vector3.Angle(rb.position, new Vector3(slashLocation.x, slashLocation.y, 0)));
-            Debug.Log(relativeDirection);
             Vector3.Angle(relativeDirection, Vector3.right);
         }
     }
@@ -389,6 +406,9 @@ public class PlayerController : MonoBehaviour
     // Reduces the strength of gravity on the player --> if we wanted to get fancy we could also lock the movement factor to something?
     void Glide()
     {
+        if (rb == null) {
+            return;
+        }
         if (!canGlide)
         {
             return;
@@ -400,6 +420,9 @@ public class PlayerController : MonoBehaviour
     // Simply restores the gravity scale
     void EndGlide()
     {
+        if (rb == null) {
+            return;
+        }
         if (!canGlide)
         {
             return;
