@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
-using UnityEditor.Animations;
 public class ghostTrigger : MonoBehaviour
 {
     [SerializeField] GameObject ghostPrefab;
