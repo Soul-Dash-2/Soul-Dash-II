@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3732187403194217560}
   - component: {fileID: 3015608902265739693}
   m_Layer: 0
-  m_Name: Static Sprite
+  m_Name: SandwormBoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

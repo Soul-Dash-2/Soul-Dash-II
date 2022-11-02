@@ -133,6 +133,7 @@ public class PlayerController : MonoBehaviour
         DoFlipIfNeeded(xVel);
         CheckDashingAnimation();
         CheckWalkingAnimation();
+        CheckFallingAnimation();
     }
 
     // Enable and Disable events
@@ -487,6 +488,7 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         canDash = false;
         rb.gravityScale = 0;
+        CheckDashingAnimation();
 
         // wait to complete dash
         float dashTime = 0;
@@ -498,6 +500,7 @@ public class PlayerController : MonoBehaviour
         // finish dash
         rb.gravityScale = gravityScale;
         isDashing = false;
+        CheckDashingAnimation();
     }
 
     //Slime dash methods
@@ -513,7 +516,7 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         canDash = false;
         rb.gravityScale = 0;
-
+        CheckDashingAnimation();
         // wait to complete dash
         float dashTime = 0;
         while (dashTime < basicDashTime)
@@ -535,6 +538,7 @@ public class PlayerController : MonoBehaviour
         rb.gravityScale = gravityScale;
         isDashing = false;
         dashType = DashType.BASIC;
+        CheckDashingAnimation();
     }
 
     //Helper method to set the slime dash direction
@@ -584,7 +588,7 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         canDash = false;
         rb.gravityScale = 0;
-
+        CheckDashingAnimation();
         // wait to complete dash
         float dashTime = 0;
         while (dashTime < basicDashTime)
@@ -600,6 +604,7 @@ public class PlayerController : MonoBehaviour
         canDash = true;
         dashType = DashType.BASIC;
         canGlide = true;
+        CheckDashingAnimation();
     }
 
     void DemonDash()
@@ -628,7 +633,7 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         canDash = false;
         rb.gravityScale = 0;
-
+        CheckDashingAnimation();
         // wait to complete dash
         float dashTime = 0;
         while (dashTime < basicDashTime)
@@ -639,7 +644,7 @@ public class PlayerController : MonoBehaviour
         // finish dash
         rb.gravityScale = gravityScale;
         isDashing = false;
-       
+        CheckDashingAnimation();
         //invisiblity part
         float invisbleTime = 0;
         isInvisible = true;
@@ -664,7 +669,7 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         canDash = false;
         rb.gravityScale = 0;
-
+        CheckDashingAnimation();
         // wait to complete dash
         float dashTime = 0;
         while (dashTime < basicDashTime)
@@ -676,6 +681,7 @@ public class PlayerController : MonoBehaviour
         rb.gravityScale = gravityScale;
         isDashing = false;
         dashType = DashType.BASIC;
+        CheckDashingAnimation();
     }
 
     public void sandwormExplosion()
@@ -706,6 +712,19 @@ public class PlayerController : MonoBehaviour
         else
         {
             _animator.SetBool("isWalking", false);
+        }
+    }
+
+    public void CheckFallingAnimation()
+    {
+        float yVel = CalculateYVelocity();
+        if (rb.gravityScale != 0 && yVel <0)
+        {
+            _animator.SetBool("isFalling", true);
+        }
+        else
+        {
+            _animator.SetBool("isFalling", false);
         }
     }
 }
