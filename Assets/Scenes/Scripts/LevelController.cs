@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class LevelController : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] GameObject playerPrefab;
     [SerializeField] string[] levelNameList;
     [SerializeField] private int waitTime =2;
     [SerializeField] Vector3 defaultPos;
@@ -46,7 +45,6 @@ public class LevelController : MonoBehaviour
     //the player will revive in the nearest repwawn point 
     public void onDeathControl() {
         deathPos = GameObject.FindGameObjectsWithTag("Player")[0].transform.position;
-        
         reloadAllScenes();
         revive();
     }
@@ -60,8 +58,6 @@ public class LevelController : MonoBehaviour
         float lowestVal = Int32.MaxValue;
         foreach(GameObject e in respawnPoints)
         {
-
-            Debug.LogWarning(deathPos.x+" : "+e.transform.position.x);
             if(lowestVal> Mathf.Abs(Vector3.Distance(e.transform.position, deathPos))&&deathPos.x>=e.transform.position.x)
             {
                 lowestVal = Mathf.Abs(Vector3.Distance(e.transform.position, deathPos));
@@ -71,8 +67,7 @@ public class LevelController : MonoBehaviour
             index++;          
         }
   
-        repawnPoint = respawnPoints[res].transform.position;
-        Debug.LogWarning("respawn in " + respawnPoints[res].transform.position);
+        repawnPoint =new Vector3( respawnPoints[res].transform.position.x, respawnPoints[res].transform.position.y,0);
     }
 
 
