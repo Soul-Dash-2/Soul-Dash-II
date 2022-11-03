@@ -717,10 +717,18 @@ public class PlayerController : MonoBehaviour
     {
         if (isDashing)
         {
-            _animator.SetBool("isDashingSide", true);
+            if(rb.velocity.y< 0 && !isGrounded)
+            {
+               _animator.SetBool("isDashingDown", true);
+            }
+            else
+            {
+               _animator.SetBool("isDashingSide", true);
+            }
         }else if (!isDashing)
         {
             _animator.SetBool("isDashingSide", false);
+            _animator.SetBool("isDashingDown", false);
         }
     }
 
