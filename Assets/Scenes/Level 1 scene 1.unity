@@ -2534,6 +2534,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tutorial_ghostGenerator (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1365433831592625176, guid: 524ad288f29c941989be953bf48069d0, type: 3}
+      propertyPath: id
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 524ad288f29c941989be953bf48069d0, type: 3}
 --- !u!1001 &1021332534
