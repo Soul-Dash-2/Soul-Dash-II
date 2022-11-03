@@ -5,7 +5,8 @@ using UnityEngine;
 public class EnemyCollider : MonoBehaviour
 {
     private GameObject player;  //player object
-    public float playerHP;     //player's health
+    public float maxHealth;     // player max health
+    private float playerHP;     //player's health
     private float MaxIFrames = 0.4f;   //Amount of time until the player can take damage again
     private float currentIFrames;
     private bool takingDamage;
@@ -14,6 +15,7 @@ public class EnemyCollider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerHP = maxHealth;
         player = GameObject.Find("Hero");
         currentIFrames = 0f;
     }
@@ -119,12 +121,17 @@ public class EnemyCollider : MonoBehaviour
 
     void KillPlayer()
     {
-        //reset the scene
+        // reset the scene
+        GameObject.Find("LevelController").SendMessage("onDeathControl", true);
     }
 
     public float GetPlayerHP()
     {
         return playerHP;
+    }
+
+    public float GetMaxHP() {
+        return maxHealth;
     }
 
 }
