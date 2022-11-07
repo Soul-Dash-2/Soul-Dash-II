@@ -11718,6 +11718,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pike
       objectReference: {fileID: 0}
+    - target: {fileID: 1181441191998128658, guid: 2291215f310fd084d95f2e117bfd67f4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d8af7fa2f30e145898fcd82884237687, type: 3}
     - target: {fileID: 1181441191998128659, guid: 2291215f310fd084d95f2e117bfd67f4, type: 3}
       propertyPath: m_RootOrder
       value: 22
@@ -11761,6 +11765,14 @@ PrefabInstance:
     - target: {fileID: 1181441191998128659, guid: 2291215f310fd084d95f2e117bfd67f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181441191998128669, guid: 2291215f310fd084d95f2e117bfd67f4, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181441191998128669, guid: 2291215f310fd084d95f2e117bfd67f4, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 7.11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2291215f310fd084d95f2e117bfd67f4, type: 3}
