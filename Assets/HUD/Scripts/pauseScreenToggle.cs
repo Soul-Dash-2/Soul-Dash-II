@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class pauseScreenToggle : MonoBehaviour
 {
     [SerializeField] private GameObject pauseScreen;
+    [SerializeField] private GameObject settingsScreen;
     private HUDControls controls;
 
     private bool paused;
@@ -45,7 +46,37 @@ public class pauseScreenToggle : MonoBehaviour
     public void Deactivate()
     {
         pauseScreen.SetActive(false);
+        settingsScreen.SetActive(false);
         paused = false;
         Time.timeScale = 1;
+    }
+
+    // Functions for each individual button in pause screen
+    public void Button_Resume()
+    {
+        Deactivate();
+    }
+
+    public void Button_Restart()
+    {
+        ;
+    }
+
+    public void Button_Settings()
+    {
+        settingsScreen.SetActive(true);
+        pauseScreen.SetActive(false);
+    }
+
+    public void Button_Quit()
+    {
+        ;
+    }
+
+    // Functions for each individual button in the settings screen
+    public void Button_Back()
+    {
+        settingsScreen.SetActive(false);
+        pauseScreen.SetActive(true);
     }
 }
