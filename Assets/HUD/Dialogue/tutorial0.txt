@@ -1,1 +1,1 @@
-Move with W,A,S,D, and jump with SPACE!
+Move left and right with A and D, and jump with SPACE or W!
