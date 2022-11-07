@@ -6,12 +6,13 @@ using UnityEngine.SceneManagement;
 public class LevelController : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] string[] levelNameList;
-    [SerializeField] private int waitTime =2;
+    [SerializeField] string[] levelList;
+    [SerializeField] private int waitTime = 2;
     [SerializeField] Vector3 defaultPos;
+    private int currLevel = 0;
     private Vector3 deathPos;
     public Vector3 repawnPoint;
-
+    private Vector3 currPos;
 
 
     private void Awake()
@@ -22,14 +23,7 @@ public class LevelController : MonoBehaviour
 
     }
     void Start()
-    {
-
-
-        
-        foreach (string levelName in levelNameList)
-        {
-            SceneManager.LoadScene(levelName, LoadSceneMode.Additive);
-        }
+    {  
     }
 
     
@@ -37,10 +31,6 @@ public class LevelController : MonoBehaviour
     {
         
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        foreach (string levelName in levelNameList)
-        {
-            SceneManager.LoadScene(levelName, LoadSceneMode.Additive);
-        }
     }
     //the player will revive in the nearest repwawn point 
     public void onDeathControl() {
@@ -67,7 +57,18 @@ public class LevelController : MonoBehaviour
             index++;          
         }
   
-        repawnPoint =new Vector3( respawnPoints[res].transform.position.x, respawnPoints[res].transform.position.y,0);
+        repawnPoint =new Vector3(respawnPoints[res].transform.position.x, respawnPoints[res].transform.position.y,0);
+    }
+
+    public void LoadNextScene()
+    {
+
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(levelList[++currLevel]);
+        repawnPoint = GameObject.Find("InitialRespawnPoint").transform.position;
+
+
+
     }
 
 
