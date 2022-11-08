@@ -67,8 +67,6 @@ public class LevelController : MonoBehaviour
         SceneManager.LoadScene(levelList[currLevel++]);
         repawnPoint = GameObject.Find("InitialRespawnPoint").transform.position;
 
-
-
     }
 
 

@@ -8,9 +8,10 @@ public class NextLevelTrigger : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-
-        if (col.tag == "Player")
+        Debug.Log(col.tag);
+        if (col.CompareTag("Player"))
         {
+            
             GameObject.Find("LevelController").SendMessage("LoadNextScene", true);
         }
     }
