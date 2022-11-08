@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     // Prefabs
     public GameObject slash;            //The slash prefab
     public GameObject swordPrefab;            // The Sword prefab
-    public GameObject sandwormExplosionn; //explosion prefab
+    //public GameObject sandwormExplosionn; //explosion prefab
 
     // Combat
     public float attackRange;
@@ -394,6 +394,10 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(GoblinDash());
         }
+        else if (dashType == DashType.SANDWORM)
+        {
+            StartCoroutine(SandwormDash());
+        }
     }
 
     //Slashing
@@ -709,6 +713,7 @@ public class PlayerController : MonoBehaviour
         canDash = false;
         rb.gravityScale = 0;
         CheckDashingAnimation();
+
         // wait to complete dash
         float dashTime = 0;
         while (dashTime < basicDashTime)
@@ -717,17 +722,17 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         // finish dash
+        dashType = DashType.BASIC;
         rb.gravityScale = gravityScale;
         isDashing = false;
-        dashType = DashType.BASIC;
         CheckDashingAnimation();
     }
 
-    public void sandwormExplosion()
+    /*public void sandwormExplosion()
     {
         Vector2 pos = rb.position;
         Instantiate(sandwormExplosionn, pos, Quaternion.Euler(0, 0, 0));
-    }
+    }*/
 
     public void CheckDashingAnimation()
     {
@@ -770,6 +775,11 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("isFalling", true);
         }
         else
+        {
+            _animator.SetBool("isFalling", false);
+        }
+
+        if (isGrounded)
         {
             _animator.SetBool("isFalling", false);
         }

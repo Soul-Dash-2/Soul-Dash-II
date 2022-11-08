@@ -5,7 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float health;        
+    public float health;
+    public float shields;
     public float damage;
     public string dashType; //if the enemy gives a specific dash type this is the alue for it
     void Start()
@@ -22,7 +23,16 @@ public class Enemy : MonoBehaviour
     //Method that tracks the player's damage to the enemy
     public void playerDamage(float dmg)
     {
-        health = health - dmg;
+        if(shields > 0)
+        {
+            float excess = shields - dmg;
+            shields = shields - dmg;
+            health = health - excess;
+        }
+        else
+        {
+            health = health - dmg;
+        }
     }
 
     //Damage and Health Methods
@@ -47,6 +57,11 @@ public class Enemy : MonoBehaviour
     public string getDashType()
     {
         return dashType;
+    }
+
+    public void breakShields()
+    {
+        shields = 0;
     }
 
 }

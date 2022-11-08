@@ -46,7 +46,8 @@ public class EnemyCollider : MonoBehaviour
             }
             if(player.GetComponent<PlayerController>().getDashType() == PlayerController.DashType.SANDWORM)
             {
-                player.GetComponent<PlayerController>().sandwormExplosion();
+                //player.GetComponent<PlayerController>().sandwormExplosion();
+                enemy.GetComponent<Enemy>().breakShields(); //breaks enemies shields (if there are any)
                 enemy.GetComponent<Enemy>().playerDamage(3);
                 return;
             }
