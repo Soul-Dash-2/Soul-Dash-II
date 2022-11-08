@@ -738,7 +738,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isDashing)
         {
-            if(rb.velocity.y< 0 && !isGrounded)
+            if(rb.velocity.y< 0 && !onGround())
             {
                _animator.SetBool("isDashingDown", true);
             }
@@ -775,7 +775,7 @@ public class PlayerController : MonoBehaviour
         float yVel = CalculateYVelocity();
         if (rb.gravityScale != 0 && yVel <0)
         {
-            if (!isGrounded && !isDashing) //so player isn't falling in place or while dashing
+            if (!onGround() && !isDashing) //so player isn't falling in place or while dashing
             {
                 _animator.SetBool("isFalling", true);
             }
@@ -785,7 +785,7 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("isFalling", false);
         }
 
-        if (isGrounded) //hard check on ground
+        if (onGround()) //hard check on ground
         {
             _animator.SetBool("isFalling", false);
         }
