@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     private bool isTouchingWallGround;   // true while player is touching the wall or the ground
     private float prevYVel;             // the value representing the players velocity on the last fixed update
     private bool isInvisible;           // true while player is invisible (after goblin dash)
+    private float coyoteCounter;        //Timer for coyote time
+
 
     //Damage things
     public float dashDamage;
@@ -71,6 +73,7 @@ public class PlayerController : MonoBehaviour
                                                         dash will actually move the player up as well. This can be set to 0 to disable this mechanic
                                                         altogether.*/
     public Vector2 slimeDashDirection;
+    public float coyoteTime;  //How long can the player be off of a platform and still be able to jump
 
     //move the player to respawn point
     private void Awake()
@@ -118,6 +121,18 @@ public class PlayerController : MonoBehaviour
         Sword sword = swordInstance.GetComponent<Sword>();
         sword.Setup(this.gameObject);
         return sword;
+    }
+
+    //Update method to take advantage of deltaTime, used for coyote time mechanic
+    private void Update()
+    {
+        if (onGround())
+        {
+            coyoteCounter = coyoteTime;
+        }
+        else {
+            coyoteCounter -= Time.deltaTime;
+        }
     }
 
     // Fixed Update occurs whenever unity updates Physics objects, and does not necessarily occur at the same time as the frame update.
@@ -270,7 +285,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
         // Can only jump if on the ground
-        if (onGround())// && !isDashing)
+        if (coyoteCounter > 0f)// && !isDashing)
         {
             isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
@@ -280,6 +295,7 @@ public class PlayerController : MonoBehaviour
     // Endjump --> allows for short hops
     void EndJump()
     {
+        coyoteCounter = 0f;
         if (rb == null) {
             return;
         }
