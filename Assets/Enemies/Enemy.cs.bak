@@ -53,11 +53,6 @@ public class Enemy : MonoBehaviour
     {
         return health;
     }
-	
-	public float getShields()
-    {
-        return shields;
-    }
 
     public string getDashType()
     {

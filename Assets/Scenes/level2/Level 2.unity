@@ -1086,6 +1086,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: eye fire blue (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3472953791901181383, guid: c7bd45209b23047d486a2723c2e14168, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8289133969703530197, guid: c7bd45209b23047d486a2723c2e14168, type: 3}
       propertyPath: m_Positions.Array.data[1].x
       value: 0
