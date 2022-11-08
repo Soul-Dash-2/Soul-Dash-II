@@ -285,7 +285,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
         // Can only jump if on the ground
-        if (coyoteCounter > 0f)// && !isDashing)
+        if (onGround() | coyoteCounter > 0f)// && !isDashing)
         {
             isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
