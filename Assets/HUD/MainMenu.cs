@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayButton()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 
     public void QuitButton() {
@@ -28,6 +28,6 @@ public class MainMenu : MonoBehaviour
 
     public void CreditsButton()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(2);
     }
 }
