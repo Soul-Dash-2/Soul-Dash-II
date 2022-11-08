@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
 
         HandleShortHop(yVel);
         DoFlipIfNeeded(xVel);
-        CheckDashingAnimation();
+        //CheckDashingAnimation();
         CheckWalkingAnimation();
         CheckFallingAnimation();
     }
@@ -748,8 +748,7 @@ public class PlayerController : MonoBehaviour
             }
         }else if (!isDashing)
         {
-            _animator.SetBool("isDashingSide", false);
-            _animator.SetBool("isDashingDown", false);
+            StartCoroutine(dashAnimationCancelTimer());
         }
     }
 
@@ -757,14 +756,18 @@ public class PlayerController : MonoBehaviour
     {
         float xVel = CalculateXVelocity();
         float yVel = CalculateYVelocity();
-        if ((xVel != 0) && (yVel == 0))
+        if (!isDashing) //checks if player is dashing first
         {
-            _animator.SetBool("isWalking", true);
+            if ((xVel != 0) && (yVel == 0))
+            {
+                _animator.SetBool("isWalking", true);
+            }
+            else
+            {
+                _animator.SetBool("isWalking", false);
+            }
         }
-        else
-        {
-            _animator.SetBool("isWalking", false);
-        }
+        
     }
 
     public void CheckFallingAnimation()
@@ -772,16 +775,31 @@ public class PlayerController : MonoBehaviour
         float yVel = CalculateYVelocity();
         if (rb.gravityScale != 0 && yVel <0)
         {
-            _animator.SetBool("isFalling", true);
+            if (!isGrounded && !isDashing) //so player isn't falling in place or while dashing
+            {
+                _animator.SetBool("isFalling", true);
+            }
         }
         else
         {
             _animator.SetBool("isFalling", false);
         }
 
-        if (isGrounded)
+        if (isGrounded) //hard check on ground
         {
             _animator.SetBool("isFalling", false);
         }
+    }
+
+    IEnumerator dashAnimationCancelTimer()
+    {
+        float dashTime = 0;
+        while (dashTime < 0.2)
+        {
+            dashTime += Time.deltaTime;
+            yield return null;
+        }
+        _animator.SetBool("isDashingSide", false);
+        _animator.SetBool("isDashingDown", false);
     }
 }
