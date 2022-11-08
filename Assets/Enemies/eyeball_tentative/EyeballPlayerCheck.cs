@@ -24,7 +24,7 @@ public class EyeballPlayerCheck : MonoBehaviour
         if(collision)
             {
             GameObject triggeringObject = collision.gameObject;
-            Debug.Log(triggeringObject.tag);
+            // Debug.Log(triggeringObject.tag);
             if (triggeringObject.CompareTag("Player") && !ifTriggered)
             {
                
