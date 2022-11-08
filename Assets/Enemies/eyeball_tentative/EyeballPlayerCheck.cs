@@ -24,8 +24,10 @@ public class EyeballPlayerCheck : MonoBehaviour
         if(collision)
             {
             GameObject triggeringObject = collision.gameObject;
+            Debug.Log(triggeringObject.tag);
             if (triggeringObject.CompareTag("Player") && !ifTriggered)
             {
+               
                 gameObject.transform.parent.gameObject.GetComponent<EyeballController>().AttackMode = true;
 
                     ifTriggered = false;
