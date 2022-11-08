@@ -6553,11 +6553,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6959477622332771136, guid: 7da4f52277bac4fdd88bbb61a5b9f7b3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -25.4
+      value: 893
       objectReference: {fileID: 0}
     - target: {fileID: 6959477622332771136, guid: 7da4f52277bac4fdd88bbb61a5b9f7b3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.6
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6959477622332771136, guid: 7da4f52277bac4fdd88bbb61a5b9f7b3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8967,6 +8967,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1338179229680469929, guid: 04c35f3371f0f054d8c7b17a04ba3baf, type: 3}
+      propertyPath: m_RendererIndex
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4536896928675333122, guid: 04c35f3371f0f054d8c7b17a04ba3baf, type: 3}
       propertyPath: m_RootOrder
       value: 67
@@ -11670,7 +11674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d70fa00a3dcf0419c92e0758acdd0e31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelNameList: []
+  levelList: []
   waitTime: 2
   defaultPos: {x: 0, y: 0, z: 0}
   repawnPoint: {x: 0, y: 0, z: 0}

@@ -27,7 +27,7 @@ public class dialogueID : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            col.transform.GetChild(2).GetComponent<textImporter>().setIndex(id);
+           GameObject.Find("Empty_dialogueBox").GetComponent<textImporter>().setIndex(id);
         }
     }
 
@@ -36,7 +36,7 @@ public class dialogueID : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             Debug.Log("ehrauo");
-            col.transform.GetChild(2).GetComponent<textImporter>().deactivate();
+            GameObject.Find("Empty_dialogueBox").GetComponent<textImporter>().deactivate();
         }
     }
 }

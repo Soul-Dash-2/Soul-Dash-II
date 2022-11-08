@@ -26,7 +26,7 @@ public class SFX_manager : MonoBehaviour
         switch (clip)
         {
             case "dashSound":
-                audio.PlayOneShot (Dash);
+                //audio.PlayOneShot(Dash);
                 break;
         }
     }
