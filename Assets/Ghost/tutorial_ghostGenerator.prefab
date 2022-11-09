@@ -75,7 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ghostPrefab: {fileID: 6550571634078545580, guid: 72fafd8038e824a5292d2f59ec9ee5a6, type: 3}
   anim: {fileID: 7400000, guid: 13250e82268494d1fb136b5b613f39f9, type: 2}
-  aoc: {fileID: 22100000, guid: bbde8886270e4411e829ce333798fe65, type: 2}
+  aoc: {fileID: 22100000, guid: c6f595b71785f493e845ff74c09ad311, type: 2}
   demoTimeInSec: 2.5
   cooldownBeforeRegen: 0
 --- !u!114 &1365433831592625176

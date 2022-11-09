@@ -3716,12 +3716,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2021955352, guid: 524ad288f29c941989be953bf48069d0, type: 3}
+      propertyPath: aoc
+      value: 
+      objectReference: {fileID: 22100000, guid: c6f595b71785f493e845ff74c09ad311, type: 2}
+    - target: {fileID: 2021955352, guid: 524ad288f29c941989be953bf48069d0, type: 3}
       propertyPath: anim
       value: 
       objectReference: {fileID: 7400000, guid: 0d5d3c9a46ecf2a48b8530a4df920be3, type: 2}
     - target: {fileID: 2021955352, guid: 524ad288f29c941989be953bf48069d0, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2021955352, guid: 524ad288f29c941989be953bf48069d0, type: 3}
       propertyPath: demoTimeInSec
@@ -3789,7 +3793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1365433831592625176, guid: 524ad288f29c941989be953bf48069d0, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 524ad288f29c941989be953bf48069d0, type: 3}

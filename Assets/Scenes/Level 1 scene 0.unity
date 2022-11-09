@@ -2202,7 +2202,7 @@ PrefabInstance:
     - target: {fileID: 2021955352, guid: 524ad288f29c941989be953bf48069d0, type: 3}
       propertyPath: aoc
       value: 
-      objectReference: {fileID: 22100000, guid: bbde8886270e4411e829ce333798fe65, type: 2}
+      objectReference: {fileID: 22100000, guid: c6f595b71785f493e845ff74c09ad311, type: 2}
     - target: {fileID: 2021955352, guid: 524ad288f29c941989be953bf48069d0, type: 3}
       propertyPath: anim
       value: 
