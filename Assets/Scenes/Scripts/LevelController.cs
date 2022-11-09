@@ -13,7 +13,7 @@ public class LevelController : MonoBehaviour
     private Vector3 deathPos;
     public Vector3 repawnPoint;
     private Vector3 currPos;
-
+    [SerializeField] private Vector3[] respawnPointList;
 
     private void Awake()
     {
@@ -63,10 +63,11 @@ public class LevelController : MonoBehaviour
     public void LoadNextScene()
     {
 
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
+        //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene(levelList[currLevel]);
+        repawnPoint = respawnPointList[currLevel];
         currLevel++;
-        repawnPoint = GameObject.Find("InitialRespawnPoint").transform.position;
+        //repawnPoint = GameObject.Find("InitialRespawnPoint").transform.position;
 
     }
 

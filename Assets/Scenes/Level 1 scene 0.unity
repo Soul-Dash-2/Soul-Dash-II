@@ -5627,12 +5627,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5484056686169129020, guid: e77ea4022bccaa1408f49c72ee5d3d4b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5.0290623
+      objectReference: {fileID: 0}
+    - target: {fileID: 5484056686169129020, guid: e77ea4022bccaa1408f49c72ee5d3d4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 652.7912
+      value: 644.5
       objectReference: {fileID: 0}
     - target: {fileID: 5484056686169129020, guid: e77ea4022bccaa1408f49c72ee5d3d4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -23.0721
+      value: -20.3
       objectReference: {fileID: 0}
     - target: {fileID: 5484056686169129020, guid: e77ea4022bccaa1408f49c72ee5d3d4b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -15630,6 +15634,8 @@ MonoBehaviour:
   waitTime: 2
   defaultPos: {x: 0, y: 0, z: 0}
   repawnPoint: {x: 0, y: 0, z: 0}
+  respawnPointList:
+  - {x: 885.6, y: 30.69, z: 0.00907477}
 --- !u!114 &2122872691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15637,7 +15643,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919678980}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb15fd37aca0b4a1b949bb407f6ffa3f, type: 3}
   m_Name: 
