@@ -154,7 +154,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   destinationOffset: 4
-  attackRange: 0.15
+  attackRange: 0.2
   cd: 5
 --- !u!114 &8808843716616357524
 MonoBehaviour:
@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 4
+  shields: 0
   damage: 1
   dashType: demon
 --- !u!95 &7637151120382113941
