@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer render;      // the sprite renderer
     private Camera playerCamera;        // The camera following the player
     private Animator _animator;
+    private GameObject SFXManager;  //The manager for playing sound effect
 
     // Prefabs
     public GameObject slash;            //The slash prefab
@@ -75,6 +77,8 @@ public class PlayerController : MonoBehaviour
     public Vector2 slimeDashDirection;
     public float coyoteTime;  //How long can the player be off of a platform and still be able to jump
 
+    
+
     //move the player to respawn point
     private void Awake()
     {
@@ -111,6 +115,9 @@ public class PlayerController : MonoBehaviour
         controls.Player.Slash.started += _ => Slash();
         controls.Player.Glide.performed += _ => Glide();
         controls.Player.Glide.canceled += _ => EndGlide();
+
+        //initilize SFX manager
+        SFXManager = GameObject.Find("SFXManager");
 
     }
 
@@ -374,7 +381,8 @@ public class PlayerController : MonoBehaviour
         isJumping = false;
         if (dashType == DashType.BASIC)
         {
-            SFX_manager.PlaySound("dashSound");
+
+            SFXManager.SendMessage("PlaySound", "basicDash");
             StartCoroutine(BasicDash());
             
         }

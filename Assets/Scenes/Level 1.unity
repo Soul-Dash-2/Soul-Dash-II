@@ -4756,7 +4756,7 @@ GameObject:
   - component: {fileID: 691453106}
   - component: {fileID: 691453105}
   m_Layer: 0
-  m_Name: SFX manager
+  m_Name: SFXManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4774,6 +4774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6198311e945a2334b8085b38343b1110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basicDash: {fileID: 0}
 --- !u!82 &691453106
 AudioSource:
   m_ObjectHideFlags: 0
