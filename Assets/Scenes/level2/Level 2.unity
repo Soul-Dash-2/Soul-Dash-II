@@ -931,7 +931,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8798069163426748632, guid: 075db9022d31c4a4e91aec1a16d20073, type: 3}
       propertyPath: m_Name
-      value: SFX manager
+      value: SFXmanager
       objectReference: {fileID: 0}
     - target: {fileID: 8798069163426748635, guid: 075db9022d31c4a4e91aec1a16d20073, type: 3}
       propertyPath: m_RootOrder
@@ -4690,6 +4690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6198311e945a2334b8085b38343b1110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basicDash: {fileID: 0}
 --- !u!1001 &1960027977
 PrefabInstance:
   m_ObjectHideFlags: 0

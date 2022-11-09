@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SFX_manager : MonoBehaviour
 {
-    static AudioSource audioSource;
+    private AudioSource audioSource;
     [SerializeField]  AudioClip basicDash;
 
     
