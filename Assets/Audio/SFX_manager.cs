@@ -11,7 +11,7 @@ public class SFX_manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Dash = Resources.Load<AudioClip>("basic dash");
+        Dash = Resources.Load<AudioClip>("Aessts/Audio/basic dash");
         audio = GetComponent<AudioSource>();
     }
 
@@ -26,7 +26,8 @@ public class SFX_manager : MonoBehaviour
         switch (clip)
         {
             case "dashSound":
-                //audio.PlayOneShot(Dash);
+                Debug.Log("11");
+                audio.PlayOneShot(Dash,1);
                 break;
         }
     }
