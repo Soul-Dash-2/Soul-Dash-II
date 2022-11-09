@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     public float health;
     public float shields;
     public float damage;
-    public string dashType; //if the enemy gives a specific dash type this is the alue for it
+    public string dashType; //if the enemy gives a specific dash type this is the value for it
     void Start()
     {
         

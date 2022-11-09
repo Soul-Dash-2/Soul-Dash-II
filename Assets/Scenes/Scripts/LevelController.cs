@@ -64,7 +64,8 @@ public class LevelController : MonoBehaviour
     {
 
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
-        SceneManager.LoadScene(levelList[currLevel++]);
+        SceneManager.LoadScene(levelList[currLevel]);
+        currLevel++;
         repawnPoint = GameObject.Find("InitialRespawnPoint").transform.position;
 
     }
