@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
         {
             float excess = shields - dmg;
             shields = shields - dmg;
-            health = health - excess;
+            health = health + excess;
         }
         else
         {
