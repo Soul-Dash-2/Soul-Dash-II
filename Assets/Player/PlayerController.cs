@@ -361,7 +361,7 @@ public class PlayerController : MonoBehaviour
 
     // replaces uses of 'isGrounded' to check for feet on the floor.
     public bool onGround() {
-        return (rb.velocity.y == 0) && (prevYVel == 0);
+        return (rb.velocity.y <= .1f) && (prevYVel <= .1f);
     }
 
     // Dash event --> executes the various dash type coroutines
@@ -764,9 +764,9 @@ public class PlayerController : MonoBehaviour
     {
         float xVel = CalculateXVelocity();
         float yVel = CalculateYVelocity();
-        if (!isDashing) //checks if player is dashing first
+        if (!isDashing && onGround()) //checks if player is dashing first
         {
-            if ((xVel != 0) && (yVel == 0))
+            if ((xVel != 0) && (Mathf.Abs (yVel) <= .1f))
             {
                 _animator.SetBool("isWalking", true);
             }
@@ -780,23 +780,26 @@ public class PlayerController : MonoBehaviour
 
     public void CheckFallingAnimation()
     {
-        float yVel = CalculateYVelocity();
-        if (rb.gravityScale != 0 && yVel <0)
-        {
-            if (!onGround() && !isDashing) //so player isn't falling in place or while dashing
-            {
-                _animator.SetBool("isFalling", true);
-            }
+        if (isJumping) {
+            _animator.SetBool("isFalling", true);
         }
-        else
-        {
-            _animator.SetBool("isFalling", false);
-        }
+        //float yVel = CalculateYVelocity();
+        //if (rb.gravityScale != 0 && Mathf.Abs(yVel) >.1f)
+        //{
+        //    if (!onGround() && !isDashing) //so player isn't falling in place or while dashing
+        //    {
+        //        _animator.SetBool("isFalling", true);
+        //    }
+        //}
+        //else
+        //{
+        //    _animator.SetBool("isFalling", false);
+        //}
 
-        if (onGround()) //hard check on ground
-        {
-            _animator.SetBool("isFalling", false);
-        }
+        //if (onGround()) //hard check on ground
+        //{
+        //    _animator.SetBool("isFalling", false);
+        //}
     }
 
     IEnumerator dashAnimationCancelTimer()
