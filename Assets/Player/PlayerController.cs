@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private Camera playerCamera;        // The camera following the player
     private Animator _animator;
     private GameObject SFXManager;  //The manager for playing sound effect
+    public PlayerOnGround groundDetector;
 
     // Prefabs
     public GameObject slash;            //The slash prefab
@@ -39,7 +40,6 @@ public class PlayerController : MonoBehaviour
     private bool isTouching;            // true while player is touching anything
     private bool canGlide;              // true while the player has the ability to glide --> granted by eyeball dash
     private bool isTouchingWallGround;   // true while player is touching the wall or the ground
-    private float prevYVel;             // the value representing the players velocity on the last fixed update
     private bool isInvisible;           // true while player is invisible (after goblin dash)
     private float coyoteCounter;        //Timer for coyote time
 
@@ -148,7 +148,6 @@ public class PlayerController : MonoBehaviour
     {
         float xVel = CalculateXVelocity();
         float yVel = CalculateYVelocity();
-        prevYVel = yVel;
         rb.velocity = new Vector2(xVel, yVel);
 
         HandleShortHop(yVel);
@@ -361,7 +360,7 @@ public class PlayerController : MonoBehaviour
 
     // replaces uses of 'isGrounded' to check for feet on the floor.
     public bool onGround() {
-        return (rb.velocity.y <= .1f) && (prevYVel <= .1f);
+        return groundDetector.OnGround();
     }
 
     // Dash event --> executes the various dash type coroutines
