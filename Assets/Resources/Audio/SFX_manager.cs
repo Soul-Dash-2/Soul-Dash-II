@@ -37,7 +37,7 @@ public class SFX_manager : MonoBehaviour
                 audioSource.PlayOneShot(slashSound);
                 break;
             case "normalWalking":
-                audioSource.PlayOneShot(normalWalking);
+                audioSource.PlayOneShot(normalWalking,0.3f);
                 break;
 
 
