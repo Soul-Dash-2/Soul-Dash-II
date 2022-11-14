@@ -1083,6 +1083,8 @@ MonoBehaviour:
   dashTrajectoryModificationFactor: 0
   slimeDashDirection: {x: 0, y: 0}
   coyoteTime: 0.075
+  dashCooldown: 1
+  slashCooldown: 0.2
 --- !u!95 &6606349420535267161
 Animator:
   serializedVersion: 4
