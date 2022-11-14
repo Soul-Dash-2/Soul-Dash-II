@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class SFX_manager : MonoBehaviour
 {
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource oneShotAudioSource;
+    [SerializeField] private AudioSource walkingAudioSource;
     [SerializeField]  AudioClip basicDashSound;
     [SerializeField] AudioClip slashSound;
     AudioClip normalWalking;
+    private bool isWaking = false;
 
     // Start is called before the first frame update
     void Start()
@@ -15,14 +17,27 @@ public class SFX_manager : MonoBehaviour
         basicDashSound = Resources.Load<AudioClip>("Audio/basicDash");
         slashSound= Resources.Load<AudioClip>("Audio/slash");
         normalWalking = Resources.Load<AudioClip>("Audio/normalWalking");
+        
+        
 
-        audioSource = GetComponent<AudioSource>();
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (!isWaking&& walkingAudioSource.isPlaying)
+        {
+            walkingAudioSource.Stop();
+        }else if (isWaking && !walkingAudioSource.isPlaying)
+        {
+            Debug.Log("fsdf");
+            walkingAudioSource.clip = normalWalking;
+            walkingAudioSource.loop = true;
+            walkingAudioSource.Play();
+        } 
+
     }
 
     public void PlaySound(string clip)
@@ -30,18 +45,19 @@ public class SFX_manager : MonoBehaviour
         switch (clip)
         {
             case "basicDash":
-                audioSource.PlayOneShot(basicDashSound);
+                oneShotAudioSource.PlayOneShot(basicDashSound);
                 break;
 
-            case "slash":   
-                audioSource.PlayOneShot(slashSound);
+            case "slash":
+                oneShotAudioSource.PlayOneShot(slashSound);
                 break;
-            case "normalWalking":
-                audioSource.PlayOneShot(normalWalking,0.3f);
-                break;
+
 
 
          
         }
     }
+
+    public void isWalking() { isWaking = true; }
+    public void notWalking() { isWaking = false; }
 }

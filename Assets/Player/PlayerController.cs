@@ -770,11 +770,12 @@ public class PlayerController : MonoBehaviour
             if ((xVel != 0) && (Mathf.Abs (yVel) <= .1f))
             {
                 _animator.SetBool("isWalking", true);
-                SFXManager.SendMessage("PlaySound", "normalWalking");
+                SFXManager.SendMessage("isWalking", true);
             }
             else
             {
                 _animator.SetBool("isWalking", false);
+                SFXManager.SendMessage("notWalking", true);
             }
         }
         
