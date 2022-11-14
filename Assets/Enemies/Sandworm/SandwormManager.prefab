@@ -87,3 +87,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   coolDown: 3
+  health: 10

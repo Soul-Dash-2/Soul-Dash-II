@@ -23,6 +23,13 @@ public class SandwormManager : MonoBehaviour
     private static System.Random rnd;
     private bool aboveGround = false;
 
+    // Need a way to prevent children from all reporting the same instance of damage
+    // this Dictionary maps the damage amount to the amount of time which has passed since that amount of damage was taken
+    private Dictionary<float, float> damageToTime = new Dictionary<float, float>();
+    private float damageInstanceTime;
+
+    public float health;
+
     float count = 0;
     // Start is called before the first frame update
     void Start()
@@ -30,6 +37,18 @@ public class SandwormManager : MonoBehaviour
         player = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Transform>();
         rnd = new System.Random();
         //CreateBodyParts();
+        damageInstanceTime = 0.21f;
+    }
+
+    void Update()
+    {
+        Dictionary<float, float> newDict = new Dictionary<float, float>();
+        foreach (KeyValuePair<float, float> entry in damageToTime)
+        {
+            // damageToTime[entry.Key] += Time.deltaTime;
+            newDict[entry.Key] = damageToTime[entry.Key] + Time.deltaTime;
+        }
+        damageToTime = newDict;
     }
 
     // Update is called once per frame
@@ -59,7 +78,7 @@ public class SandwormManager : MonoBehaviour
     IEnumerator Move()
     {
         yield return new WaitForSeconds(warningTime);
-        sandwormBody[0].transform.position = rnd.Next(0, 2) == 0 ? new Vector2(player.position.x - 15 - rnd.Next(0,20), sandwormBody[0].transform.position.y) : new Vector2(player.position.x + 15 + rnd.Next(0, 20), sandwormBody[0].transform.position.y);
+        sandwormBody[0].transform.position = rnd.Next(0, 2) == 0 ? new Vector2(player.position.x - 15 - rnd.Next(0, 20), sandwormBody[0].transform.position.y) : new Vector2(player.position.x + 15 + rnd.Next(0, 20), sandwormBody[0].transform.position.y);
         Vector2 target;
         if (player.position.x - sandwormBody[0].transform.position.x > 0)
         {
@@ -116,11 +135,11 @@ public class SandwormManager : MonoBehaviour
             if (sandwormBody.Count != 0)
             {
                 MarkerManager previousMarkerM = sandwormBody[sandwormBody.Count - 1].GetComponent<MarkerManager>();
-                temp = Instantiate(bodyParts[0], new Vector3 (previousMarkerM.markerList[0].position.x, previousMarkerM.markerList[0].position.y, previousMarkerM.markerList[0].position.z + 0.1f), previousMarkerM.markerList[0].rotation, transform);
+                temp = Instantiate(bodyParts[0], new Vector3(previousMarkerM.markerList[0].position.x, previousMarkerM.markerList[0].position.y, previousMarkerM.markerList[0].position.z + 0.1f), previousMarkerM.markerList[0].rotation, transform);
             }
             else
             {
-                temp = Instantiate(bodyParts[0], new Vector3 (transform.position.x, transform.position.y, 0.1f), transform.rotation, transform);
+                temp = Instantiate(bodyParts[0], new Vector3(transform.position.x, transform.position.y, 0.1f), transform.rotation, transform);
             }
             if (!temp.GetComponent<MarkerManager>())
                 temp.AddComponent<MarkerManager>();
@@ -135,6 +154,7 @@ public class SandwormManager : MonoBehaviour
             sandwormBody.Add(temp);
             bodyParts.RemoveAt(0);
             temp.GetComponent<MarkerManager>().ClearMarkerList();
+            temp.GetComponent<WormSection>().SetManager(this);
             count = 0;
         }
     }
@@ -142,5 +162,35 @@ public class SandwormManager : MonoBehaviour
     {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireCube(transform.position, territory);
+    }
+
+    public void TakeDamage(float dmg)
+    {
+        // this prevents taking damage from several segments at once
+        if (!damageToTime.ContainsKey(dmg))
+        {
+            damageToTime[dmg] = damageInstanceTime;
+        }
+        if (damageToTime[dmg] < damageInstanceTime)
+        {
+            return;
+        }
+        health -= dmg;
+        if (health <= 0)
+        {
+            PlayerController p = player.gameObject.GetComponent<PlayerController>();
+            if (p.getDashing())
+            {
+                p.setDashType("sandworm");
+                p.letDash();
+            }
+            Destroy(this.gameObject);
+        }
+        damageToTime[dmg] = 0;
+    }
+
+    public float GetHealth()
+    {
+        return health;
     }
 }

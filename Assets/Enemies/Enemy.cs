@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     }
 
     //Method that tracks the player's damage to the enemy
-    public void playerDamage(float dmg)
+    public virtual void playerDamage(float dmg)
     {
         if(shields > 0)
         {
