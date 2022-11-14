@@ -420,6 +420,7 @@ public class PlayerController : MonoBehaviour
             Vector2 pos = rb.position;
             Vector2 slashLocation = attackRange * relativeDirection + pos; //So its 3x further away from the player
 
+            SFXManager.SendMessage("PlaySound", "slash");
             float angle = Vector3.Angle(relativeDirection, Vector3.right);
             if (relativeDirection.y < 0) {
                 angle = -angle;
@@ -769,6 +770,7 @@ public class PlayerController : MonoBehaviour
             if ((xVel != 0) && (Mathf.Abs (yVel) <= .1f))
             {
                 _animator.SetBool("isWalking", true);
+                SFXManager.SendMessage("PlaySound", "normalWalking");
             }
             else
             {

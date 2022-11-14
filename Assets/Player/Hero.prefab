@@ -1042,7 +1042,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6198311e945a2334b8085b38343b1110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicDash: {fileID: 8300000, guid: ecfd8eeb1ffc09841a486befe97c176b, type: 3}
+  basicDashSound: {fileID: 8300000, guid: ecfd8eeb1ffc09841a486befe97c176b, type: 3}
+  slashSound: {fileID: 8300000, guid: 79fbbd5c33743ae4c9d250404ee65e3d, type: 3}
 --- !u!1 &3252336125828576390
 GameObject:
   m_ObjectHideFlags: 0

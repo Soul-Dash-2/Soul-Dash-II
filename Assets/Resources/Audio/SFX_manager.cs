@@ -5,14 +5,17 @@ using UnityEngine;
 public class SFX_manager : MonoBehaviour
 {
     private AudioSource audioSource;
-    [SerializeField]  AudioClip basicDash;
+    [SerializeField]  AudioClip basicDashSound;
+    [SerializeField] AudioClip slashSound;
+    AudioClip normalWalking;
 
-    
     // Start is called before the first frame update
     void Start()
     {
-        basicDash = Resources.Load<AudioClip>("Audio/basicDash");
-        if (basicDash == null) Debug.Log("fuck you");
+        basicDashSound = Resources.Load<AudioClip>("Audio/basicDash");
+        slashSound= Resources.Load<AudioClip>("Audio/slash");
+        normalWalking = Resources.Load<AudioClip>("Audio/normalWalking");
+
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -27,8 +30,18 @@ public class SFX_manager : MonoBehaviour
         switch (clip)
         {
             case "basicDash":
-                audioSource.PlayOneShot(basicDash);
+                audioSource.PlayOneShot(basicDashSound);
                 break;
+
+            case "slash":   
+                audioSource.PlayOneShot(slashSound);
+                break;
+            case "normalWalking":
+                audioSource.PlayOneShot(normalWalking);
+                break;
+
+
+         
         }
     }
 }
