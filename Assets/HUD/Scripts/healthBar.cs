@@ -19,7 +19,7 @@ public class healthBar : MonoBehaviour
 	private float maxShields;
     private float fill_width;
     private float fixed_angle;
-	
+
     void Start()
     {
         fixed_angle = 0.0f;
@@ -57,4 +57,8 @@ public class healthBar : MonoBehaviour
 		
         bar_fill.transform.localScale = new Vector3(1.0f * fill_width, 1.0f, 1.0f);
     }
+
+	public void SetMaxHealth(float maxHealth) {
+		this.maxHealth = maxHealth;
+	}
 }
