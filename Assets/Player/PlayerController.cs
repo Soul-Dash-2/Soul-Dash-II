@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private Camera playerCamera;        // The camera following the player
     private Animator _animator;
     private GameObject SFXManager;  //The manager for playing sound effect
+    public PlayerOnGround groundDetector;
 
     // Prefabs
     public GameObject slash;            //The slash prefab
@@ -39,9 +40,10 @@ public class PlayerController : MonoBehaviour
     private bool isTouching;            // true while player is touching anything
     private bool canGlide;              // true while the player has the ability to glide --> granted by eyeball dash
     private bool isTouchingWallGround;   // true while player is touching the wall or the ground
-    private float prevYVel;             // the value representing the players velocity on the last fixed update
     private bool isInvisible;           // true while player is invisible (after goblin dash)
     private float coyoteCounter;        //Timer for coyote time
+    private float timeSinceDash;
+    private float timeSinceSlash;
 
 
     //Damage things
@@ -76,6 +78,8 @@ public class PlayerController : MonoBehaviour
                                                         altogether.*/
     public Vector2 slimeDashDirection;
     public float coyoteTime;  //How long can the player be off of a platform and still be able to jump
+    public float dashCooldown;
+    public float slashCooldown;
 
     
 
@@ -133,6 +137,8 @@ public class PlayerController : MonoBehaviour
     //Update method to take advantage of deltaTime, used for coyote time mechanic
     private void Update()
     {
+        timeSinceDash += Time.deltaTime;
+        timeSinceSlash += Time.deltaTime;
         if (onGround())
         {
             coyoteCounter = coyoteTime;
@@ -148,7 +154,6 @@ public class PlayerController : MonoBehaviour
     {
         float xVel = CalculateXVelocity();
         float yVel = CalculateYVelocity();
-        prevYVel = yVel;
         rb.velocity = new Vector2(xVel, yVel);
 
         HandleShortHop(yVel);
@@ -178,7 +183,7 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         // if the previously collided object was the ground, set isGrounded false
-        if (collision.gameObject.CompareTag("Ground") && collision.relativeVelocity.y > 0)
+        if (groundDetector.OnGround())
         {
             isGrounded = true;
             canGlide = false;
@@ -356,12 +361,12 @@ public class PlayerController : MonoBehaviour
     // Whether or not the player is allowed to dash -- prefer this method over the boolean canDash
     public bool CanDash()
     {
-        return canDash || onGround();
+        return (canDash || onGround()) && timeSinceDash >= dashCooldown;
     }
 
     // replaces uses of 'isGrounded' to check for feet on the floor.
     public bool onGround() {
-        return (rb.velocity.y <= .1f) && (prevYVel <= .1f);
+        return groundDetector.OnGround();
     }
 
     // Dash event --> executes the various dash type coroutines
@@ -378,6 +383,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Execute correct dash type
+        timeSinceDash = 0;
         isJumping = false;
         if (dashType == DashType.BASIC)
         {
@@ -411,7 +417,7 @@ public class PlayerController : MonoBehaviour
     //Slashing
     void Slash()
     {
-        if (rb == null) {
+        if (rb == null || timeSinceSlash < slashCooldown) {
             return;
         }
         if (!isDashing) //so player cannot slash while dashing
@@ -429,6 +435,7 @@ public class PlayerController : MonoBehaviour
             Instantiate(slash, slashLocation, Quaternion.Euler(0, 0, angle)); //TODO: Make the slash change rotation based on mouse
             sword.Attack(slashLocation);
             Vector3.Angle(relativeDirection, Vector3.right);
+            timeSinceSlash = 0;
         }
     }
 
@@ -479,6 +486,7 @@ public class PlayerController : MonoBehaviour
     public void letDash()
     {
         canDash = true;
+        timeSinceDash = dashCooldown;
     }
 
     public void setDashType(string dash)
@@ -654,6 +662,7 @@ public class PlayerController : MonoBehaviour
 
         // This section is all that is unique to the eyeball dash
         canDash = true;
+        timeSinceDash = dashCooldown;
         dashType = DashType.BASIC;
         canGlide = true;
         CheckDashingAnimation();
