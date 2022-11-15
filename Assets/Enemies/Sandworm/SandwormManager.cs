@@ -77,6 +77,8 @@ public class SandwormManager : MonoBehaviour
 
     IEnumerator Move()
     {
+        PlayerController p = player.gameObject.GetComponent<PlayerController>();
+        p.GetPlayerCamera().Shake(warningTime/2, 0.2f, 20f);
         yield return new WaitForSeconds(warningTime);
         sandwormBody[0].transform.position = rnd.Next(0, 2) == 0 ? new Vector2(player.position.x - 15 - rnd.Next(0, 20), sandwormBody[0].transform.position.y) : new Vector2(player.position.x + 15 + rnd.Next(0, 20), sandwormBody[0].transform.position.y);
         Vector2 target;
@@ -91,6 +93,8 @@ public class SandwormManager : MonoBehaviour
         Vector2 vel = new Vector2((target.x - sandwormBody[0].transform.position.x) * speed, (target.y - sandwormBody[0].transform.position.y) * speed);
         sandwormBody[0].GetComponent<Rigidbody2D>().velocity = vel;
         yield return new WaitForSeconds(0.5f);
+        p.GetPlayerCamera().Shake(0.3f, 0.5f, 8f);
+        p.GetPlayerCamera().Shake(8f, 0.1f, 20f);
         sandwormBody[0].GetComponent<Rigidbody2D>().gravityScale = gravityScale;
         aboveGround = true;
     }
@@ -184,6 +188,7 @@ public class SandwormManager : MonoBehaviour
                 p.setDashType("sandworm");
                 p.letDash();
             }
+            p.GetPlayerCamera().Shake(2f, 0.75f, 10f);
             Destroy(this.gameObject);
         }
         damageToTime[dmg] = 0;
