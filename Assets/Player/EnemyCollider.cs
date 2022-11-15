@@ -59,6 +59,10 @@ public class EnemyCollider : MonoBehaviour
                 Debug.Log("player killed an enemy with dash of dash type: " + enemy.GetComponent<Enemy>().getDashType());
                 player.GetComponent<PlayerController>().letDash(); //resets the player's dash
                 player.GetComponent<PlayerController>().setDashType(enemy.GetComponent<Enemy>().getDashType()); //Gives the player the special dash
+
+                player.GetComponent<PlayerController>().GetPlayerCamera().Shake(.3f, .75f, 10f);
+            } else {
+                player.GetComponent<PlayerController>().GetPlayerCamera().Shake(.2f, .75f, 2f);
             }
         }
         else if (enemy.CompareTag("Enemy") && !player.GetComponent<PlayerController>().getDashing()) //player not dashing through enemy
@@ -104,6 +108,7 @@ public class EnemyCollider : MonoBehaviour
 
     void TakeDamage(float damage)
     {
+        player.GetComponent<PlayerController>().GetPlayerCamera().Shake(0.2f, 0.75f, 5f);
         if(takingDamage == false){ //If the player has not taken damage yet
             playerHP -= damage;
             takingDamage = true;

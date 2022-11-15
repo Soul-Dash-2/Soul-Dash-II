@@ -236,6 +236,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public PlayerCamera GetPlayerCamera() {
+        return this.playerCamera.GetComponent<PlayerCamera>();
+    }
+
     // Gets the friction factor -- multiplied with the xVelocity 
     float GetFrictionFactorX()
     {

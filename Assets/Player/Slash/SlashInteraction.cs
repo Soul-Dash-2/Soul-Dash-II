@@ -33,6 +33,7 @@ public class SlashInteraction : MonoBehaviour
         //checks if slash hits an enemy
         if (collision.gameObject.CompareTag("Enemy")){
             collision.gameObject.GetComponent<Enemy>().playerDamage(1);
+            player.GetComponent<PlayerController>().GetPlayerCamera().Shake(.1f, .75f, 1f);
             player.GetComponent<PlayerController>().letDash(); //resets the player's dash
         }
     }
