@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5557557725085505794}
   - component: {fileID: 1282698367459376076}
   - component: {fileID: -5982185017268557321}
+  - component: {fileID: -858267307975625237}
   m_Layer: 0
   m_Name: DashEffects
   m_TagString: Untagged
@@ -105,3 +106,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-858267307975625237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320143681881676720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a53efb209ec5d442a9565da63bcc5df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashType: 0

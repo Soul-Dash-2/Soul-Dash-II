@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;            // is the player touching a ground object?
     private float movementFactor;       // a value between -1 and 1, which determines the direction the player moves
     private bool canDash;               // true if the player is allowed to dash
-    private bool isDashing;             // true while the player is dashing
+    public bool isDashing;             // true while the player is dashing
     private bool isJumping;             // true after the player has executed a jump
     private bool isCrouching;           // true when player is crouching
     private bool isFastFalling;         // true while player is fastfalling
