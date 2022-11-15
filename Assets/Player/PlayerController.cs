@@ -83,8 +83,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         GameObject LC = GameObject.Find("LevelController");
-        if (LC.GetComponent<LevelController>().repawnPoint != new Vector3())
-            gameObject.transform.position = LC.GetComponent<LevelController>().repawnPoint;
+        if (LC.GetComponent<LevelController>().respawnPoint != new Vector3())
+            gameObject.transform.position = LC.GetComponent<LevelController>().respawnPoint;
     }
 
     // Setup Code

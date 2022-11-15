@@ -11,7 +11,7 @@ public class LevelController : MonoBehaviour
     [SerializeField] Vector3 defaultPos;
     private int currLevel = 0;
     private Vector3 deathPos;
-    public Vector3 repawnPoint;
+    public Vector3 respawnPoint;
     private Vector3 currPos;
     [SerializeField] private Vector3[] respawnPointList;
 
@@ -44,7 +44,7 @@ public class LevelController : MonoBehaviour
 
         GameObject[] respawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
         int index = 0;
-        int res=0;
+        int res=-1;
         float lowestVal = Int32.MaxValue;
         foreach(GameObject e in respawnPoints)
         {
@@ -56,8 +56,18 @@ public class LevelController : MonoBehaviour
             }
             index++;          
         }
-  
-        repawnPoint =new Vector3(respawnPoints[res].transform.position.x, respawnPoints[res].transform.position.y,0);
+
+
+
+        if (res != -1)
+        {
+            respawnPoint = new Vector3(respawnPoints[res].transform.position.x, respawnPoints[res].transform.position.y, 0);
+        }
+        else
+        {
+            respawnPoint = GameObject.Find("initialRespawnPoint").transform.position;
+        }
+
     }
 
     public void LoadNextScene()
@@ -65,9 +75,9 @@ public class LevelController : MonoBehaviour
 
         //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene(levelList[currLevel]);
-        repawnPoint = respawnPointList[currLevel];
+        respawnPoint = respawnPointList[currLevel];
         currLevel++;
-        //repawnPoint = GameObject.Find("InitialRespawnPoint").transform.position;
+        //respawnPoint = GameObject.Find("InitialRespawnPoint").transform.position;
 
     }
 

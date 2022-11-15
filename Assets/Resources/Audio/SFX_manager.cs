@@ -20,8 +20,6 @@ public class SFX_manager : MonoBehaviour
         
         
 
-
-
     }
 
     // Update is called once per frame
@@ -32,7 +30,6 @@ public class SFX_manager : MonoBehaviour
             walkingAudioSource.Stop();
         }else if (isWaking && !walkingAudioSource.isPlaying)
         {
-            Debug.Log("fsdf");
             walkingAudioSource.clip = normalWalking;
             walkingAudioSource.loop = true;
             walkingAudioSource.Play();
@@ -45,11 +42,11 @@ public class SFX_manager : MonoBehaviour
         switch (clip)
         {
             case "basicDash":
-                oneShotAudioSource.PlayOneShot(basicDashSound);
+                oneShotAudioSource.PlayOneShot(basicDashSound,0.3f);
                 break;
 
             case "slash":
-                oneShotAudioSource.PlayOneShot(slashSound);
+                oneShotAudioSource.PlayOneShot(slashSound,0.3f);
                 break;
 
 
