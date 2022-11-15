@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
 
     //Damage things
     public float dashDamage;
+    public float flashTime;
 
     // Public Movement variables
     public DashType dashType;
@@ -640,6 +641,25 @@ public class PlayerController : MonoBehaviour
     public void slimeBounce()
     {
         StartCoroutine(SlimeBounce());
+    }
+
+    private float flashCurrTime;
+    public void FlashTime() {
+        flashCurrTime = 0;
+        StartCoroutine(flashtime());
+    }
+    private IEnumerator flashtime() {
+        while (flashCurrTime <= flashTime) {
+            float x = flashCurrTime / flashTime;    // between 0 and 1
+            flashCurrTime += Time.unscaledDeltaTime;
+            Time.timeScale = (2 * Mathf.Pow((x - 0.5f), 2)) + 0.5f;
+            yield return null;
+        }
+        Time.timeScale = 1;
+    }
+
+    public float GetFlashTime() {
+        return this.flashTime;
     }
 
     IEnumerator EyeballDash()

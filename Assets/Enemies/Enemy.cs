@@ -9,9 +9,29 @@ public class Enemy : MonoBehaviour
     public float shields;
     public float damage;
     public string dashType; //if the enemy gives a specific dash type this is the value for it
+    private float flashTime;
+    PlayerController player;
+    
+    private Material norm;
+    [SerializeField] private Material white;
+
     void Start()
     {
-        
+        player = GameObject.Find("Hero").GetComponent<PlayerController>();
+        norm = GetComponent<SpriteRenderer>().material;
+        flashTime = player.GetFlashTime();
+    }
+
+    public void Flash() {
+        player.FlashTime();
+        StartCoroutine(flash());
+    }
+
+    private IEnumerator flash() {
+        GetComponent<SpriteRenderer>().material = white;
+        yield return new WaitForSecondsRealtime(flashTime);
+        GetComponent<SpriteRenderer>().material = norm;
+        yield return null;
     }
 
     // Update is called once per frame
@@ -23,6 +43,7 @@ public class Enemy : MonoBehaviour
     //Method that tracks the player's damage to the enemy
     public virtual void playerDamage(float dmg)
     {
+        Flash();
         if(shields > 0)
         {
             float excess = shields - dmg;
