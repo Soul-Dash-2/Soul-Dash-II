@@ -172,6 +172,7 @@ MonoBehaviour:
   shields: 0
   damage: 1
   dashType: demon
+  white: {fileID: 2100000, guid: 166c0cf29fc65ed468a636f3bd081933, type: 2}
 --- !u!95 &7637151120382113941
 Animator:
   serializedVersion: 4

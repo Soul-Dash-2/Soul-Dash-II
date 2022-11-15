@@ -11,6 +11,7 @@ public class WormSection : Enemy
     // Override
     public override void playerDamage(float dmg)
     {
+        Flash();
         manager.TakeDamage(dmg);
     }
 

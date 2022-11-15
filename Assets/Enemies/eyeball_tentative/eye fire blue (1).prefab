@@ -318,6 +318,7 @@ MonoBehaviour:
   shields: 4
   damage: 1
   dashType: eyeball
+  white: {fileID: 2100000, guid: 166c0cf29fc65ed468a636f3bd081933, type: 2}
 --- !u!1 &3472953792602806985
 GameObject:
   m_ObjectHideFlags: 0
