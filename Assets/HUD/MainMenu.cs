@@ -6,8 +6,16 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
 
+    AudioSource audioSource;
+    [SerializeField] AudioClip clickSound;
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public void PlayButton()
     {
+        
         SceneManager.LoadScene(3);
     }
 
@@ -29,5 +37,10 @@ public class MainMenu : MonoBehaviour
     public void CreditsButton()
     {
         SceneManager.LoadScene(2);
+    }
+
+    public void PlaySound()
+    {
+        audioSource.PlayOneShot(clickSound, 1f);
     }
 }
