@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class WormSection : Enemy
 {
-
     private SandwormManager manager;
-    private float maxHealth;
 
     // Override
     public override void playerDamage(float dmg)
     {
+        player.FlashTime();
         Flash();
         manager.TakeDamage(dmg);
     }
@@ -20,13 +19,8 @@ public class WormSection : Enemy
         this.manager = manager;
     }
 
-    void Start() {
-        maxHealth = manager.GetHealth();
-    }
-
     void Update()
     {
-        maxHealth = manager.GetHealth();
         health = manager.GetHealth();
     }
 }

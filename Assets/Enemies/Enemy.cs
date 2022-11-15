@@ -9,11 +9,11 @@ public class Enemy : MonoBehaviour
     public float shields;
     public float damage;
     public string dashType; //if the enemy gives a specific dash type this is the value for it
-    private float flashTime;
-    PlayerController player;
+    public float flashTime;
+    public PlayerController player;
     
     private Material norm;
-    [SerializeField] private Material white;
+    public Material white;
 
     void Start()
     {
@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
         StartCoroutine(flash());
     }
 
-    private IEnumerator flash() {
+    public IEnumerator flash() {
         GetComponent<SpriteRenderer>().material = white;
         yield return new WaitForSecondsRealtime(flashTime);
         GetComponent<SpriteRenderer>().material = norm;

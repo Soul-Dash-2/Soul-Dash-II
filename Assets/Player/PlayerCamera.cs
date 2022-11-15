@@ -33,7 +33,7 @@ public class PlayerCamera : MonoBehaviour
             return;
         }
         Vector2 destination = GetDestination();
-    Vector2 goal = destination + (Vector2) hero.position;
+        Vector2 goal = destination + (Vector2) hero.position;
         Vector2 pos = playerCamera.transform.position;
         Vector2 direction = (goal - pos);
         Vector2 movement = direction * cameraSpeed * Time.deltaTime;
