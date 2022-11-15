@@ -9,8 +9,8 @@ public class Enemy : MonoBehaviour
     public float shields;
     public float damage;
     public string dashType; //if the enemy gives a specific dash type this is the value for it
-    public float flashTime;
-    public PlayerController player;
+    private float flashTime;
+    private PlayerController player;
     
     private Material norm;
     public Material white;

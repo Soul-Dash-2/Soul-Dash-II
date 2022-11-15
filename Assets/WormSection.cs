@@ -9,7 +9,7 @@ public class WormSection : Enemy
     // Override
     public override void playerDamage(float dmg)
     {
-        player.FlashTime();
+        GameObject.Find("Hero").GetComponent<PlayerController>().FlashTime();
         Flash();
         manager.TakeDamage(dmg);
     }
