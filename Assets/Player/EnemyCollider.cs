@@ -53,6 +53,7 @@ public class EnemyCollider : MonoBehaviour
             }
             Debug.Log("player dashing into an enemy ");
             enemy.GetComponent<Enemy>().playerDamage(3);
+            currentIFrames = 0.2f; //Giving the player slight Iframes after hitting the enemy with a dash
             //check if player killed the enemy with dash
             if (enemy.GetComponent<Enemy>().getHealth() <= 0)
             {

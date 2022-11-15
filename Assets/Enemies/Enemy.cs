@@ -46,9 +46,14 @@ public class Enemy : MonoBehaviour
         Flash();
         if(shields > 0)
         {
-            float excess = shields - dmg;
+            float excess = 0;
+            if (shields - dmg < 0)
+            {
+                excess = shields - dmg;
+                excess = -excess;
+            }
             shields = shields - dmg;
-            health = health + excess;
+            health = health - excess;
         }
         else
         {
