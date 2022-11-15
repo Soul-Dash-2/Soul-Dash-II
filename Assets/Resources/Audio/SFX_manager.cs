@@ -4,22 +4,37 @@ using UnityEngine;
 
 public class SFX_manager : MonoBehaviour
 {
-    private AudioSource audioSource;
-    [SerializeField]  AudioClip basicDash;
+    [SerializeField] private AudioSource oneShotAudioSource;
+    [SerializeField] private AudioSource walkingAudioSource;
+    [SerializeField]  AudioClip basicDashSound;
+    [SerializeField] AudioClip slashSound;
+    AudioClip normalWalking;
+    private bool isWaking = false;
 
-    
     // Start is called before the first frame update
     void Start()
     {
-        basicDash = Resources.Load<AudioClip>("Audio/basicDash");
-        if (basicDash == null) Debug.Log("fuck you");
-        audioSource = GetComponent<AudioSource>();
+        basicDashSound = Resources.Load<AudioClip>("Audio/basicDash");
+        slashSound= Resources.Load<AudioClip>("Audio/slash");
+        normalWalking = Resources.Load<AudioClip>("Audio/normalWalking");
+        
+        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (!isWaking&& walkingAudioSource.isPlaying)
+        {
+            walkingAudioSource.Stop();
+        }else if (isWaking && !walkingAudioSource.isPlaying)
+        {
+            walkingAudioSource.clip = normalWalking;
+            walkingAudioSource.loop = true;
+            walkingAudioSource.Play();
+        } 
+
     }
 
     public void PlaySound(string clip)
@@ -27,8 +42,19 @@ public class SFX_manager : MonoBehaviour
         switch (clip)
         {
             case "basicDash":
-                audioSource.PlayOneShot(basicDash);
+                oneShotAudioSource.PlayOneShot(basicDashSound,0.3f);
                 break;
+
+            case "slash":
+                oneShotAudioSource.PlayOneShot(slashSound,0.3f);
+                break;
+
+
+
+         
         }
     }
+
+    public void isWalking() { isWaking = true; }
+    public void notWalking() { isWaking = false; }
 }

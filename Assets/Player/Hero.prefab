@@ -928,6 +928,8 @@ GameObject:
   - component: {fileID: 5855859585168730575}
   - component: {fileID: 5855859585168730573}
   - component: {fileID: 6606349420535267161}
+  - component: {fileID: 4462110670394389239}
+  - component: {fileID: 7090122093063285317}
   m_Layer: 7
   m_Name: Hero
   m_TagString: Player

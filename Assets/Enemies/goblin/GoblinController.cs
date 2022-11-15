@@ -35,7 +35,7 @@ public class GoblinController : MonoBehaviour
 
         if (ifAttack)
         {
-            _animator.SetBool("ifAttack", true);
+            
             StartCoroutine(attack());
             ifAttack = false;
 
@@ -48,8 +48,8 @@ public class GoblinController : MonoBehaviour
         float movedDistance = 0;
         while (movedDistance < moveDistance)
         {
-            _renderer.color= new Color(_renderer.color.r, _renderer.color.g, _renderer.color.b, _renderer.color.a==0.01f?0.05f:0.01f);
-            _renderer.flipX = player.transform.position.x < transform.position.x; 
+            _renderer.color= new Color(_renderer.color.r, _renderer.color.g, _renderer.color.b, _renderer.color.a==0.05f?0.1f:0.05f);
+            _renderer.flipX  = player.transform.position.x >= transform.position.x; 
             transform.Translate(new Vector3(player.transform.position.x- transform.position.x, 0, 0).normalized*Time.deltaTime*moveSpeed);
             movedDistance += Time.deltaTime * moveSpeed;
             yield return null;
@@ -61,18 +61,21 @@ public class GoblinController : MonoBehaviour
     {
         float movedDistance = 0;
         _renderer.color = new Color(_renderer.color.r, _renderer.color.g, _renderer.color.b, 1);
+        _animator.SetBool("ifAttack", true);
+        yield return new WaitForSecondsRealtime(0.5f);
+        
+        _renderer.flipX = player.transform.position.x >= transform.position.x;
         Instantiate(fireballPrefab,new Vector3(transform.position.x+ (_renderer.flipX?-1f:1f)
             ,transform.position.y,transform.position.z), Quaternion.identity);
         GameObject theFireball = GameObject.FindGameObjectsWithTag("Projectile")[0];
         while (movedDistance< fireballRange&& theFireball != null)
         {
-
-            theFireball.transform.Translate((_renderer.flipX ? -transform.right : transform.right) * fireballSpeed*Time.deltaTime);
+            theFireball.transform.Translate((_renderer.flipX ?  transform.right: -transform.right ) * fireballSpeed*Time.deltaTime);
             movedDistance += fireballSpeed * Time.deltaTime;
             yield return null;
         }
         Destroy(theFireball);
-        yield return new WaitForSecondsRealtime(1);
+
         ifRun = true;
     }
 
