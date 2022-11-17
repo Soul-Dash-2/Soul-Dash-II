@@ -16,27 +16,25 @@ public class MainMenu : MonoBehaviour
     public void PlayButton()
     {
         
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene("Level 1");
     }
 
     public void QuitButton() {
-        Debug.Log("User exit using quit button");
         Application.Quit();
     }
 
     public void OptionsButton() {
-        Debug.Log("Options button working");
         //Options menu will be implemented later
     }
 
     public void SandboxButton()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("sandbox");
     }
 
     public void CreditsButton()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("CreditScreen");
     }
 
     public void PlaySound()
