@@ -20,7 +20,7 @@ public class PlayerCamera : MonoBehaviour
         {
             falloff = true;
             this.duration = duration;
-            this.amplitude = amplitude;
+            this.amplitude = amplitude * (Screen.width * 0.0015f);
             this.scale = scale;
             currentTime = duration;
             seed = Random.Range(-1000, 1000);
