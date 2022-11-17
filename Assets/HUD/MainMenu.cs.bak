@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
     public void PlayButton()
     {
         
-        SceneManager.LoadScene("Intro_Story");
+        SceneManager.LoadScene("Intro Story");
     }
 
     public void QuitButton() {
