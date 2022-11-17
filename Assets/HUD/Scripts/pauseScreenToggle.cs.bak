@@ -59,7 +59,7 @@ public class pauseScreenToggle : MonoBehaviour
 
     public void Button_Restart()
     {
-        ;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Button_Settings()
@@ -70,7 +70,7 @@ public class pauseScreenToggle : MonoBehaviour
 
     public void Button_Quit()
     {
-        ;
+        Application.Quit();
     }
 
     // Functions for each individual button in the settings screen

@@ -2,13 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class pauseScreenToggle : MonoBehaviour
 {
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject settingsScreen;
+	[SerializeField] private GameObject sfxManager;
     private HUDControls controls;
 
+	[SerializeField] private TextMeshProUGUI tmp_text;
+	private AudioSource audioSrc;
+	private float current_vol;
+	private float vol_step;
+	
     private bool paused;
 
     void Start()
@@ -17,6 +24,12 @@ public class pauseScreenToggle : MonoBehaviour
         controls = new HUDControls();
         controls.Enable();
         controls.HUD.TogglePause.started += _ => TogglePause(); // when the toggle pause button is pressed, do TogglePause()
+
+		sfxManager = GameObject.Find("SFXManager");//GetComponent<SFX_manager>();
+		audioSrc = sfxManager.GetComponent<AudioSource>();
+		current_vol = 1.0f;
+		vol_step = 0.1f;
+		tmp_text.text = Mathf.Abs((int) (current_vol * 10)).ToString();
 
         Deactivate();
     }
@@ -70,7 +83,7 @@ public class pauseScreenToggle : MonoBehaviour
 
     public void Button_Quit()
     {
-        Application.Quit();
+        SceneManager.LoadScene("MainMenu");
     }
 
     // Functions for each individual button in the settings screen
@@ -79,4 +92,26 @@ public class pauseScreenToggle : MonoBehaviour
         settingsScreen.SetActive(false);
         pauseScreen.SetActive(true);
     }
+	
+	public void Button_IncVolume()
+	{
+		if(current_vol < 1.0f)
+		{
+			current_vol += vol_step;
+			audioSrc.volume = current_vol;
+			tmp_text.text = Mathf.Abs((int) (current_vol * 10)).ToString();
+			//tmp_text.text = current_vol.ToString();
+		}
+	}
+	
+	public void Button_DecVolume()
+	{
+		if(current_vol > 0.0f)
+		{
+			current_vol -= vol_step;
+			audioSrc.volume = current_vol;
+			tmp_text.text = Mathf.Abs((int) (current_vol * 10)).ToString();
+			//tmp_text.text = current_vol.ToString();
+		}
+	}
 }
