@@ -82,7 +82,7 @@ public class introDialogueHandler : MonoBehaviour
 	public void TransitionScene()
 	{
 		if(playerChoice)
-			SceneManager.LoadScene("Level 1");
+			SceneManager.LoadScene("Map_Screen");
 		else
 			SceneManager.LoadScene("MainMenu");
 	}

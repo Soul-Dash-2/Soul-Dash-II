@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayButton()
     {
-        
+        PlayerPrefs.SetInt("current_lvl",1);
         SceneManager.LoadScene("Intro_Story");
     }
 

@@ -130,6 +130,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9006164529242332536, guid: 4f91624add0bc4c2fa6c6b25688a32ea, type: 3}
+      propertyPath: levelList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006164529242332536, guid: 4f91624add0bc4c2fa6c6b25688a32ea, type: 3}
+      propertyPath: levelList.Array.data[0]
+      value: Level 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9006164529242332537, guid: 4f91624add0bc4c2fa6c6b25688a32ea, type: 3}
       propertyPath: clipName
       value: level2 ghost blink
@@ -2993,11 +3001,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5484056686169129020, guid: e77ea4022bccaa1408f49c72ee5d3d4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 725.84
+      value: 1616.28
       objectReference: {fileID: 0}
     - target: {fileID: 5484056686169129020, guid: e77ea4022bccaa1408f49c72ee5d3d4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -21.47
+      value: 97.7
       objectReference: {fileID: 0}
     - target: {fileID: 5484056686169129020, guid: e77ea4022bccaa1408f49c72ee5d3d4b, type: 3}
       propertyPath: m_LocalPosition.z

@@ -74,17 +74,14 @@ public class LevelController : MonoBehaviour
     {
 
         //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
-        SceneManager.LoadScene(levelList[currLevel]);
-        respawnPoint = respawnPointList[currLevel];
-        
-		currLevel++;
-		//PlayerPrefs.SetInt("current_lvl",currLevel);
-		//SceneManager.LoadScene("Map_Screen");
-		//if(String.Compare(SceneManager.GetActiveScene().name, "Map_Screen") != 0)
-		//	respawnPoint = respawnPointList[currLevel];
-        
-		
-		//respawnPoint = GameObject.Find("InitialRespawnPoint").transform.position;
+        //SceneManager.LoadScene(levelList[currLevel]);
+        //respawnPoint = respawnPointList[currLevel];
+        currLevel++;
+		PlayerPrefs.SetInt("current_lvl",currLevel);
+		SceneManager.LoadScene("Map_Screen");
+		if(String.Compare(SceneManager.GetActiveScene().name, "Map_Screen") != 0)
+			respawnPoint = respawnPointList[currLevel];
+        //respawnPoint = GameObject.Find("InitialRespawnPoint").transform.position;
 
     }
 
