@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private float timeSinceDash;
     private float timeSinceSlash;
     private float timeSinceKnockback;
+    private float cameraSize;
 
     // Materials
     private Material norm;
@@ -108,6 +109,7 @@ public class PlayerController : MonoBehaviour
 
         render = GetComponent<SpriteRenderer>();
         playerCamera = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Camera>();
+        cameraSize = playerCamera.orthographicSize;
 
         controls = new PlayerControls();
         controls.Enable();
@@ -126,6 +128,8 @@ public class PlayerController : MonoBehaviour
         controls.Player.Slash.started += _ => Slash();
         controls.Player.Glide.performed += _ => Glide();
         controls.Player.Glide.canceled += _ => EndGlide();
+        controls.Player.ZoomOut.started += _ => ZoomOut();
+        controls.Player.ZoomOut.canceled += _ => ZoomIn();
 
         //initilize SFX manager
         SFXManager = GameObject.Find("SFXManager");
@@ -368,6 +372,57 @@ public class PlayerController : MonoBehaviour
         {
             fallSpeed = maxFallSpeed;
             isFastFalling = false;
+        }
+    }
+
+    private bool isZoomingOut;
+    void ZoomOut() {
+        if(playerCamera == null) {
+            return;
+        }
+        isZoomingOut = true;
+        StartCoroutine(zoomOut());
+    }
+
+    void ZoomIn() {
+        if(playerCamera == null) {
+            return;
+        }
+        isZoomingOut = false;
+        StartCoroutine(zoomIn());
+    }
+
+    private float zoomOutTime = 0.25f;
+    private IEnumerator zoomOut() {
+        float totalTime = 0;
+        float startSize = playerCamera.orthographicSize;
+        float goalSize = cameraSize * 2;
+        float change = goalSize - startSize;
+
+        while(totalTime < zoomOutTime && isZoomingOut) {
+            totalTime += Time.deltaTime;
+            playerCamera.orthographicSize = startSize + (change * ((-1 * Mathf.Pow((totalTime / zoomOutTime) - 1, 2)) + 1));
+            yield return null;
+        }
+        if (isZoomingOut) {
+            playerCamera.orthographicSize = cameraSize * 2;
+        }
+    }
+
+    private float zoomInTime = 0.25f;
+    private IEnumerator zoomIn() {
+        float totalTime = 0;
+        float startSize = playerCamera.orthographicSize;
+        float goalSize = cameraSize;
+        float change = goalSize - startSize;
+
+        while(totalTime < zoomOutTime && !isZoomingOut) {
+            totalTime += Time.deltaTime;
+            playerCamera.orthographicSize = startSize + (change * ((-1 * Mathf.Pow((totalTime / zoomOutTime) - 1, 2)) + 1));
+            yield return null;
+        }
+        if (!isZoomingOut) {
+            playerCamera.orthographicSize = cameraSize;
         }
     }
 

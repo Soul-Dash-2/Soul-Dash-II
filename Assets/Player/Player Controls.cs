@@ -80,6 +80,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Zoom Out"",
+                    ""type"": ""Button"",
+                    ""id"": ""681b708e-457d-4ae4-92b3-9f01f9506556"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -181,6 +190,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Glide"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""45701f06-bd48-462b-9b0f-8bed4427a3a6"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom Out"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -207,6 +227,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
         m_Player_Slash = m_Player.FindAction("Slash", throwIfNotFound: true);
         m_Player_Glide = m_Player.FindAction("Glide", throwIfNotFound: true);
+        m_Player_ZoomOut = m_Player.FindAction("Zoom Out", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -272,6 +293,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Crouch;
     private readonly InputAction m_Player_Slash;
     private readonly InputAction m_Player_Glide;
+    private readonly InputAction m_Player_ZoomOut;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -282,6 +304,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
         public InputAction @Slash => m_Wrapper.m_Player_Slash;
         public InputAction @Glide => m_Wrapper.m_Player_Glide;
+        public InputAction @ZoomOut => m_Wrapper.m_Player_ZoomOut;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -309,6 +332,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Glide.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGlide;
                 @Glide.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGlide;
                 @Glide.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGlide;
+                @ZoomOut.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomOut;
+                @ZoomOut.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomOut;
+                @ZoomOut.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomOut;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -331,6 +357,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Glide.started += instance.OnGlide;
                 @Glide.performed += instance.OnGlide;
                 @Glide.canceled += instance.OnGlide;
+                @ZoomOut.started += instance.OnZoomOut;
+                @ZoomOut.performed += instance.OnZoomOut;
+                @ZoomOut.canceled += instance.OnZoomOut;
             }
         }
     }
@@ -352,5 +381,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnSlash(InputAction.CallbackContext context);
         void OnGlide(InputAction.CallbackContext context);
+        void OnZoomOut(InputAction.CallbackContext context);
     }
 }
