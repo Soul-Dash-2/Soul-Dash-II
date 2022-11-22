@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class PlayerOnGround : MonoBehaviour
 {
-    bool onGround = true;
+    /* Tracks every "ground" object the collider is currently making contact with
+    The player is said to be on the ground if the collider is touching at least 1
+    ground object --> see OnGround() */
+    private HashSet<GameObject> collisionObjects = new HashSet<GameObject>();
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            onGround = true;
+            collisionObjects.Add(collision.gameObject);
         }
     }
 
@@ -18,21 +21,12 @@ public class PlayerOnGround : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            onGround = false;
-        }
-    }
-
-    void OnTriggerStay2D(Collider2D collider) {
-        if(collider.gameObject.CompareTag("Ground")) {
-            onGround = true;
-        } else {
-            onGround = false;
+            collisionObjects.Remove(collision.gameObject);
         }
     }
 
     public bool OnGround()
     {
-        return onGround;
+        return collisionObjects.Count > 0;
     }
-
 }
