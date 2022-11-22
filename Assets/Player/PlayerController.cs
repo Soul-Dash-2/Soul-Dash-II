@@ -364,6 +364,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Knockback(GameObject source) {
+        float knockbackAmp = 20f;
+        Vector2 sourceLoc = source.transform.position;
+        Vector2 playerLoc = this.transform.position;
+
+        Vector2 knockbackDirection = (playerLoc - sourceLoc);
+        knockbackDirection.Normalize();
+
+        rb.velocity = (knockbackDirection * knockbackAmp) + (rb.velocity);
+    }
+
     // Whether or not the player is allowed to dash -- prefer this method over the boolean canDash
     public bool CanDash()
     {
