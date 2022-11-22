@@ -196,6 +196,7 @@ MonoBehaviour:
   dashType: 
   white: {fileID: 2100000, guid: 166c0cf29fc65ed468a636f3bd081933, type: 2}
   expostionPrefab: {fileID: 7737514994154043278, guid: 0bb9dfbee046843988fd55e2607ec33d, type: 3}
+  prefabName: EnemyPrefabs/Minion
 --- !u!1 &3644007005128057316
 GameObject:
   m_ObjectHideFlags: 0

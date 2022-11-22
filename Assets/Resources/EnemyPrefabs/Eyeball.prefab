@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 3472953791901181384}
   - component: {fileID: 418112120846877651}
   m_Layer: 8
-  m_Name: eye fire blue (1)
+  m_Name: Eyeball
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -320,6 +320,7 @@ MonoBehaviour:
   dashType: eyeball
   white: {fileID: 2100000, guid: 166c0cf29fc65ed468a636f3bd081933, type: 2}
   expostionPrefab: {fileID: 7737514994154043278, guid: 0bb9dfbee046843988fd55e2607ec33d, type: 3}
+  prefabName: EnemyPrefabs/Eyeball
 --- !u!1 &3472953792602806985
 GameObject:
   m_ObjectHideFlags: 0

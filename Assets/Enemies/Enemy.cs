@@ -17,15 +17,18 @@ public class Enemy : MonoBehaviour
     private bool hasDead = false;
     public GameObject? expostionPrefab;
 
-    [SerializeField] private GameObject enemyPrefab;
-    private Transform spawnPosition;
+    [SerializeField] String prefabName;
+    private GameObject enemyPrefab;
+    private Vector3 spawnPosition;
+    private bool spawning;
 
     void Start()
     {
+        enemyPrefab = (GameObject)Resources.Load(prefabName);
         player = GameObject.Find("Hero").GetComponent<PlayerController>();
         norm = GetComponent<SpriteRenderer>().material;
         flashTime = player.GetFlashTime();
-        spawnPosition = this.transform;
+        spawnPosition = this.transform.position;
     }
 
     public void Flash() {
@@ -89,32 +92,35 @@ public class Enemy : MonoBehaviour
     {
         if(this.health <= 0&&!hasDead)
         {
-
-            if (expostionPrefab != null)
-                StartCoroutine(die());
-            else
-                Destroy(this.gameObject);
+            hasDead = true;
+            this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            this.gameObject.GetComponent<Collider2D>().enabled = false;
+            transform.Find("healthBar").gameObject.SetActive(false);
+            if (transform.Find("LaserBeam") != null)
+            {
+                transform.Find("LaserBeam").gameObject.SetActive(false);
+            }
+                if (expostionPrefab != null)
+                StartCoroutine(explode());
+            StartCoroutine(spawn());
 
         }
     }
-
-    IEnumerator die()
+    IEnumerator explode()
     {
-        hasDead = true;
-       GameObject exposion= Instantiate(expostionPrefab, new Vector3(this.gameObject.transform.position.x,
-            this.gameObject.transform.position.y + 1,
-            this.gameObject.transform.position.z),Quaternion.identity);
-     
-
-
-        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        this.gameObject.GetComponent<Collider2D>().enabled = false;
-
+        GameObject exposion = Instantiate(expostionPrefab, new Vector3(this.gameObject.transform.position.x,
+        this.gameObject.transform.position.y + 1,
+        this.gameObject.transform.position.z), Quaternion.identity);
         yield return new WaitForSeconds(3);
         Destroy(exposion);
-        this.gameObject.SetActive(true);
+        StartCoroutine(spawn());
+    }
+
+    IEnumerator spawn()
+    {
         yield return new WaitForSeconds(8);
-        Instantiate(enemyPrefab, new Vector3(spawnPosition.position.x, spawnPosition.position.y+10, spawnPosition.position.z), Quaternion.identity);
+        Instantiate(enemyPrefab, new Vector3(spawnPosition.x, spawnPosition.y, spawnPosition.z), Quaternion.identity);
+        yield return new WaitForSeconds(1);
         Destroy(this.gameObject);
     }
 
