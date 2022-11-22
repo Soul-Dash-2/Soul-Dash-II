@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
     private float coyoteCounter;        //Timer for coyote time
     private float timeSinceDash;
     private float timeSinceSlash;
+    private float timeSinceKnockback;
 
 
     //Damage things
@@ -138,6 +139,7 @@ public class PlayerController : MonoBehaviour
     //Update method to take advantage of deltaTime, used for coyote time mechanic
     private void Update()
     {
+        timeSinceKnockback += Time.deltaTime;
         timeSinceDash += Time.deltaTime;
         timeSinceSlash += Time.deltaTime;
         if (onGround())
@@ -206,7 +208,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy") && isDashing)
         {
            
-            collision.gameObject.GetComponent<Enemy>().playerDamage(3);
+            collision.gameObject.GetComponent<Enemy>().playerDamage(3, this.gameObject);
         }
         else if (collision.gameObject.CompareTag("Enemy") && !isDashing)
         {
@@ -365,6 +367,10 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Knockback(GameObject source, float force) {
+        if(timeSinceKnockback < 0.4f) {
+            return;
+        }
+        timeSinceKnockback = 0;
         float knockbackAmp = force;
         Vector2 sourceLoc = source.transform.position;
         Vector2 playerLoc = this.transform.position;

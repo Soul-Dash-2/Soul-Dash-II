@@ -32,7 +32,7 @@ public class SlashInteraction : MonoBehaviour
     {
         //checks if slash hits an enemy
         if (collision.gameObject.CompareTag("Enemy")){
-            collision.gameObject.GetComponent<Enemy>().playerDamage(1);
+            collision.gameObject.GetComponent<Enemy>().playerDamage(1, this.gameObject);
 
             collision.gameObject.GetComponent<SpriteRenderer>().material.SetFloat("_FlashAmount", 1);
 

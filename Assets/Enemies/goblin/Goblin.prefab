@@ -145,6 +145,7 @@ MonoBehaviour:
   dashType: goblin
   white: {fileID: 2100000, guid: 166c0cf29fc65ed468a636f3bd081933, type: 2}
   expostionPrefab: {fileID: 7737514994154043278, guid: 0bb9dfbee046843988fd55e2607ec33d, type: 3}
+  enemyPrefab: {fileID: 0}
 --- !u!70 &1618659112009883874
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -181,7 +182,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1001 &5257443521083059893
 PrefabInstance:
   m_ObjectHideFlags: 0
