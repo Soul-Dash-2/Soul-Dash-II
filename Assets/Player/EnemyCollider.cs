@@ -104,7 +104,7 @@ public class EnemyCollider : MonoBehaviour
                 float damage = enemy.GetComponent<Enemy>().dealDamage();
                 TakeDamage(damage);
                 //player knockback
-                player.GetComponent<PlayerController>().Knockback(enemy.gameObject);
+                player.GetComponent<PlayerController>().Knockback(enemy.gameObject, 20f);
             }
         }
     }
