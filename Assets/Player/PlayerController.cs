@@ -82,7 +82,10 @@ public class PlayerController : MonoBehaviour
     public float dashCooldown;
     public float slashCooldown;
 
-    
+    public bool movingLeft; //Tracks if player is moving left
+    public bool movingRight; //Tracks if player is moving right
+
+
 
     //move the player to respawn point
     private void Awake()
@@ -228,11 +231,15 @@ public class PlayerController : MonoBehaviour
     {
         if (xVel > 0)
         {
+            movingLeft = false;
+            movingRight = true;
             render.flipX = true;
             return;
         }
         if (xVel < 0)
         {
+            movingRight = false;
+            movingLeft = true;
             render.flipX = false;
             return;
         }
