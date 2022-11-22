@@ -8,6 +8,10 @@ public class SFX_manager : MonoBehaviour
     [SerializeField] private AudioSource walkingAudioSource;
     [SerializeField]  AudioClip basicDashSound;
     [SerializeField] AudioClip slashSound;
+    [SerializeField] AudioClip eyeballLaserSound;
+    [SerializeField] private AudioSource enemyAudioSource;
+    [SerializeField] AudioClip globinProjectileOnHit;
+    [SerializeField] AudioClip heroTakeDamage;
     AudioClip normalWalking;
     private bool isWaking = false;
 
@@ -17,9 +21,9 @@ public class SFX_manager : MonoBehaviour
         basicDashSound = Resources.Load<AudioClip>("Audio/basicDash");
         slashSound= Resources.Load<AudioClip>("Audio/slash");
         normalWalking = Resources.Load<AudioClip>("Audio/normalWalking");
-        
-        
-
+        eyeballLaserSound = Resources.Load<AudioClip>("Audio/laser");
+        globinProjectileOnHit = Resources.Load<AudioClip>("Audio/goblinProjectileOnHit");
+        heroTakeDamage = Resources.Load<AudioClip>("Audio/heroTakeDamage");
     }
 
     // Update is called once per frame
@@ -49,9 +53,22 @@ public class SFX_manager : MonoBehaviour
                 oneShotAudioSource.PlayOneShot(slashSound,0.3f);
                 break;
 
+            case "eyeballLaser":
+                enemyAudioSource.PlayOneShot(eyeballLaserSound, 0.1f);
+                break;
+
+            case "globinProjectileOnHit":
+                enemyAudioSource.PlayOneShot(globinProjectileOnHit,0.1f);
+                break;
+
+            case "heroTakeDamage":
+                enemyAudioSource.PlayOneShot(heroTakeDamage, 0.1f);
+                break;
 
 
-         
+
+
+
         }
     }
 

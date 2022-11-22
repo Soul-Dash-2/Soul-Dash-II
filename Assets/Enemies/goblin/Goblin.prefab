@@ -141,9 +141,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   shields: 0
-  damage: 5
+  damage: 3
   dashType: goblin
   white: {fileID: 2100000, guid: 166c0cf29fc65ed468a636f3bd081933, type: 2}
+  expostionPrefab: {fileID: 7737514994154043278, guid: 0bb9dfbee046843988fd55e2607ec33d, type: 3}
 --- !u!70 &1618659112009883874
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

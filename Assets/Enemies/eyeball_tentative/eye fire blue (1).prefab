@@ -319,6 +319,7 @@ MonoBehaviour:
   damage: 1
   dashType: eyeball
   white: {fileID: 2100000, guid: 166c0cf29fc65ed468a636f3bd081933, type: 2}
+  expostionPrefab: {fileID: 7737514994154043278, guid: 0bb9dfbee046843988fd55e2607ec33d, type: 3}
 --- !u!1 &3472953792602806985
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,7 +333,7 @@ GameObject:
   - component: {fileID: 1742917077692108056}
   m_Layer: 8
   m_Name: CharacterCheck
-  m_TagString: Untagged
+  m_TagString: HeroCheck
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -400,6 +401,10 @@ PrefabInstance:
     - target: {fileID: 6953379712477355729, guid: b341e765f2ffa6742a4180903cb6b30f, type: 3}
       propertyPath: m_Name
       value: healthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 6953379712477355729, guid: b341e765f2ffa6742a4180903cb6b30f, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6953379712477355730, guid: b341e765f2ffa6742a4180903cb6b30f, type: 3}
       propertyPath: m_RootOrder

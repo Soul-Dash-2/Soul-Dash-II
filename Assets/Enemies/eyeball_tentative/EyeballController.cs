@@ -20,7 +20,11 @@ public class EyeballController : MonoBehaviour
     bool calMovementMode = false;
     bool shunMode = false;
     bool attackLeft = true;
+    float laserhitLeangth = 10000f;
+    // Bit shift the index of the layer (8) to get a bit mask
+    int layerMask = 1 << 8;
 
+   
     float attackPrepareTimer = 0f;
     private SpriteRenderer _renderer;
     private LineRenderer _lineRenderer;
@@ -29,6 +33,8 @@ public class EyeballController : MonoBehaviour
     Vector2 shunDestination;
     Vector2 attackCurrPos;
     IEnumerator laserController;
+
+    Vector3 ball;
 
     float arcMovementCounter=0f;
     //assume there will be only one player in the scene
@@ -42,6 +48,8 @@ public class EyeballController : MonoBehaviour
     }
     void Start()
     {
+        // This would cast rays only against colliders in layer 8, so we just inverse the mask.
+        layerMask = ~layerMask;
         player = GameObject.FindGameObjectsWithTag("Player")[0];
         _renderer = GetComponent<SpriteRenderer>();
         _lineRenderer = transform.Find("LaserBeam").GetComponent<LineRenderer>();
@@ -232,19 +240,8 @@ public class EyeballController : MonoBehaviour
             if (attackLeft) attackCurrPos.x -= laserMovementSpeed;
             else attackCurrPos.x += laserMovementSpeed;
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.right * 20);
+           
             StartCoroutine(LaserBeanController());
-            if (hit.collider)
-            {
-
-                if (hit.transform.gameObject.CompareTag("Player")) { }
-                
-                //deal damage to the player.
-            }
-            else
-            {
-
-            }
 
             attackTimer += Time.deltaTime;
             yield return null;
@@ -263,11 +260,36 @@ public class EyeballController : MonoBehaviour
 
     IEnumerator LaserBeanController()
     {
-        _lineRenderer.SetPosition(0, _renderer.flipY ? new Vector3(0,2f,0) : new Vector3(0,0,0));
-        _lineRenderer.SetPosition(1,_renderer.flipY? transform.right.normalized * laserBeamLength * 1.41f : -transform.right * laserBeamLength*1.41f);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.right * 20, laserBeamLength, layerMask: layerMask);
+        if (hit.collider)
+        {
+            if (hit.transform.gameObject.CompareTag("Player"))
+            {
+                Debug.Log("tag is:"+hit.collider.tag);
+                ball=hit.point;
+                laserhitLeangth = Vector3.Distance(transform.position, hit.point);
+            }
+
+            //deal damage to the player.
+        }
+        else
+        {
+
+        }
+        GameObject.Find("SFXManager").GetComponent<SFX_manager>().PlaySound("eyeballLaser");
+        _lineRenderer.SetPosition(0, new Vector3(0, 0, 0));
+        float laserLength = laserhitLeangth < laserBeamLength ? laserhitLeangth : laserBeamLength;
+        Debug.Log("laserLength: " + laserhitLeangth);
+        _lineRenderer.SetPosition(1, _renderer.flipY ? transform.right.normalized * laserLength: -transform.right * laserLength);
         yield return new WaitForEndOfFrame();
         _lineRenderer.SetPosition(1, new Vector3(0, 0, 0));
         _lineRenderer.SetPosition(0, new Vector3(0, 0, 0));
+    }
+    void OnDrawGizmos()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position, 1);
     }
 
 }

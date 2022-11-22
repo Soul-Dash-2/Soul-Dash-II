@@ -22,6 +22,7 @@ public class FireballController : MonoBehaviour
         {
             GameObject col = collision.gameObject;
             if (col.CompareTag("Player") || col.CompareTag("Ground")) {
+                GameObject.Find("SFXManager").GetComponent<SFX_manager>().PlaySound("globinProjectileOnHit");
                 Destroy(gameObject);
             }
         }

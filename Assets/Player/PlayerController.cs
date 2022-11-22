@@ -205,6 +205,7 @@ public class PlayerController : MonoBehaviour
         //Ignore the stuff below here, maybe make a trigger child to the player (or enemy)
         if (collision.gameObject.CompareTag("Enemy") && isDashing)
         {
+           
             collision.gameObject.GetComponent<Enemy>().playerDamage(3);
         }
         else if (collision.gameObject.CompareTag("Enemy") && !isDashing)

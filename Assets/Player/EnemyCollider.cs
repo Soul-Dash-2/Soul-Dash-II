@@ -75,6 +75,7 @@ public class EnemyCollider : MonoBehaviour
             }
             else
             {
+
                 float damage = enemy.GetComponent<Enemy>().dealDamage();
                 TakeDamage(damage);
                 //player knockback
@@ -109,6 +110,7 @@ public class EnemyCollider : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        GameObject.Find("SFXManager").GetComponent<SFX_manager>().PlaySound("heroTakeDamage");
         player.GetComponent<PlayerController>().GetPlayerCamera().Shake(0.2f, 0.75f, 5f);
         if(takingDamage == false){ //If the player has not taken damage yet
             playerHP -= damage;

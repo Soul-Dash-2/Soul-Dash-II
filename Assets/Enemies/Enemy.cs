@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,12 +12,14 @@ public class Enemy : MonoBehaviour
     public string dashType; //if the enemy gives a specific dash type this is the value for it
     private float flashTime;
     private PlayerController player;
-    
     private Material norm;
     public Material white;
+    private bool hasDead = false;
+    public GameObject? expostionPrefab;
 
     void Start()
     {
+       
         player = GameObject.Find("Hero").GetComponent<PlayerController>();
         norm = GetComponent<SpriteRenderer>().material;
         flashTime = player.GetFlashTime();
@@ -69,10 +72,32 @@ public class Enemy : MonoBehaviour
 
     void checkHealth()
     {
-        if(this.health <= 0)
+        if(this.health <= 0&&!hasDead)
         {
-            Destroy(this.gameObject);
+
+            if (expostionPrefab != null)
+                StartCoroutine(die());
+            else
+                Destroy(this.gameObject);
+
         }
+    }
+
+    IEnumerator die()
+    {
+        hasDead = true;
+       GameObject exposion= Instantiate(expostionPrefab, new Vector3(this.gameObject.transform.position.x,
+            this.gameObject.transform.position.y + 1,
+            this.gameObject.transform.position.z),Quaternion.identity);
+     
+
+
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        this.gameObject.GetComponent<Collider2D>().enabled = false;
+
+        yield return new WaitForSeconds(3);
+        Destroy(exposion);
+        Destroy(this.gameObject);
     }
 
     public float getHealth()
