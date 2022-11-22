@@ -47,9 +47,10 @@ public class Enemy : MonoBehaviour
     }
 
     //Method that tracks the player's damage to the enemy
-    public virtual void playerDamage(float dmg)
+    public virtual void playerDamage(float dmg, GameObject source)
     {
         Flash();
+        this.Knockback(source, 20f);
         if(shields > 0)
         {
             float excess = 0;
@@ -65,6 +66,17 @@ public class Enemy : MonoBehaviour
         {
             health = health - dmg;
         }
+    }
+
+    public void Knockback(GameObject source, float force) {
+        float knockbackAmp = force;
+        Vector2 sourceLoc = source.transform.position;
+        Vector2 playerLoc = this.transform.position;
+
+        Vector2 knockbackDirection = (playerLoc - sourceLoc);
+        knockbackDirection.Normalize();
+
+        this.GetComponent<Rigidbody2D>().velocity = (knockbackDirection * knockbackAmp) + this.GetComponent<Rigidbody2D>().velocity;
     }
 
     //Damage and Health Methods

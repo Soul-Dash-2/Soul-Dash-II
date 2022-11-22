@@ -7,7 +7,7 @@ public class WormSection : Enemy
     private SandwormManager manager;
 
     // Override
-    public override void playerDamage(float dmg)
+    public override void playerDamage(float dmg, GameObject source)
     {
         GameObject.Find("Hero").GetComponent<PlayerController>().FlashTime();
         Flash();

@@ -41,18 +41,18 @@ public class EnemyCollider : MonoBehaviour
             if(player.GetComponent<PlayerController>().getDashType() == PlayerController.DashType.SLIME) //player slime dashing into an enemy
             {
                 player.GetComponent<PlayerController>().slimeBounce(); //activates slime bounce
-                enemy.GetComponent<Enemy>().playerDamage(3);
+                enemy.GetComponent<Enemy>().playerDamage(3, this.gameObject);
                 return;
             }
             if(player.GetComponent<PlayerController>().getDashType() == PlayerController.DashType.SANDWORM)
             {
                 //player.GetComponent<PlayerController>().sandwormExplosion();
                 enemy.GetComponent<Enemy>().breakShields(); //breaks enemies shields (if there are any)
-                enemy.GetComponent<Enemy>().playerDamage(3);
+                enemy.GetComponent<Enemy>().playerDamage(3, this.gameObject);
                 return;
             }
             Debug.Log("player dashing into an enemy ");
-            enemy.GetComponent<Enemy>().playerDamage(3);
+            enemy.GetComponent<Enemy>().playerDamage(3, this.gameObject);
             currentIFrames = 0.2f; //Giving the player slight Iframes after hitting the enemy with a dash
             //check if player killed the enemy with dash
             if (enemy.GetComponent<Enemy>().getHealth() <= 0)
@@ -79,6 +79,7 @@ public class EnemyCollider : MonoBehaviour
                 float damage = enemy.GetComponent<Enemy>().dealDamage();
                 TakeDamage(damage);
                 //player knockback
+                player.GetComponent<PlayerController>().Knockback(enemy.gameObject, 20f);
             }
         }
 
@@ -104,18 +105,21 @@ public class EnemyCollider : MonoBehaviour
                 float damage = enemy.GetComponent<Enemy>().dealDamage();
                 TakeDamage(damage);
                 //player knockback
+                player.GetComponent<PlayerController>().Knockback(enemy.gameObject, 20f);
             }
         }
     }
 
     public void TakeDamage(float damage)
     {
-        GameObject.Find("SFXManager").GetComponent<SFX_manager>().PlaySound("heroTakeDamage");
-        player.GetComponent<PlayerController>().GetPlayerCamera().Shake(0.2f, 0.75f, 5f);
         if(takingDamage == false){ //If the player has not taken damage yet
+            player.GetComponent<PlayerController>().GetPlayerCamera().Shake(0.2f, 0.75f, 5f);
+            GameObject.Find("SFXManager").GetComponent<SFX_manager>().PlaySound("heroTakeDamage");
             playerHP -= damage;
             takingDamage = true;
             currentIFrames = 0f;    //Set the iframes to 0
+            player.GetComponent<PlayerController>().Flash();
+            
             if(playerHP <= 0)
             {
                 KillPlayer();

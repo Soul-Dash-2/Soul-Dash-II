@@ -30,7 +30,7 @@ public class SandWormExplosionInteraction : MonoBehaviour
         //checks if slash hits an enemy
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<Enemy>().playerDamage(3);
+            collision.gameObject.GetComponent<Enemy>().playerDamage(3, null);
         }
     }
 

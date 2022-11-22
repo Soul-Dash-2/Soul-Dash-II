@@ -44,6 +44,11 @@ public class PlayerController : MonoBehaviour
     private float coyoteCounter;        //Timer for coyote time
     private float timeSinceDash;
     private float timeSinceSlash;
+    private float timeSinceKnockback;
+
+    // Materials
+    private Material norm;
+    public Material white;
 
 
     //Damage things
@@ -108,6 +113,7 @@ public class PlayerController : MonoBehaviour
         controls.Enable();
 
         _animator = GetComponent<Animator>();
+        norm = GetComponent<SpriteRenderer>().material;
 
         // See the PlayerControls object in the assets folder to view which keybinds activate the different movement events
         controls.Player.Movement.performed += ctx => movementFactor = ctx.ReadValue<float>(); // sets movement to the float value of the performed action
@@ -138,6 +144,7 @@ public class PlayerController : MonoBehaviour
     //Update method to take advantage of deltaTime, used for coyote time mechanic
     private void Update()
     {
+        timeSinceKnockback += Time.deltaTime;
         timeSinceDash += Time.deltaTime;
         timeSinceSlash += Time.deltaTime;
         if (onGround())
@@ -206,7 +213,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy") && isDashing)
         {
            
-            collision.gameObject.GetComponent<Enemy>().playerDamage(3);
+            collision.gameObject.GetComponent<Enemy>().playerDamage(3, this.gameObject);
         }
         else if (collision.gameObject.CompareTag("Enemy") && !isDashing)
         {
@@ -362,6 +369,21 @@ public class PlayerController : MonoBehaviour
             fallSpeed = maxFallSpeed;
             isFastFalling = false;
         }
+    }
+
+    public void Knockback(GameObject source, float force) {
+        if(timeSinceKnockback < 0.4f) {
+            return;
+        }
+        timeSinceKnockback = 0;
+        float knockbackAmp = force;
+        Vector2 sourceLoc = source.transform.position;
+        Vector2 playerLoc = this.transform.position;
+
+        Vector2 knockbackDirection = (playerLoc - sourceLoc);
+        knockbackDirection.Normalize();
+
+        rb.velocity = (knockbackDirection * knockbackAmp);
     }
 
     // Whether or not the player is allowed to dash -- prefer this method over the boolean canDash
@@ -661,6 +683,17 @@ public class PlayerController : MonoBehaviour
 
     public float GetFlashTime() {
         return this.flashTime;
+    }
+
+    public void Flash() {
+        StartCoroutine(flash());
+    }
+
+    private IEnumerator flash() {
+        GetComponent<SpriteRenderer>().material = white;
+        yield return new WaitForSecondsRealtime(flashTime);
+        GetComponent<SpriteRenderer>().material = norm;
+        yield return null;
     }
 
     IEnumerator EyeballDash()
