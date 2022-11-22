@@ -46,6 +46,10 @@ public class PlayerController : MonoBehaviour
     private float timeSinceSlash;
     private float timeSinceKnockback;
 
+    // Materials
+    private Material norm;
+    public Material white;
+
 
     //Damage things
     public float dashDamage;
@@ -109,6 +113,7 @@ public class PlayerController : MonoBehaviour
         controls.Enable();
 
         _animator = GetComponent<Animator>();
+        norm = GetComponent<SpriteRenderer>().material;
 
         // See the PlayerControls object in the assets folder to view which keybinds activate the different movement events
         controls.Player.Movement.performed += ctx => movementFactor = ctx.ReadValue<float>(); // sets movement to the float value of the performed action
@@ -678,6 +683,17 @@ public class PlayerController : MonoBehaviour
 
     public float GetFlashTime() {
         return this.flashTime;
+    }
+
+    public void Flash() {
+        StartCoroutine(flash());
+    }
+
+    private IEnumerator flash() {
+        GetComponent<SpriteRenderer>().material = white;
+        yield return new WaitForSecondsRealtime(flashTime);
+        GetComponent<SpriteRenderer>().material = norm;
+        yield return null;
     }
 
     IEnumerator EyeballDash()

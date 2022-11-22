@@ -118,6 +118,8 @@ public class EnemyCollider : MonoBehaviour
             playerHP -= damage;
             takingDamage = true;
             currentIFrames = 0f;    //Set the iframes to 0
+            player.GetComponent<PlayerController>().Flash();
+            
             if(playerHP <= 0)
             {
                 KillPlayer();

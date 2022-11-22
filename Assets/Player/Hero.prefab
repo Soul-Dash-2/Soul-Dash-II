@@ -1602,6 +1602,7 @@ MonoBehaviour:
   swordPrefab: {fileID: 8304604397180328726, guid: 804576babaaa8484792cfa1d7d31ceef, type: 3}
   attackRange: 6.5
   isDashing: 0
+  white: {fileID: 2100000, guid: 166c0cf29fc65ed468a636f3bd081933, type: 2}
   dashDamage: 0
   flashTime: 0.15
   dashType: 0
