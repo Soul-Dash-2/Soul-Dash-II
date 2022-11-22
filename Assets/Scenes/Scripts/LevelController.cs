@@ -9,7 +9,7 @@ public class LevelController : MonoBehaviour
     [SerializeField] string[] levelList;
     [SerializeField] private int waitTime = 2;
     [SerializeField] Vector3 defaultPos;
-    private int currLevel = 0;
+    int currLevel = 0;
     private Vector3 deathPos;
     public Vector3 respawnPoint;
     private Vector3 currPos;
@@ -73,18 +73,9 @@ public class LevelController : MonoBehaviour
     public void LoadNextScene()
     {
 
-        //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
-        SceneManager.LoadScene(levelList[currLevel]);
-        respawnPoint = respawnPointList[currLevel];
-        
-		currLevel++;
-		//PlayerPrefs.SetInt("current_lvl",currLevel);
-		//SceneManager.LoadScene("Map_Screen");
-		//if(String.Compare(SceneManager.GetActiveScene().name, "Map_Screen") != 0)
-		//	respawnPoint = respawnPointList[currLevel];
-        
-		
-		//respawnPoint = GameObject.Find("InitialRespawnPoint").transform.position;
+        PlayerPrefs.SetInt("current_lvl", Int32.Parse(SceneManager.GetActiveScene().name.Split(' ')[1])+1);
+		SceneManager.LoadScene("Map_Screen");
+
 
     }
 
