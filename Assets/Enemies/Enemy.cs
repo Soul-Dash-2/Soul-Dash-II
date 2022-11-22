@@ -17,12 +17,15 @@ public class Enemy : MonoBehaviour
     private bool hasDead = false;
     public GameObject? expostionPrefab;
 
+    [SerializeField] private GameObject enemyPrefab;
+    private Transform spawnPosition;
+
     void Start()
     {
-       
         player = GameObject.Find("Hero").GetComponent<PlayerController>();
         norm = GetComponent<SpriteRenderer>().material;
         flashTime = player.GetFlashTime();
+        spawnPosition = this.transform;
     }
 
     public void Flash() {
@@ -97,6 +100,9 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForSeconds(3);
         Destroy(exposion);
+        this.gameObject.SetActive(true);
+        yield return new WaitForSeconds(8);
+        Instantiate(enemyPrefab, new Vector3(spawnPosition.position.x, spawnPosition.position.y+10, spawnPosition.position.z), Quaternion.identity);
         Destroy(this.gameObject);
     }
 
