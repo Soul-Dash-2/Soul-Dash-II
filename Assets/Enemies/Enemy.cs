@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static PlayerController;
 
 public class Enemy : MonoBehaviour
 {
@@ -17,12 +18,26 @@ public class Enemy : MonoBehaviour
     private bool hasDead = false;
     public GameObject? expostionPrefab;
 
+    //Respawn Variables
+    public bool respawnable;
+    private Vector3 respawnLocation;
+    private float startingHealth;
+    private float startingShields;
+    private Collider2D m_Collider;
+    private SpriteRenderer _renderer;
+    private bool afterRespawning;
+
     void Start()
     {
-       
+        startingHealth = health;
+        startingShields = shields;
+        respawnLocation = transform.position;
+
         player = GameObject.Find("Hero").GetComponent<PlayerController>();
         norm = GetComponent<SpriteRenderer>().material;
         flashTime = player.GetFlashTime();
+        m_Collider = GetComponent<Collider2D>();
+        _renderer = GetComponent<SpriteRenderer>();
     }
 
     public void Flash() {
@@ -41,6 +56,12 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         checkHealth();
+        if (afterRespawning)
+        {
+            m_Collider.enabled = true;
+            _renderer.enabled = true;
+            afterRespawning = false;
+        }
     }
 
     //Method that tracks the player's damage to the enemy
@@ -76,10 +97,19 @@ public class Enemy : MonoBehaviour
         {
 
             if (expostionPrefab != null)
+            {
                 StartCoroutine(die());
-            else
+            }
+            else if (respawnable == false)
+            {
+                Debug.Log("respawning");
                 Destroy(this.gameObject);
-
+            }
+            else if (respawnable == true)
+            {
+                afterRespawning;
+                StartCoroutine(respawn());
+            }
         }
     }
 
@@ -97,7 +127,49 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForSeconds(3);
         Destroy(exposion);
-        Destroy(this.gameObject);
+        if (respawnable)
+        {
+            Debug.Log("attempting respawn");
+            m_Collider.enabled = !m_Collider.enabled;
+            Debug.Log("disabled collider");
+            _renderer.enabled = !_renderer.enabled;
+            Debug.Log("changed renderer");
+            float respawnTime = 0; 
+            while (respawnTime < 3)
+            {
+                respawnTime += Time.deltaTime;
+                yield return null;
+            }
+            health = startingHealth;
+            shields = startingShields;
+            m_Collider.enabled = !m_Collider.enabled;
+            _renderer.enabled = !_renderer.enabled;
+            afterRespawning = true;
+            hasDead = false;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    IEnumerator respawn()
+    {
+        m_Collider.enabled = !m_Collider.enabled;
+        _renderer.enabled = !_renderer.enabled;
+        //_renderer.color = new Color(_renderer.color.r, _renderer.color.g, _renderer.color.b, _renderer.color.a == 0.00f ? 0.0f : 0.00f);
+        float respawnTime = 0;
+        while (respawnTime < 3)
+        {
+            respawnTime += Time.deltaTime;
+            yield return null;
+        }
+        //transform.position = respawnLocation;
+        health = startingHealth;
+        shields = startingShields;
+        m_Collider.enabled = !m_Collider.enabled;
+        _renderer.enabled = !_renderer.enabled;
+        //_renderer.color = new Color(_renderer.color.r, _renderer.color.g, _renderer.color.b, 1);
     }
 
     public float getHealth()
