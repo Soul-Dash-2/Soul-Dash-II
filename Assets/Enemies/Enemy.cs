@@ -112,7 +112,7 @@ public class Enemy : MonoBehaviour
     {
         GameObject exposion = Instantiate(expostionPrefab, new Vector3(this.gameObject.transform.position.x,
         this.gameObject.transform.position.y + 1,
-        this.gameObject.transform.position.z), spawnRotation);
+        this.gameObject.transform.position.z), Quaternion.identity);
         yield return new WaitForSeconds(3);
         Destroy(exposion);
         StartCoroutine(spawn());
@@ -121,7 +121,7 @@ public class Enemy : MonoBehaviour
     IEnumerator spawn()
     {
         yield return new WaitForSeconds(8);
-        Instantiate(enemyPrefab, new Vector3(spawnPosition.x, spawnPosition.y, spawnPosition.z), Quaternion.identity);
+        Instantiate(enemyPrefab, new Vector3(spawnPosition.x, spawnPosition.y, spawnPosition.z), spawnRotation);
         yield return new WaitForSeconds(1);
         Destroy(this.gameObject);
     }
