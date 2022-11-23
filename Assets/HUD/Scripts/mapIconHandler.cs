@@ -17,8 +17,12 @@ public class mapIconHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		Debug.Log(current_lvl);
         switch(current_lvl)
 		{
+			case 0:
+				transform.position = new Vector3(380.0f, 240.0f, 1.0f);
+				break;
 			case 1:
                 levelController.respawnPoint = new Vector3(380.0f, 240.0f, 1.0f); 
                 transform.position = new Vector3(380.0f, 240.0f, 1.0f);
@@ -31,16 +35,19 @@ public class mapIconHandler : MonoBehaviour
                 levelController.respawnPoint= new Vector3(490.0f, 370.0f, 1.0f);
                 transform.position = new Vector3(490.0f, 370.0f, 1.0f);
 				break;
-			default:
-                levelController.respawnPoint= new Vector3(0.0f, 0.0f, 0.0f);
-                transform.position = new Vector3(0.0f, 0.0f, 0.0f);
-				break;
+			// default:
+                // levelController.respawnPoint= new Vector3(0.0f, 0.0f, 0.0f);
+                // transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+				// break;
 		}
 		
 		if(Input.GetKeyDown(KeyCode.Mouse0))
         {
 			switch(current_lvl)
 			{
+				case 0:
+					SceneManager.LoadScene("Level 1");
+					break;
 				case 1:
 					SceneManager.LoadScene("Level 1");
 					break;
