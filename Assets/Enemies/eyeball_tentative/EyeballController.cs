@@ -16,10 +16,12 @@ public class EyeballController : MonoBehaviour
     [SerializeField] float maxDistanceToPlayer = 30f;
     [SerializeField] float minDistanceToPlayer = 20f;
     [SerializeField] float laserBeamLength = 40f;
+    [SerializeField] float laserDamagePerFrame = 0.3f;
     bool attackMode = false;
     bool calMovementMode = false;
     bool shunMode = false;
     bool attackLeft = true;
+    bool ableToDealDamage = false;
     float laserhitLeangth = 10000f;
     // Bit shift the index of the layer (8) to get a bit mask
     int layerMask = 1 << 8;
@@ -91,10 +93,36 @@ public class EyeballController : MonoBehaviour
         {
            StartCoroutine( arcMovementTotheOtherSideOfPlayer(shunStartPoint, shunMidpoint, shunDestination));
         }
-       /* if (attackReady)
+
+
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.right * 20, laserBeamLength, layerMask: layerMask);
+        if (hit.collider)
         {
-            LaserController();
-        } */
+            if (hit.transform.gameObject.CompareTag("Player")|| hit.transform.gameObject.CompareTag("Ground"))
+            {
+
+                ball = hit.point;
+                laserhitLeangth = Vector3.Distance(transform.position, hit.point);
+
+                if(ableToDealDamage&& hit.transform.gameObject.CompareTag("Player"))
+                {
+
+                    GameObject.Find("Hero").transform.GetChild(1).GetComponent<EnemyCollider>().TakeDamage(0.5f);
+                    ableToDealDamage = false;
+                }
+            }
+
+            //deal damage to the player.
+        }
+        else
+        {
+
+        }
+        /* if (attackReady)
+         {
+             LaserController();
+         } */
 
     }
 
@@ -260,22 +288,9 @@ public class EyeballController : MonoBehaviour
 
     IEnumerator LaserBeanController()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.right * 20, laserBeamLength, layerMask: layerMask);
-        if (hit.collider)
-        {
-            if (hit.transform.gameObject.CompareTag("Player"))
-            {
-                Debug.Log("tag is:"+hit.collider.tag);
-                ball=hit.point;
-                laserhitLeangth = Vector3.Distance(transform.position, hit.point);
-            }
+        ableToDealDamage = true;
 
-            //deal damage to the player.
-        }
-        else
-        {
-
-        }
+        if (this.gameObject.GetComponent<Enemy>().health>0)
         GameObject.Find("SFXManager").GetComponent<SFX_manager>().PlaySound("eyeballLaser");
         _lineRenderer.SetPosition(0, new Vector3(0, 0, 0));
         float laserLength = laserhitLeangth < laserBeamLength ? laserhitLeangth : laserBeamLength;
@@ -290,6 +305,7 @@ public class EyeballController : MonoBehaviour
         // Draw a yellow sphere at the transform's position
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(transform.position, 1);
+
     }
 
 }
