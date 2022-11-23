@@ -10,7 +10,7 @@ public class mapIconHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		levelController = GameObject.Find("LevelController").GetComponent<LevelController>();
+		
         current_lvl = PlayerPrefs.GetInt("current_lvl");
     }
 
@@ -23,15 +23,15 @@ public class mapIconHandler : MonoBehaviour
 				transform.position = new Vector3(380.0f, 240.0f, 1.0f);
 				break;
 			case 1:
-                // levelController.respawnPoint = new Vector3(380.0f, 240.0f, 1.0f); 
-                transform.position = new Vector3(380.0f, 240.0f, 1.0f);
+                
+                transform.position = new Vector3(-60.48f, 1.135472f, 1.0f);
 				break;
 			case 2:
-                // levelController.respawnPoint= new Vector3(460.0f, 290.0f, 1.0f);
-                transform.position = new Vector3(460.0f, 290.0f, 1.0f);
+           
+                transform.position = new Vector3(884.4595f, 26.14012f, 1.0f);
 				break;
 			case 3:
-                // levelController.respawnPoint= new Vector3(490.0f, 370.0f, 1.0f);
+                
                 transform.position = new Vector3(490.0f, 370.0f, 1.0f);
 				break;
 			// default:

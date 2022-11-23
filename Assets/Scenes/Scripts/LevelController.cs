@@ -65,7 +65,7 @@ public class LevelController : MonoBehaviour
         }
         else
         {
-            respawnPoint = GameObject.Find("initialRespawnPoint").transform.position;
+           // respawnPoint = GameObject.Find("initialRespawnPoint").transform.position;
         }
 
     }

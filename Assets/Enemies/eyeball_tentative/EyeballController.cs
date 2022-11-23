@@ -294,7 +294,7 @@ public class EyeballController : MonoBehaviour
         GameObject.Find("SFXManager").GetComponent<SFX_manager>().PlaySound("eyeballLaser");
         _lineRenderer.SetPosition(0, new Vector3(0, 0, 0));
         float laserLength = laserhitLeangth < laserBeamLength ? laserhitLeangth : laserBeamLength;
-        Debug.Log("laserLength: " + laserhitLeangth);
+        
         _lineRenderer.SetPosition(1, _renderer.flipY ? transform.right.normalized * laserLength: -transform.right * laserLength);
         yield return new WaitForEndOfFrame();
         _lineRenderer.SetPosition(1, new Vector3(0, 0, 0));
