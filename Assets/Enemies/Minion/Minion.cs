@@ -9,6 +9,7 @@ public class Minion: MonoBehaviour
     [SerializeField] Transform wallCheck;
     [SerializeField] float checkingRadius;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] LayerMask enemyLayer;
     private float horizontalMovement = 1;
     private bool facingRight = true;
     private bool touchingGround;
@@ -24,7 +25,7 @@ public class Minion: MonoBehaviour
     void FixedUpdate()
     {
         touchingGround = Physics2D.OverlapCircle(groundCheck.position, checkingRadius, groundLayer);
-        touchingWall = Physics2D.OverlapCircle(wallCheck.position, checkingRadius, groundLayer);
+        touchingWall = Physics2D.OverlapCircle(wallCheck.position, checkingRadius, enemyLayer) || Physics2D.OverlapCircle(wallCheck.position, checkingRadius, groundLayer);
         Pertrolling();
     }
 
