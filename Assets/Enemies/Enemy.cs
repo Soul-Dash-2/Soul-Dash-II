@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] String prefabName;
     private GameObject enemyPrefab;
     private Vector3 spawnPosition;
+    private Quaternion spawnRotation;
     private bool spawning;
 
     void Start()
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour
         norm = GetComponent<SpriteRenderer>().material;
         flashTime = player.GetFlashTime();
         spawnPosition = this.transform.position;
+        spawnRotation = this.transform.rotation;
     }
 
     public void Flash() {
@@ -110,7 +112,7 @@ public class Enemy : MonoBehaviour
     {
         GameObject exposion = Instantiate(expostionPrefab, new Vector3(this.gameObject.transform.position.x,
         this.gameObject.transform.position.y + 1,
-        this.gameObject.transform.position.z), Quaternion.identity);
+        this.gameObject.transform.position.z), spawnRotation);
         yield return new WaitForSeconds(3);
         Destroy(exposion);
         StartCoroutine(spawn());
