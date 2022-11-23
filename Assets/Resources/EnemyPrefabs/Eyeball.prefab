@@ -285,6 +285,7 @@ MonoBehaviour:
   maxDistanceToPlayer: 30
   minDistanceToPlayer: 10
   laserBeamLength: 40
+  laserDamagePerFrame: 0.3
   player: {fileID: 0}
 --- !u!58 &3472953791901181384
 CircleCollider2D:
