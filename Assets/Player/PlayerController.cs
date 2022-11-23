@@ -392,7 +392,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(zoomIn());
     }
 
-    private float zoomOutTime = 0.25f;
+    private float zoomOutTime = 0.33f;
     private IEnumerator zoomOut() {
         float totalTime = 0;
         float startSize = playerCamera.orthographicSize;
@@ -401,6 +401,9 @@ public class PlayerController : MonoBehaviour
 
         while(totalTime < zoomOutTime && isZoomingOut) {
             totalTime += Time.deltaTime;
+            if (totalTime > zoomOutTime) {
+                totalTime = zoomOutTime;
+            }
             playerCamera.orthographicSize = startSize + (change * ((-1 * Mathf.Pow((totalTime / zoomOutTime) - 1, 2)) + 1));
             yield return null;
         }
@@ -409,16 +412,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private float zoomInTime = 0.25f;
+    private float zoomInTime = 0.33f;
     private IEnumerator zoomIn() {
         float totalTime = 0;
         float startSize = playerCamera.orthographicSize;
         float goalSize = cameraSize;
         float change = goalSize - startSize;
 
-        while(totalTime < zoomOutTime && !isZoomingOut) {
+        while(totalTime < zoomInTime && !isZoomingOut) {
             totalTime += Time.deltaTime;
-            playerCamera.orthographicSize = startSize + (change * ((-1 * Mathf.Pow((totalTime / zoomOutTime) - 1, 2)) + 1));
+            if (totalTime > zoomInTime) {
+                totalTime = zoomInTime;
+            }
+            playerCamera.orthographicSize = startSize + (change * ((-1 * Mathf.Pow((totalTime / zoomInTime) - 1, 2)) + 1));
             yield return null;
         }
         if (!isZoomingOut) {

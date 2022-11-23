@@ -201,6 +201,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Zoom Out"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f469fb99-ec26-4e13-bd09-115a5f4328e3"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom Out"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
