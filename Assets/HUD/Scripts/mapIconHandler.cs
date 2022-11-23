@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 public class mapIconHandler : MonoBehaviour
 {
 	public int current_lvl;
+	private LevelController levelController;
     // Start is called before the first frame update
     void Start()
     {
+		levelController = GameObject.Find("LevelController").GetComponent<LevelController>();
         current_lvl = PlayerPrefs.GetInt("current_lvl");
     }
 
@@ -18,16 +20,20 @@ public class mapIconHandler : MonoBehaviour
         switch(current_lvl)
 		{
 			case 1:
-				transform.position = new Vector3(380.0f, 240.0f, 1.0f);
+                levelController.respawnPoint = new Vector3(380.0f, 240.0f, 1.0f); 
+                transform.position = new Vector3(380.0f, 240.0f, 1.0f);
 				break;
 			case 2:
-				transform.position = new Vector3(460.0f, 290.0f, 1.0f);
+                levelController.respawnPoint= new Vector3(460.0f, 290.0f, 1.0f);
+                transform.position = new Vector3(460.0f, 290.0f, 1.0f);
 				break;
 			case 3:
-				transform.position = new Vector3(490.0f, 370.0f, 1.0f);
+                levelController.respawnPoint= new Vector3(490.0f, 370.0f, 1.0f);
+                transform.position = new Vector3(490.0f, 370.0f, 1.0f);
 				break;
 			default:
-				transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+                levelController.respawnPoint= new Vector3(0.0f, 0.0f, 0.0f);
+                transform.position = new Vector3(0.0f, 0.0f, 0.0f);
 				break;
 		}
 		

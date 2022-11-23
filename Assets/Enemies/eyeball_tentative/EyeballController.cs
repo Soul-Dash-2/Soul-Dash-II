@@ -97,7 +97,7 @@ public class EyeballController : MonoBehaviour
 
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.right * 20, laserBeamLength, layerMask: layerMask);
-        if (hit.collider)
+        if (hit.collider&& this.gameObject.GetComponent<Enemy>().health > 0)
         {
             if (hit.transform.gameObject.CompareTag("Player")|| hit.transform.gameObject.CompareTag("Ground"))
             {
@@ -300,12 +300,6 @@ public class EyeballController : MonoBehaviour
         _lineRenderer.SetPosition(1, new Vector3(0, 0, 0));
         _lineRenderer.SetPosition(0, new Vector3(0, 0, 0));
     }
-    void OnDrawGizmos()
-    {
-        // Draw a yellow sphere at the transform's position
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, 1);
 
-    }
 
 }
