@@ -154,6 +154,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelController
       objectReference: {fileID: 0}
+    - target: {fileID: 9006164529242332538, guid: 4f91624add0bc4c2fa6c6b25688a32ea, type: 3}
+      propertyPath: m_TagString
+      value: LevelController
+      objectReference: {fileID: 0}
     - target: {fileID: 9006164529242332539, guid: 4f91624add0bc4c2fa6c6b25688a32ea, type: 3}
       propertyPath: m_RootOrder
       value: 19
@@ -1507,11 +1511,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6959477622332771136, guid: 7da4f52277bac4fdd88bbb61a5b9f7b3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 886.43
+      value: 1600
       objectReference: {fileID: 0}
     - target: {fileID: 6959477622332771136, guid: 7da4f52277bac4fdd88bbb61a5b9f7b3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 27.43
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6959477622332771136, guid: 7da4f52277bac4fdd88bbb61a5b9f7b3, type: 3}
       propertyPath: m_LocalPosition.z

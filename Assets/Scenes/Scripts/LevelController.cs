@@ -65,18 +65,16 @@ public class LevelController : MonoBehaviour
         }
         else
         {
-           // respawnPoint = GameObject.Find("initialRespawnPoint").transform.position;
+            SceneManager.LoadScene("Level 3");
+            respawnPoint = GameObject.Find("initialRespawnPoint").transform.position;
         }
 
     }
 
     public void LoadNextScene()
     {
-
         PlayerPrefs.SetInt("current_lvl", Int32.Parse(SceneManager.GetActiveScene().name.Split(' ')[1])+1);
-		SceneManager.LoadScene("Map_Screen");
-
-
+		SceneManager.LoadScene("Map_Screen");   
     }
 
 
