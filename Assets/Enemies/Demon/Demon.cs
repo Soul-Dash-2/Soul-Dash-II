@@ -19,10 +19,13 @@ public class Demon : MonoBehaviour
     private BoxCollider2D boxcollider;
     private Animator animator;
 
+    private AudioClip teleportSFX;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        teleportSFX = Resources.Load<AudioClip>("Audio/blink_sfx");
         player = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         boxcollider = GetComponent<BoxCollider2D>();
@@ -60,6 +63,8 @@ public class Demon : MonoBehaviour
 
     private void Teleport()
     {
+        if (this.gameObject.GetComponent<Enemy>().health > 0)
+            this.gameObject.GetComponent<AudioSource>().PlayOneShot(teleportSFX, 0.5f);
         float Xdistance = player.position.x - transform.position.x;
         float newX;
         if (Xdistance < 0)

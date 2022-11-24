@@ -150,13 +150,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae4b8ea077403f42a3894cba5c8a917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineOfSight: {x: 50, y: 20}
+  lineOfSight: {x: 50, y: 30}
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  destinationOffset: 4
-  attackRange: 0.2
-  cd: 5
+  destinationOffset: 3.5
+  attackRange: 0.23
+  cd: 3
 --- !u!114 &8808843716616357524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,7 +176,6 @@ MonoBehaviour:
   white: {fileID: 2100000, guid: 166c0cf29fc65ed468a636f3bd081933, type: 2}
   expostionPrefab: {fileID: 7737514994154043278, guid: 0bb9dfbee046843988fd55e2607ec33d, type: 3}
   prefabName: EnemyPrefabs/Demon
-  explosionSFX: {fileID: 0}
 --- !u!95 &7637151120382113941
 Animator:
   serializedVersion: 4

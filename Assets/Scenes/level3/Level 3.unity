@@ -12083,6 +12083,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Demon 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7637151122237162495, guid: a067f9e9a9683c8448d1029936b368e9, type: 3}
+      propertyPath: lineOfSight.y
+      value: 35
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a067f9e9a9683c8448d1029936b368e9, type: 3}
 --- !u!1001 &615026872

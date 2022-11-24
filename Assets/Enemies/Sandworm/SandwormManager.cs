@@ -23,6 +23,8 @@ public class SandwormManager : MonoBehaviour
     private static System.Random rnd;
     private bool aboveGround = false;
 
+    private AudioClip breakingGroundSFX;
+
     // Need a way to prevent children from all reporting the same instance of damage
     // this Dictionary maps the damage amount to the amount of time which has passed since that amount of damage was taken
     private Dictionary<float, float> damageToTime = new Dictionary<float, float>();
@@ -34,6 +36,7 @@ public class SandwormManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        breakingGroundSFX = Resources.Load<AudioClip>("Audio/sandworm");
         player = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Transform>();
         rnd = new System.Random();
         //CreateBodyParts();
@@ -77,18 +80,20 @@ public class SandwormManager : MonoBehaviour
 
     IEnumerator Move()
     {
+
+        this.gameObject.GetComponent<AudioSource>().PlayOneShot(breakingGroundSFX, 1f);
         PlayerController p = player.gameObject.GetComponent<PlayerController>();
         p.GetPlayerCamera().Shake(warningTime/2, 0.2f, 20f);
         yield return new WaitForSeconds(warningTime);
-        sandwormBody[0].transform.position = rnd.Next(0, 2) == 0 ? new Vector2(player.position.x - 15 - rnd.Next(0, 20), sandwormBody[0].transform.position.y) : new Vector2(player.position.x + 15 + rnd.Next(0, 20), sandwormBody[0].transform.position.y);
+        sandwormBody[0].transform.position = rnd.Next(0, 2) == 0 ? new Vector2(player.position.x - 20 - rnd.Next(0, 15), sandwormBody[0].transform.position.y) : new Vector2(player.position.x + 20 + rnd.Next(0, 15), sandwormBody[0].transform.position.y);
         Vector2 target;
         if (player.position.x - sandwormBody[0].transform.position.x > 0)
         {
-            target = new Vector2(player.position.x - 5f, player.position.y + 12f);
+            target = new Vector2(player.position.x - 5f, System.Math.Min(player.position.y + 12f, this.transform.position.y + (float)territory.y / 2));
         }
         else
         {
-            target = new Vector2(player.position.x + 6f, player.position.y + 12f);
+            target = new Vector2(player.position.x + 5f, System.Math.Min(player.position.y + 12f, this.transform.position.y + (float)territory.y / 2));
         }
         Vector2 vel = new Vector2((target.x - sandwormBody[0].transform.position.x) * speed, (target.y - sandwormBody[0].transform.position.y) * speed);
         sandwormBody[0].GetComponent<Rigidbody2D>().velocity = vel;
