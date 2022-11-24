@@ -20,19 +20,19 @@ public class mapIconHandler : MonoBehaviour
         switch(current_lvl)
 		{
 			case 0:
-				transform.position = new Vector3(380.0f, 240.0f, 1.0f);
+				transform.position = new Vector3(380.0f, 240.0f, 0f);
 				break;
 			case 1:
                 
-                transform.position = new Vector3(-60.48f, 1.135472f, 1.0f);
+                transform.position = new Vector3(-60.48f, 1.135472f, 0f);
 				break;
 			case 2:
            
-                transform.position = new Vector3(884.4595f, 26.14012f, 1.0f);
+                transform.position = new Vector3(884.4595f, 26.14012f, 0f);
 				break;
 			case 3:
                 
-                transform.position = new Vector3(490.0f, 370.0f, 1.0f);
+                transform.position = new Vector3(-110.5f, -70.2f, 0f);
 				break;
 			// default:
                 // levelController.respawnPoint= new Vector3(0.0f, 0.0f, 0.0f);
