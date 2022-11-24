@@ -22,9 +22,11 @@ public class Enemy : MonoBehaviour
     private Vector3 spawnPosition;
     private Quaternion spawnRotation;
     private bool spawning;
+    [SerializeField]private AudioClip explosionSFX;
 
     void Start()
     {
+        explosionSFX = Resources.Load<AudioClip>("Audio/explosionSFX");
         enemyPrefab = (GameObject)Resources.Load(prefabName);
         player = GameObject.Find("Hero").GetComponent<PlayerController>();
         norm = GetComponent<SpriteRenderer>().material;
@@ -113,7 +115,9 @@ public class Enemy : MonoBehaviour
         GameObject exposion = Instantiate(expostionPrefab, new Vector3(this.gameObject.transform.position.x,
         this.gameObject.transform.position.y + 1,
         this.gameObject.transform.position.z), Quaternion.identity);
+        gameObject.GetComponent<AudioSource>().PlayOneShot(explosionSFX,0.06f);
         yield return new WaitForSeconds(3);
+
         Destroy(exposion);
         StartCoroutine(spawn());
     }
