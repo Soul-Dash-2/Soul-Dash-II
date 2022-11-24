@@ -85,15 +85,15 @@ public class SandwormManager : MonoBehaviour
         PlayerController p = player.gameObject.GetComponent<PlayerController>();
         p.GetPlayerCamera().Shake(warningTime/2, 0.2f, 20f);
         yield return new WaitForSeconds(warningTime);
-        sandwormBody[0].transform.position = rnd.Next(0, 2) == 0 ? new Vector2(player.position.x - 15 - rnd.Next(0, 20), sandwormBody[0].transform.position.y) : new Vector2(player.position.x + 15 + rnd.Next(0, 20), sandwormBody[0].transform.position.y);
+        sandwormBody[0].transform.position = rnd.Next(0, 2) == 0 ? new Vector2(player.position.x - 20 - rnd.Next(0, 15), sandwormBody[0].transform.position.y) : new Vector2(player.position.x + 20 + rnd.Next(0, 15), sandwormBody[0].transform.position.y);
         Vector2 target;
         if (player.position.x - sandwormBody[0].transform.position.x > 0)
         {
-            target = new Vector2(player.position.x - 5f, player.position.y + 12f);
+            target = new Vector2(player.position.x - 5f, System.Math.Min(player.position.y + 12f, this.transform.position.y + (float)territory.y / 2));
         }
         else
         {
-            target = new Vector2(player.position.x + 6f, player.position.y + 12f);
+            target = new Vector2(player.position.x + 5f, System.Math.Min(player.position.y + 12f, this.transform.position.y + (float)territory.y / 2));
         }
         Vector2 vel = new Vector2((target.x - sandwormBody[0].transform.position.x) * speed, (target.y - sandwormBody[0].transform.position.y) * speed);
         sandwormBody[0].GetComponent<Rigidbody2D>().velocity = vel;
