@@ -291,7 +291,7 @@ public class EyeballController : MonoBehaviour
         ableToDealDamage = true;
 
         if (this.gameObject.GetComponent<Enemy>().health>0)
-        GameObject.Find("SFXManager").GetComponent<SFX_manager>().PlaySound("eyeballLaser");
+            GameObject.Find("SFXManager").GetComponent<SFX_manager>().PlaySound("eyeballLaser");
         _lineRenderer.SetPosition(0, new Vector3(0, 0, 0));
         float laserLength = laserhitLeangth < laserBeamLength ? laserhitLeangth : laserBeamLength;
         

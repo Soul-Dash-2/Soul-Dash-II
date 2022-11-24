@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     private Vector3 spawnPosition;
     private Quaternion spawnRotation;
     private bool spawning;
-    [SerializeField]private AudioClip explosionSFX;
+    private AudioClip explosionSFX;
 
     void Start()
     {

@@ -21,9 +21,12 @@ public class Slime : MonoBehaviour
     private bool playerInSight;
     private Animator animator;
 
+    private AudioClip jumpSFX;
+
     // Start is called before the first frame update
     void Start()
     {
+        jumpSFX = Resources.Load<AudioClip>("Audio/slime");
         player = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -52,6 +55,12 @@ public class Slime : MonoBehaviour
         {
             rb.velocity = new Vector2(0.1f, rb.velocity.y);
         }
+    }
+
+    void playTouchingGroundSFX()
+    {
+        if (this.gameObject.GetComponent<Enemy>().health > 0)
+            this.gameObject.GetComponent<AudioSource>().PlayOneShot(jumpSFX, 0.5f);
     }
 
     private void OnDrawGizmosSelected()

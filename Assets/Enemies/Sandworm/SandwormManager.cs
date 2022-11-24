@@ -23,6 +23,8 @@ public class SandwormManager : MonoBehaviour
     private static System.Random rnd;
     private bool aboveGround = false;
 
+    private AudioClip breakingGroundSFX;
+
     // Need a way to prevent children from all reporting the same instance of damage
     // this Dictionary maps the damage amount to the amount of time which has passed since that amount of damage was taken
     private Dictionary<float, float> damageToTime = new Dictionary<float, float>();
@@ -34,6 +36,7 @@ public class SandwormManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        breakingGroundSFX = Resources.Load<AudioClip>("Audio/sandworm");
         player = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Transform>();
         rnd = new System.Random();
         //CreateBodyParts();
@@ -77,6 +80,8 @@ public class SandwormManager : MonoBehaviour
 
     IEnumerator Move()
     {
+
+        this.gameObject.GetComponent<AudioSource>().PlayOneShot(breakingGroundSFX, 1f);
         PlayerController p = player.gameObject.GetComponent<PlayerController>();
         p.GetPlayerCamera().Shake(warningTime/2, 0.2f, 20f);
         yield return new WaitForSeconds(warningTime);
