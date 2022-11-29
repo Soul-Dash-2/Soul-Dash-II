@@ -11,21 +11,31 @@ public class dashEffects : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hero = GameObject.FindGameObjectsWithTag("Player")[0];
+        hero = GameObject.FindGameObjectWithTag("Player");
         _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Vector3 leftPos = new Vector3(0.481999993f, -0.184f, 0);
+        Vector3 rightPos = new Vector3(-0.481999993f, -0.184f, 0);
         if (hero.GetComponent<PlayerController>().isDashing)
         {
             StartCoroutine(StartEffect());
         }
+
+        if(hero.GetComponent<PlayerController>().movingRight == true)
+        {
+            transform.position = hero.transform.position + 2*rightPos;
+        }else if(hero.GetComponent<PlayerController>().movingLeft == true)
+        {
+            transform.position = hero.transform.position + 2*leftPos;
+        }
     }
     IEnumerator StartEffect()
     {
-        if (hero.GetComponent<PlayerController>().CanDash())
+        if (!hero.GetComponent<PlayerController>().CanDash())
         {
             dashType = hero.GetComponent<PlayerController>().getDashTypeForHud();
             if (dashType == PlayerController.DashType.BASIC)
@@ -60,7 +70,7 @@ public class dashEffects : MonoBehaviour
 
         // wait to complete dash
         float dashTime = 0;
-        while (dashTime < 0.1)
+        while (dashTime < 0.4)
         {
             dashTime += Time.deltaTime;
             yield return null;
