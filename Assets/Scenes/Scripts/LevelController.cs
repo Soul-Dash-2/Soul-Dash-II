@@ -26,16 +26,10 @@ public class LevelController : MonoBehaviour
     {  
     }
 
-    
-    private void reloadAllScenes()
-    {
-        
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
     //the player will revive in the nearest repwawn point 
     public void onDeathControl() {
         deathPos = GameObject.FindGameObjectsWithTag("Player")[0].transform.position;
-        reloadAllScenes();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         revive();
     }
 
@@ -65,8 +59,7 @@ public class LevelController : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("Level 3");
-            respawnPoint = GameObject.Find("initialRespawnPoint").transform.position;
+
         }
 
     }

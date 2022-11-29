@@ -83,7 +83,7 @@ public class pauseScreenToggle : MonoBehaviour
 
     public void Button_Quit()
     {
-        SceneManager.LoadScene("MainMenu");
+        Application.Quit();
     }
 
     // Functions for each individual button in the settings screen
