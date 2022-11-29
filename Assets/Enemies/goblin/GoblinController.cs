@@ -79,7 +79,6 @@ public class GoblinController : MonoBehaviour
         _renderer.flipX = player.transform.position.x >= transform.position.x;
         GameObject theFireball=Instantiate(fireballPrefab,new Vector3(transform.position.x+ (_renderer.flipX?-1f:1f)
             ,transform.position.y,transform.position.z), Quaternion.identity);
-         
         while (movedDistance< fireballRange&& theFireball != null)
         {
             theFireball.transform.Translate((_renderer.flipX ?  transform.right: -transform.right ) * fireballSpeed*Time.deltaTime);
