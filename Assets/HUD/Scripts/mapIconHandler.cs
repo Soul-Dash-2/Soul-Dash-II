@@ -11,8 +11,6 @@ public class mapIconHandler : MonoBehaviour
     void Start()
     {
         current_lvl = PlayerPrefs.GetInt("current_lvl");
-        Debug.Log(current_lvl);
-        current_lvl = 3;
         switch (current_lvl)
         {
             case 1:
