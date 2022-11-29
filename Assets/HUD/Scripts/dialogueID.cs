@@ -35,7 +35,6 @@ public class dialogueID : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            Debug.Log("ehrauo");
             GameObject.Find("Empty_dialogueBox").GetComponent<textImporter>().deactivate();
         }
     }
