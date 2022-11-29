@@ -54,11 +54,11 @@ public class SFX_manager : MonoBehaviour
                 break;
 
             case "eyeballLaser":
-                enemyAudioSource.PlayOneShot(eyeballLaserSound, 0.1f);
+                enemyAudioSource.PlayOneShot(eyeballLaserSound, 0.005f);
                 break;
 
             case "globinProjectileOnHit":
-                enemyAudioSource.PlayOneShot(globinProjectileOnHit,0.1f);
+                enemyAudioSource.PlayOneShot(globinProjectileOnHit,0.05f);
                 break;
 
             case "heroTakeDamage":

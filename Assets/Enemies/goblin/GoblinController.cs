@@ -37,7 +37,7 @@ public class GoblinController : MonoBehaviour
     {
         if (ifRun)
         {
-            audioSource.PlayOneShot(goblinInvisable, 0.1f);
+            audioSource.PlayOneShot(goblinInvisable, 0.05f);
             _animator.SetBool("ifAttack",false);
             StartCoroutine(run());
             ifRun = false;
