@@ -107,6 +107,7 @@ public class Enemy : MonoBehaviour
             }
             else if (respawnable == true)
             {
+                afterRespawning;
                 StartCoroutine(respawn());
             }
         }
