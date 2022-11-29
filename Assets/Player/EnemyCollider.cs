@@ -10,7 +10,9 @@ public class EnemyCollider : MonoBehaviour
     private float MaxIFrames = 0.4f;   //Amount of time until the player can take damage again
     private float currentIFrames;
     private bool takingDamage;
-
+    public bool justTookDamage;
+    public bool justDied;
+    private bool deathAnimationFinished;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +20,7 @@ public class EnemyCollider : MonoBehaviour
         playerHP = maxHealth;
         player = GameObject.Find("Hero");
         currentIFrames = 0f;
+        justTookDamage = false;
     }
 
     // Update is called once per frame
@@ -25,7 +28,12 @@ public class EnemyCollider : MonoBehaviour
     {
         if(takingDamage == true) //If the player has gotten hit recently, give them i frames
         {
+            justTookDamage = true;
             currentIFrames += Time.deltaTime;   //Iframes based on time
+            if (currentIFrames == .02f)
+            {
+                justTookDamage = false;
+            }
             if(currentIFrames >= MaxIFrames)    //Once the iframes are gone, reset the taking damage
             {
                 takingDamage = false;
@@ -130,8 +138,11 @@ public class EnemyCollider : MonoBehaviour
 
     void KillPlayer()
     {
+        StartCoroutine(DeathAnimation());
         // reset the scene
-        GameObject.Find("LevelController").SendMessage("onDeathControl", true);
+        Debug.Log("player death animation went through?");
+        //GameObject.Find("LevelController").SendMessage("onDeathControl", true);
+
     }
 
 	public void SetPlayerHP(float in_newPlayerHP)
@@ -146,6 +157,21 @@ public class EnemyCollider : MonoBehaviour
 
     public float GetMaxHP() {
         return maxHealth;
+    }
+
+    IEnumerator DeathAnimation()
+    {
+        Debug.Log("player just died");
+        justDied = true;
+        float deathTime= 0;
+        while (deathTime < 0.75)
+        {
+            deathTime += Time.deltaTime;
+            yield return null;
+        }
+        Debug.Log("player death animation done");
+        GameObject.Find("LevelController").SendMessage("onDeathControl", true);
+        // finish 
     }
 
 }

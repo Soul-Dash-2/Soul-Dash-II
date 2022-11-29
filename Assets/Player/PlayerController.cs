@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
     private GameObject SFXManager;  //The manager for playing sound effect
     public PlayerOnGround groundDetector;
+    private GameObject enemyCollider;  //enemyCollider object
 
     // Prefabs
     public GameObject slash;            //The slash prefab
@@ -44,6 +45,8 @@ public class PlayerController : MonoBehaviour
     private float coyoteCounter;        //Timer for coyote time
     private float timeSinceDash;
     private float timeSinceSlash;
+    private float justTookDamgage;
+    private float justDied;
 
 
     //Damage things
@@ -98,6 +101,7 @@ public class PlayerController : MonoBehaviour
     // Setup Code
     void Start()
     {
+        enemyCollider = GameObject.Find("EnemyCollider");
         fallSpeed = maxFallSpeed;
         sword = CreateSword();
 
@@ -141,6 +145,17 @@ public class PlayerController : MonoBehaviour
     //Update method to take advantage of deltaTime, used for coyote time mechanic
     private void Update()
     {
+        if(enemyCollider.GetComponent<EnemyCollider>().justDied == true)
+        {
+            _animator.SetBool("isDying", true);
+            Debug.Log("player controller sees death");
+        }
+
+        if (enemyCollider.GetComponent<EnemyCollider>().justTookDamage == true)
+        {
+            //Make the player take damage (need one more frame to make it an animation)
+        }
+
         timeSinceDash += Time.deltaTime;
         timeSinceSlash += Time.deltaTime;
         if (onGround())
@@ -150,6 +165,7 @@ public class PlayerController : MonoBehaviour
         else {
             coyoteCounter -= Time.deltaTime;
         }
+
     }
 
     // Fixed Update occurs whenever unity updates Physics objects, and does not necessarily occur at the same time as the frame update.
