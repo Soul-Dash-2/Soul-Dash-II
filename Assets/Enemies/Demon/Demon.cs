@@ -64,7 +64,7 @@ public class Demon : MonoBehaviour
     private void Teleport()
     {
         if (this.gameObject.GetComponent<Enemy>().health > 0)
-            this.gameObject.GetComponent<AudioSource>().PlayOneShot(teleportSFX, 0.5f);
+            this.gameObject.GetComponent<AudioSource>().PlayOneShot(teleportSFX, 0.2f);
         float Xdistance = player.position.x - transform.position.x;
         float newX;
         if (Xdistance < 0)
