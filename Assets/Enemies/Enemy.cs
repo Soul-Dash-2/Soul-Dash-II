@@ -124,7 +124,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator spawn()
     {
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(12);
         Instantiate(enemyPrefab, new Vector3(spawnPosition.x, spawnPosition.y, spawnPosition.z), spawnRotation);
         yield return new WaitForSeconds(1);
         Destroy(this.gameObject);
