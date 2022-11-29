@@ -3407,10 +3407,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 418112120846877651, guid: c7bd45209b23047d486a2723c2e14168, type: 3}
-      propertyPath: respawnable
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3472953791901181380, guid: c7bd45209b23047d486a2723c2e14168, type: 3}
       propertyPath: m_RootOrder
       value: 21
@@ -3462,10 +3458,6 @@ PrefabInstance:
     - target: {fileID: 3472953791901181383, guid: c7bd45209b23047d486a2723c2e14168, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3472953791901181384, guid: c7bd45209b23047d486a2723c2e14168, type: 3}
-      propertyPath: m_Radius
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8289133969703530197, guid: c7bd45209b23047d486a2723c2e14168, type: 3}
       propertyPath: m_Positions.Array.data[1].x
