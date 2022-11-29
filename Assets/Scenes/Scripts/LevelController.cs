@@ -22,11 +22,6 @@ public class LevelController : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
     }
-    void Start()
-    {  
-    }
-
-    
     private void reloadAllScenes()
     {
         
@@ -65,7 +60,6 @@ public class LevelController : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("Level 3");
             respawnPoint = GameObject.Find("initialRespawnPoint").transform.position;
         }
 

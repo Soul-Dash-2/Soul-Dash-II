@@ -14,9 +14,18 @@ public class GoblinController : MonoBehaviour
     [SerializeField] float fireballRange= 40f;
     private bool ifRun = true;
     private bool ifAttack = false;
+    private AudioSource audioSource;
+    private AudioClip goblinInvisable;
+    private AudioClip goblinStep;
     // Start is called before the first frame update
     void Start()
     {
+
+        audioSource = gameObject.GetComponent<AudioSource>();
+
+        goblinInvisable = Resources.Load<AudioClip>("Audio/goblin_invisible");
+        goblinStep = Resources.Load<AudioClip>("Audio/goblin_step");
+
         player = GameObject.FindGameObjectsWithTag("Player")[0];
         _renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
@@ -28,6 +37,7 @@ public class GoblinController : MonoBehaviour
     {
         if (ifRun)
         {
+            audioSource.PlayOneShot(goblinInvisable, 0.05f);
             _animator.SetBool("ifAttack",false);
             StartCoroutine(run());
             ifRun = false;
@@ -46,6 +56,7 @@ public class GoblinController : MonoBehaviour
     IEnumerator run()
     {
         float movedDistance = 0;
+        
         while (movedDistance < moveDistance)
         {
             _renderer.color= new Color(_renderer.color.r, _renderer.color.g, _renderer.color.b, _renderer.color.a==0.05f?0.1f:0.05f);
@@ -59,15 +70,15 @@ public class GoblinController : MonoBehaviour
 
     IEnumerator attack()
     {
+       
         float movedDistance = 0;
         _renderer.color = new Color(_renderer.color.r, _renderer.color.g, _renderer.color.b, 1);
         _animator.SetBool("ifAttack", true);
         yield return new WaitForSecondsRealtime(0.5f);
         
         _renderer.flipX = player.transform.position.x >= transform.position.x;
-        Instantiate(fireballPrefab,new Vector3(transform.position.x+ (_renderer.flipX?-1f:1f)
+        GameObject theFireball=Instantiate(fireballPrefab,new Vector3(transform.position.x+ (_renderer.flipX?-1f:1f)
             ,transform.position.y,transform.position.z), Quaternion.identity);
-        GameObject theFireball = GameObject.FindGameObjectsWithTag("Projectile")[0];
         while (movedDistance< fireballRange&& theFireball != null)
         {
             theFireball.transform.Translate((_renderer.flipX ?  transform.right: -transform.right ) * fireballSpeed*Time.deltaTime);

@@ -46,7 +46,9 @@ public class healthBar : MonoBehaviour
 		}
 		else
 		{
-			red_bar.SetActive(true);
+			if (gameObject.transform.parent.transform.Find("Shield") != null)
+				Destroy(gameObject.transform.parent.transform.Find("Shield").gameObject);
+            red_bar.SetActive(true);
 			red_fill.SetActive(true);
 			yellow_bar.SetActive(false);
 			yellow_fill.SetActive(false);
