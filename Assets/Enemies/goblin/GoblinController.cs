@@ -77,9 +77,9 @@ public class GoblinController : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
         
         _renderer.flipX = player.transform.position.x >= transform.position.x;
-        Instantiate(fireballPrefab,new Vector3(transform.position.x+ (_renderer.flipX?-1f:1f)
+        GameObject theFireball=Instantiate(fireballPrefab,new Vector3(transform.position.x+ (_renderer.flipX?-1f:1f)
             ,transform.position.y,transform.position.z), Quaternion.identity);
-        GameObject theFireball = GameObject.FindGameObjectsWithTag("Projectile")[0];
+         
         while (movedDistance< fireballRange&& theFireball != null)
         {
             theFireball.transform.Translate((_renderer.flipX ?  transform.right: -transform.right ) * fireballSpeed*Time.deltaTime);
