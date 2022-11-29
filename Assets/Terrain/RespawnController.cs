@@ -11,7 +11,6 @@ public class RespawnController : MonoBehaviour
        
         if (col.tag == "Player") {
            GameObject.Find("LevelController").SendMessage("onDeathControl", true);
-            Debug.Log("sdjaf");
         }
     }
 }

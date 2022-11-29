@@ -10,8 +10,27 @@ public class mapIconHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		
         current_lvl = PlayerPrefs.GetInt("current_lvl");
+        Debug.Log(current_lvl);
+        current_lvl = 3;
+        switch (current_lvl)
+        {
+            case 1:
+                this.gameObject.transform.position = new Vector3(246.9f, -272.1f, 0);
+                break;
+            case 2:
+                this.gameObject.transform.position = new Vector3(337.8f, -219.8f, 0);
+                this.gameObject.GetComponent<Animator>().SetBool("level2", true);
+                break;
+            case 3:
+                this.gameObject.transform.position = new Vector3(337.8f, -219.8f, 0);
+                this.gameObject.GetComponent<Animator>().SetBool("level3", true);
+                break;
+            default:
+                SceneManager.LoadScene("CreditScreen");
+                break;
+        }
+
     }
 
     // Update is called once per frame
@@ -27,7 +46,6 @@ public class mapIconHandler : MonoBehaviour
 				case 1:
                     GameObject.Find("LevelController").GetComponent<LevelController>().respawnPoint = new Vector3(-60.48f, 1.19f, 0);
                     SceneManager.LoadScene("Level 1");
-                    
                     break;
 				case 2:
                     GameObject.Find("LevelController").GetComponent<LevelController>().respawnPoint = new Vector3(886.53f, 28.68f, 0);
