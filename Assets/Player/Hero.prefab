@@ -445,6 +445,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 287b4d01bc8b8904e8757aa6e048f3c0, type: 3}
   - {fileID: 4900000, guid: 601ebae8a55d28949b40cb359307b11e, type: 3}
   - {fileID: 4900000, guid: b86e95028efc9814aadb4ab154f90887, type: 3}
+  - {fileID: 4900000, guid: e547e49fe44804a4da68b4986e31cd13, type: 3}
   index: 4
   textLines:
   - Press Space after the special dash to GLIDE!
@@ -1629,6 +1630,8 @@ MonoBehaviour:
   coyoteTime: 0.075
   dashCooldown: 1
   slashCooldown: 0.2
+  movingLeft: 0
+  movingRight: 0
 --- !u!95 &6606349420535267161
 Animator:
   serializedVersion: 4
@@ -3536,6 +3539,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
+  justTookDamage: 0
+  justDied: 0
 --- !u!1 &7684023175057493317
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,8 +17,8 @@ public class textImporter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        index = -1;
-        currentLine = -1;
+        index = 0;
+        currentLine = 0;
 		isFinished = false;
     }
 

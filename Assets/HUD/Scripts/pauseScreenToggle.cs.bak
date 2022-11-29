@@ -117,6 +117,6 @@ public class pauseScreenToggle : MonoBehaviour
 	
 	public void RemoveGUI()
 	{
-		gameObject.SetActive(false);
+		GameObject.SetActive(false);
 	}
 }
