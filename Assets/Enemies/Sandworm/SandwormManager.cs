@@ -149,14 +149,15 @@ public class SandwormManager : MonoBehaviour
             else
             {
                 temp = Instantiate(bodyParts[0], new Vector3(transform.position.x, transform.position.y, 0.1f), transform.rotation, transform);
+
+                if (!temp.GetComponent<Rigidbody2D>())
+                    temp.AddComponent<Rigidbody2D>();
+                temp.GetComponent<Rigidbody2D>().gravityScale = 0;
             }
             if (!temp.GetComponent<MarkerManager>())
                 temp.AddComponent<MarkerManager>();
-            if (!temp.GetComponent<Rigidbody2D>())
-                temp.AddComponent<Rigidbody2D>();
             if (!temp.GetComponent<CircleCollider2D>())
                 temp.AddComponent<CircleCollider2D>();
-            temp.GetComponent<Rigidbody2D>().gravityScale = 0;
             temp.GetComponent<CircleCollider2D>().isTrigger = true;
             temp.GetComponent<CircleCollider2D>().radius = colliderRadius;
             temp.transform.localScale = new Vector3(spriteScale, spriteScale, spriteScale);

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1468507612149085789}
   - component: {fileID: 996002601640502383}
   - component: {fileID: -8496734833043904329}
+  - component: {fileID: 4118412487967255600}
   m_Layer: 0
   m_Name: slash
   m_TagString: Untagged
@@ -73,6 +74,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathTimer: 0.2
+--- !u!50 &4118412487967255600
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4524076707055429942}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 3
 --- !u!1 &9107173655505017721
 GameObject:
   m_ObjectHideFlags: 0
