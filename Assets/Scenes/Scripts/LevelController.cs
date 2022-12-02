@@ -43,11 +43,22 @@ public class LevelController : MonoBehaviour
         float lowestVal = Int32.MaxValue;
         foreach(GameObject e in respawnPoints)
         {
-            if(lowestVal> Mathf.Abs(Vector3.Distance(e.transform.position, deathPos))&&deathPos.x>=e.transform.position.x)
+
+            if (e.GetComponent<RepsawnPointController>())
             {
-                lowestVal = Mathf.Abs(Vector3.Distance(e.transform.position, deathPos));
-                res = index;
-              
+                if (e.GetComponent<RepsawnPointController>().actived)
+                {
+                    if (lowestVal > Mathf.Abs(Vector3.Distance(e.transform.position, deathPos)))
+                    {
+                        lowestVal = Mathf.Abs(Vector3.Distance(e.transform.position, deathPos));
+                        res = index;
+
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("one of the repsawn points dont contain the RepsawnPointController script. Please attach one to it");
             }
             index++;          
         }
@@ -60,7 +71,7 @@ public class LevelController : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning(GameObject.Find("initialRespawnPoint").transform.position);
+            Debug.LogWarning("respawn in initialRespawnPoint");
             respawnPoint = GameObject.Find("initialRespawnPoint").transform.position;
         }
 

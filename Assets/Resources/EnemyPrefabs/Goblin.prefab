@@ -128,7 +128,7 @@ MonoBehaviour:
   moveDistance: 8
   fireballPrefab: {fileID: 4397327951848324854, guid: e99f4ae3aa92646bd9bee32332a9d3bc, type: 3}
   fireballSpeed: 30
-  fireballRange: 20
+  fireballRange: 15
   ifRun: 0
 --- !u!114 &1618659112009883873
 MonoBehaviour:
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   shields: 0
-  damage: 2
+  damage: 1
   dashType: goblin
   white: {fileID: 2100000, guid: 166c0cf29fc65ed468a636f3bd081933, type: 2}
   expostionPrefab: {fileID: 7737514994154043278, guid: 0bb9dfbee046843988fd55e2607ec33d, type: 3}
