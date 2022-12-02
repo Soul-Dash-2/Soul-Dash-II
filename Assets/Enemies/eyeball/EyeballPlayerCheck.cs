@@ -29,8 +29,7 @@ public class EyeballPlayerCheck : MonoBehaviour
             {
                
                 gameObject.transform.parent.gameObject.GetComponent<EyeballController>().AttackMode = true;
-
-                    ifTriggered = false;
+                    ifTriggered = true;
                 }
             }
 

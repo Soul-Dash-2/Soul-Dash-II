@@ -8,7 +8,7 @@ public class FireballController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        StartCoroutine(selfDestory());
     }
 
     // Update is called once per frame
@@ -31,5 +31,11 @@ public class FireballController : MonoBehaviour
     public float dealDamage()
     {
         return damage;
+    }
+
+    private IEnumerator selfDestory()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Destroy(gameObject);
     }
 }

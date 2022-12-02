@@ -60,6 +60,7 @@ public class LevelController : MonoBehaviour
         }
         else
         {
+            Debug.LogWarning(GameObject.Find("initialRespawnPoint").transform.position);
             respawnPoint = GameObject.Find("initialRespawnPoint").transform.position;
         }
 
