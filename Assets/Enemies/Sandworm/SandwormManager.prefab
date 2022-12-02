@@ -76,13 +76,13 @@ MonoBehaviour:
   - {fileID: 8057222330248310698, guid: d0d72dd407e28d946991cfaa89403e8a, type: 3}
   - {fileID: 8057222330248310698, guid: d0d72dd407e28d946991cfaa89403e8a, type: 3}
   - {fileID: 5056465071578115714, guid: 43c2e3179dbac4e4780dedd063063e3b, type: 3}
-  territory: {x: 85, y: 60}
+  territory: {x: 75, y: 60}
   spriteScale: 15
   colliderRadius: 0.14
   distanceBetweenBodyParts: 0.11
-  speed: 0.8
-  warningTime: 1
-  gravityScale: 1.7
+  speed: 0.75
+  warningTime: 0.5
+  gravityScale: 1.5
   groundLevel: 0
   playerLayer:
     serializedVersion: 2
