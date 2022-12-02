@@ -89,11 +89,11 @@ public class SandwormManager : MonoBehaviour
         Vector2 target;
         if (player.position.x - sandwormBody[0].transform.position.x > 0)
         {
-            target = new Vector2(player.position.x - 5f, System.Math.Min(player.position.y + 10f, this.transform.position.y + (float)territory.y / 2));
+            target = new Vector2(player.position.x - 5f, System.Math.Max(System.Math.Min(player.position.y + 10f, this.transform.position.y + (float)territory.y / 2), (this.transform.position.y + 20)));
         }
         else
         {
-            target = new Vector2(player.position.x + 5f, System.Math.Min(player.position.y + 10f, this.transform.position.y + (float)territory.y / 2));
+            target = new Vector2(player.position.x + 5f, System.Math.Max(System.Math.Min(player.position.y + 10f, this.transform.position.y + (float)territory.y / 2), (this.transform.position.y + 20)));
         }
         Vector2 vel = new Vector2((target.x - sandwormBody[0].transform.position.x) * speed, (target.y - sandwormBody[0].transform.position.y) * speed);
         sandwormBody[0].GetComponent<Rigidbody2D>().velocity = vel;
