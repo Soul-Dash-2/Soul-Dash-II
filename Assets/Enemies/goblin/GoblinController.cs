@@ -11,8 +11,8 @@ public class GoblinController : MonoBehaviour
     private GameObject player;
     [SerializeField] GameObject fireballPrefab;
     [SerializeField] float fireballSpeed = 20f;
-    [SerializeField] float fireballRange= 40f;
-    private bool ifRun = true;
+    [SerializeField] float fireballRange= 25f;
+    public bool ifRun = false;
     private bool ifAttack = false;
     private AudioSource audioSource;
     private AudioClip goblinInvisable;
@@ -20,7 +20,8 @@ public class GoblinController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        this.gameObject.transform.Find("healthBar").gameObject.SetActive(false);
         audioSource = gameObject.GetComponent<AudioSource>();
 
         goblinInvisable = Resources.Load<AudioClip>("Audio/goblin_invisible");

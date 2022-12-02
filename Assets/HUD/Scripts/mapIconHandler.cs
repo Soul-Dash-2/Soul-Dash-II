@@ -42,7 +42,8 @@ public class mapIconHandler : MonoBehaviour
 					SceneManager.LoadScene("Level 1");
 					break;
 				case 1:
-                    GameObject.Find("LevelController").GetComponent<LevelController>().respawnPoint = new Vector3(Screen.width/5.0f, Screen.height/5.0f, 0);//-60.48f, 1.19f, 0);
+                    GameObject.Find("LevelController").GetComponent<LevelController>().respawnPoint = new Vector3(-96.3f, 13.3f, 0);
+                        //new Vector3(Screen.width/5.0f, Screen.height/5.0f, 0);//-60.48f, 1.19f, 0);
                     SceneManager.LoadScene("Level 1");
                     break;
 				case 2:
