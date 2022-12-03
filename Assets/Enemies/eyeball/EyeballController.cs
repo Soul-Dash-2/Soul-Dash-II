@@ -19,12 +19,14 @@ public class EyeballController : MonoBehaviour
     [SerializeField] float laserBeamLength = 20f;
     [SerializeField] float laserDamagePerFrame = 0.3f;
     [SerializeField] LayerMask myLayer;
+    [SerializeField] GameObject _laserFire;
 
     bool attackMode = false;
     bool calMovementMode = false;
     bool shunMode = false;
     bool attackLeft = true;
     bool ableToDealDamage = false;
+    int fireCounter = 0;
     float laserhitLeangth = 10000f;
     // Bit shift the index of the layer (8) to get a bit mask
     int layerMask = 1 << 8;
@@ -271,11 +273,17 @@ public class EyeballController : MonoBehaviour
             {
                 laserDest = hit.point;
                 GameObject.Find("SFXManager").GetComponent<SFX_manager>().PlaySound("eyeballLaser");
+                fireCounter--;
                 if (ableToDealDamage && hit.transform.gameObject.CompareTag("Player"))
                 {
                    
                     GameObject.Find("Hero").transform.GetChild(1).GetComponent<EnemyCollider>().TakeDamage(laserDamagePerFrame);
                     ableToDealDamage = false;
+                } else if (ableToDealDamage && hit.transform.gameObject.CompareTag("Ground")&& fireCounter<=0)
+                {
+                    Vector2 firePos = new Vector2(hit.point.x, hit.point.y + 0.25f);
+                    Instantiate(_laserFire, firePos, Quaternion.identity);
+                    fireCounter = 5;
                 }
             }
         }
