@@ -263,28 +263,22 @@ public class EyeballController : MonoBehaviour
     IEnumerator LaserBeanController()
     {
         ableToDealDamage = true;
-        
         Vector3 laserDest;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.right.normalized, laserBeamLength, layerMask: myLayer);
-        Debug.Log(hit.transform.gameObject);
         if (hit.collider && this.gameObject.GetComponent<Enemy>().health > 0)
         {
             if (hit.transform.gameObject.CompareTag("Player") || hit.transform.gameObject.CompareTag("Ground"))
             {
                 laserDest = hit.point;
                 ball = hit.point;
-                Debug.Log(ableToDealDamage);
                 if (ableToDealDamage && hit.transform.gameObject.CompareTag("Player"))
                 {
                     GameObject.Find("SFXManager").GetComponent<SFX_manager>().PlaySound("eyeballLaser");
                     GameObject.Find("Hero").transform.GetChild(1).GetComponent<EnemyCollider>().TakeDamage(laserDamagePerFrame);
                     ableToDealDamage = false;
-                    Debug.Log(hit.transform.gameObject);
                 }
             }
         }
-
-       
         _lineRenderer.SetPosition(0,new Vector3( transform.position.x-0.5f, transform.position.y - 0.5f,0));
         _lineRenderer.SetPosition(1, hit.point);
         yield return new WaitForEndOfFrame();
