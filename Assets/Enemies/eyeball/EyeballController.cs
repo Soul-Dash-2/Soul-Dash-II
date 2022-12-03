@@ -263,35 +263,33 @@ public class EyeballController : MonoBehaviour
     IEnumerator LaserBeanController()
     {
         ableToDealDamage = true;
-        Vector3 laserDest;
+        Vector3 laserDest = new Vector3();
         RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.right.normalized, laserBeamLength, layerMask: myLayer);
         if (hit.collider && this.gameObject.GetComponent<Enemy>().health > 0)
         {
             if (hit.transform.gameObject.CompareTag("Player") || hit.transform.gameObject.CompareTag("Ground"))
             {
                 laserDest = hit.point;
-                ball = hit.point;
+                GameObject.Find("SFXManager").GetComponent<SFX_manager>().PlaySound("eyeballLaser");
                 if (ableToDealDamage && hit.transform.gameObject.CompareTag("Player"))
                 {
-                    GameObject.Find("SFXManager").GetComponent<SFX_manager>().PlaySound("eyeballLaser");
+                   
                     GameObject.Find("Hero").transform.GetChild(1).GetComponent<EnemyCollider>().TakeDamage(laserDamagePerFrame);
                     ableToDealDamage = false;
                 }
             }
         }
         _lineRenderer.SetPosition(0,new Vector3( transform.position.x-0.5f, transform.position.y - 0.5f,0));
-        _lineRenderer.SetPosition(1, hit.point);
+        if (laserDest != new Vector3()) 
+        _lineRenderer.SetPosition(1, laserDest);
+        else
+        {
+            _lineRenderer.SetPosition(1, transform.position + -transform.right.normalized * laserBeamLength);
+        }
+        
         yield return new WaitForEndOfFrame();
         _lineRenderer.SetPosition(1, new Vector3(transform.position.x - 0.5f, transform.position.y - 0.5f, 0));
 
-    }
-
-    private Vector3 ball;
-    void OnDrawGizmos()
-    {
-        // Draw a yellow sphere at the transform's position
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(ball, 0.3f);
     }
 
 
