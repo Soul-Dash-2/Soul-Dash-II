@@ -283,7 +283,7 @@ public class EyeballController : MonoBehaviour
                 {
                     Vector2 firePos = new Vector2(hit.point.x, hit.point.y + 0.25f);
                     Instantiate(_laserFire, firePos, Quaternion.identity);
-                    fireCounter = 5;
+                    fireCounter = 6;
                 }
             }
         }

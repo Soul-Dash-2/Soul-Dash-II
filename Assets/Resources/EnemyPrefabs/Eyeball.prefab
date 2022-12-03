@@ -372,6 +372,10 @@ MonoBehaviour:
   minDistanceToPlayer: 10
   laserBeamLength: 40
   laserDamagePerFrame: 0.3
+  myLayer:
+    serializedVersion: 2
+    m_Bits: 192
+  _laserFire: {fileID: 5903887074760750173, guid: a39fce154f93147b8addc2bc300902fa, type: 3}
   player: {fileID: 0}
 --- !u!58 &3472953791901181384
 CircleCollider2D:
