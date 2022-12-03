@@ -18,6 +18,7 @@ public class EyeballController : MonoBehaviour
     [SerializeField] float minDistanceToPlayer = 20f;
     [SerializeField] float laserBeamLength = 20f;
     [SerializeField] float laserDamagePerFrame = 0.3f;
+    [SerializeField] LayerMask myLayer;
 
     bool attackMode = false;
     bool calMovementMode = false;
@@ -263,7 +264,7 @@ public class EyeballController : MonoBehaviour
     {
         ableToDealDamage = true;
         Vector3 laserDest;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.right.normalized, laserBeamLength, layerMask: layerMask);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.right.normalized, laserBeamLength, layerMask: myLayer);
         if (hit.collider && this.gameObject.GetComponent<Enemy>().health > 0)
         {
             if (hit.transform.gameObject.CompareTag("Player") || hit.transform.gameObject.CompareTag("Ground"))
@@ -272,13 +273,12 @@ public class EyeballController : MonoBehaviour
                 ball = hit.point;
                 if (ableToDealDamage && hit.transform.gameObject.CompareTag("Player"))
                 {
+                    GameObject.Find("SFXManager").GetComponent<SFX_manager>().PlaySound("eyeballLaser");
                     GameObject.Find("Hero").transform.GetChild(1).GetComponent<EnemyCollider>().TakeDamage(laserDamagePerFrame);
                     ableToDealDamage = false;
                 }
             }
         }
-
-        GameObject.Find("SFXManager").GetComponent<SFX_manager>().PlaySound("eyeballLaser");
         _lineRenderer.SetPosition(0,new Vector3( transform.position.x-0.5f, transform.position.y - 0.5f,0));
         _lineRenderer.SetPosition(1, hit.point);
         yield return new WaitForEndOfFrame();
