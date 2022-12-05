@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     private Quaternion spawnRotation;
     private bool spawning;
     private AudioClip explosionSFX;
+    public int respawnTime = 40;
 
     void Start()
     {
@@ -124,7 +125,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator spawn()
     {
-        yield return new WaitForSeconds(12);
+        yield return new WaitForSeconds(respawnTime);
         Instantiate(enemyPrefab, new Vector3(spawnPosition.x, spawnPosition.y, spawnPosition.z), spawnRotation);
         yield return new WaitForSeconds(1);
         Destroy(this.gameObject);

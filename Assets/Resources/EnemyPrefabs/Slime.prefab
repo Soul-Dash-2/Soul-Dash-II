@@ -221,6 +221,7 @@ MonoBehaviour:
   white: {fileID: 2100000, guid: 166c0cf29fc65ed468a636f3bd081933, type: 2}
   expostionPrefab: {fileID: 0}
   prefabName: EnemyPrefabs/Slime
+  respawnTime: 40
 --- !u!82 &17638135463676863
 AudioSource:
   m_ObjectHideFlags: 0
