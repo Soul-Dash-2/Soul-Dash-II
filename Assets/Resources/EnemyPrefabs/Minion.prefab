@@ -159,7 +159,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.01}
-  m_Size: {x: 0.18, y: 0.3}
+  m_Size: {x: 0.15, y: 0.3}
   m_Direction: 0
 --- !u!114 &3644007004420324236
 MonoBehaviour:
@@ -202,6 +202,7 @@ MonoBehaviour:
   white: {fileID: 2100000, guid: 166c0cf29fc65ed468a636f3bd081933, type: 2}
   expostionPrefab: {fileID: 7737514994154043278, guid: 0bb9dfbee046843988fd55e2607ec33d, type: 3}
   prefabName: EnemyPrefabs/Minion
+  respawnTime: 40
 --- !u!82 &-785462371470824297
 AudioSource:
   m_ObjectHideFlags: 0

@@ -176,6 +176,7 @@ MonoBehaviour:
   white: {fileID: 2100000, guid: 166c0cf29fc65ed468a636f3bd081933, type: 2}
   expostionPrefab: {fileID: 7737514994154043278, guid: 0bb9dfbee046843988fd55e2607ec33d, type: 3}
   prefabName: EnemyPrefabs/Demon
+  respawnTime: 40
 --- !u!95 &7637151120382113941
 Animator:
   serializedVersion: 4
