@@ -159,11 +159,16 @@ public class PlayerController : MonoBehaviour
         {
             _animator.SetBool("isDying", true);
             Debug.Log("player controller sees death");
+            rb.velocity = new Vector2(0, 0); //stops movement after death
         }
 
         if (enemyCollider.GetComponent<EnemyCollider>().justTookDamage == true)
         {
-            //Make the player take damage (need one more frame to make it an animation)
+            _animator.SetBool("isTakingDamage", true);
+        }
+        else if (enemyCollider.GetComponent<EnemyCollider>().justTookDamage == false)
+        {
+            _animator.SetBool("isTakingDamage", false);
         }
 
         timeSinceKnockback += Time.deltaTime;
@@ -186,7 +191,10 @@ public class PlayerController : MonoBehaviour
         float xVel = CalculateXVelocity();
         float yVel = CalculateYVelocity();
         rb.velocity = new Vector2(xVel, yVel);
-
+        if (enemyCollider.GetComponent<EnemyCollider>().justDied == true)
+        {
+            rb.velocity = new Vector2(0, 0); //stops movement after death
+        }
         HandleShortHop(yVel);
         DoFlipIfNeeded(xVel);
         //CheckDashingAnimation();

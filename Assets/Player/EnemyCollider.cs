@@ -30,13 +30,14 @@ public class EnemyCollider : MonoBehaviour
         {
             justTookDamage = true;
             currentIFrames += Time.deltaTime;   //Iframes based on time
-            if (currentIFrames == .02f)
+            if (currentIFrames >= .5f)
             {
                 justTookDamage = false;
             }
             if(currentIFrames >= MaxIFrames)    //Once the iframes are gone, reset the taking damage
             {
                 takingDamage = false;
+                justTookDamage = false;
             }
         }
     }
@@ -168,7 +169,7 @@ public class EnemyCollider : MonoBehaviour
         Debug.Log("player just died");
         justDied = true;
         float deathTime= 0;
-        while (deathTime < 0.75)
+        while (deathTime < 1)
         {
             deathTime += Time.deltaTime;
             yield return null;
