@@ -17,10 +17,14 @@ public class introDialogueHandler : MonoBehaviour
 	public bool script_finished;
 	public bool playerChoice;
 	public bool canTransition;
+	private bool dialogFinished;
+	private bool onetime=true;
+    [SerializeField] AudioSource ac;	
 	
     // Start is called before the first frame update
     void Start()
     {
+		dialogFinished = true;
         index = 0;
         currentLine = 0;
 		script_finished = true;
@@ -41,13 +45,18 @@ public class introDialogueHandler : MonoBehaviour
             Debug.Log("Error on textImporter: TextAsset " + textFiles[index] + " not found");
         }
 
-
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        if (onetime)
+        {
+            StartCoroutine(addLetter());
+			onetime = false;
+        }
+        if( dialogFinished&&Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (index != 2 && currentLine < textLines.Length - 1)
 			{
 				script_finished = false;
                 currentLine++;
+
 			}
             else
             {
@@ -59,14 +68,21 @@ public class introDialogueHandler : MonoBehaviour
 			
 			if(script_finished)
 				StepIntro();
+
+            StartCoroutine(addLetter());
         }
 		
-		if(index == 2)
-			playerOptions.SetActive(true);
+		if(index == 2) {
+            tmp_text.text = "";
+            playerOptions.SetActive(true);
+        }
+			
 		else
 			playerOptions.SetActive(false);
 
-        tmp_text.text = textLines[currentLine];
+
+		
+       
     }
 	
 	public void StepIntro()
@@ -98,4 +114,25 @@ public class introDialogueHandler : MonoBehaviour
 		playerChoice = false;
 		index = 4;
 	}
+
+	IEnumerator addLetter()
+	{
+        tmp_text.text = "";
+        dialogFinished = false;
+		ac.Play();
+        foreach (string letter in textLines[currentLine].Split(" "))
+		{
+			foreach (char c in letter)
+			{
+				tmp_text.text += c;
+				yield return new WaitForSeconds(0.03f);
+			}
+
+			tmp_text.text += " ";
+		}
+		dialogFinished = true;
+		ac.Stop();
+    }
 }
+
+
