@@ -1483,16 +1483,13 @@ MonoBehaviour:
   playerOptions: {fileID: 1498488218}
   panel: {fileID: 448552470}
   textFiles:
-  - {fileID: 4900000, guid: c048562a953e28a489eb79eb9d0a703e, type: 3}
   - {fileID: 4900000, guid: 3b1c31a7f9e5cbb42baa39981cd868ef, type: 3}
-  - {fileID: 4900000, guid: 59b50d407a5825344aacbaa839a8a231, type: 3}
   - {fileID: 4900000, guid: db925f4e2aebce0468a8accf14a1a7e7, type: 3}
   - {fileID: 4900000, guid: d8f0567b9b5899e438b272e7c48980a7, type: 3}
-  index: 0
+  fileIndex: 0
   textLines: []
   tmp_text: {fileID: 68735074}
   currentLine: 0
-  script_finished: 0
   playerChoice: 0
   canTransition: 0
   ac: {fileID: 1777626883}

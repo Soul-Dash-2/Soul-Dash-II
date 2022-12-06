@@ -7,120 +7,83 @@ using TMPro;
 
 public class introDialogueHandler : MonoBehaviour
 {
-	[SerializeField] private GameObject playerOptions;
-	[SerializeField] private GameObject panel;
+    [SerializeField] private GameObject playerOptions;
+    [SerializeField] private GameObject panel;
     [SerializeField] private TextAsset[] textFiles;
-    [SerializeField] private int index;
+    [SerializeField] private int fileIndex;
     public string[] textLines;
     public TextMeshProUGUI tmp_text;
     public int currentLine;
-	public bool script_finished;
-	public bool playerChoice;
-	public bool canTransition;
-	private bool dialogFinished;
-	private bool onetime=true;
-    [SerializeField] AudioSource ac;	
-	
+    private bool sentenceFinished;
+    private bool dialogFinished;
+    [SerializeField] AudioSource ac;
+    private int currLineNumber;
+
     // Start is called before the first frame update
     void Start()
     {
-		dialogFinished = true;
-        index = 0;
+        currLineNumber = textFiles[0].text.Split("\n").Length;
+        sentenceFinished = true;
+        fileIndex = 0;
         currentLine = 0;
-		script_finished = true;
-		playerOptions.SetActive(false);
-		playerChoice = true;
-		canTransition = false;
+        playerOptions.SetActive(false);
+        dialogFinished = false;
+        StartCoroutine(printLetter());
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (textFiles[index] != null)
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            textLines = (textFiles[index].text.Split("\n"));
-        }
-        else
-        {
-            Debug.Log("Error on textImporter: TextAsset " + textFiles[index] + " not found");
-        }
-
-        if (onetime)
-        {
-            StartCoroutine(addLetter());
-			onetime = false;
-        }
-        if( dialogFinished&&Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            if (index != 2 && currentLine < textLines.Length - 1)
-			{
-				script_finished = false;
-                currentLine++;
-
-			}
-            else
+            if (currentLine < textFiles[fileIndex].text.Split("\n").Length && sentenceFinished)
             {
-				if(canTransition)
-					TransitionScene();
-				script_finished = true;
-                currentLine = 0;
+                StartCoroutine(printLetter());
             }
-			
-			if(script_finished)
-				StepIntro();
+            else if (currentLine >= textFiles[fileIndex].text.Split("\n").Length&&fileIndex==0)
+            {
 
-            StartCoroutine(addLetter());
+                playerOptions.SetActive(true);
+            }else if(currentLine >= textFiles[fileIndex].text.Split("\n").Length && fileIndex == 1)
+            {
+                SceneManager.LoadScene("Map_Screen");
+            }
+            else if(currentLine >= textFiles[fileIndex].text.Split("\n").Length && fileIndex == 2)
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
         }
-		
-		if(index == 2) {
-            tmp_text.text = "";
-            playerOptions.SetActive(true);
-        }
-			
-		else
-			playerOptions.SetActive(false);
 
 
-		
-       
     }
-	
-	public void StepIntro()
-	{
-		if(index <= 1)
-			index++;
-		else if(index > 2)
-		{
-			canTransition = true;
-		}
-	}
-	
-	public void TransitionScene()
-	{
-		if(playerChoice)
-			SceneManager.LoadScene("Map_Screen");
-		else
-			SceneManager.LoadScene("MainMenu");
-	}
-	
+
+
 	public void Button_Yes()
 	{
-		playerChoice = true;
-		index = 3;
-	}
+        
+        fileIndex = 1;
+        currentLine = 0;
+        playerOptions.SetActive(false);
+        StartCoroutine(printLetter());
+
+    }
 	
 	public void Button_No()
 	{
-		playerChoice = false;
-		index = 4;
-	}
 
-	IEnumerator addLetter()
+		fileIndex = 2;
+        currentLine = 0;
+        playerOptions.SetActive(false);
+        StartCoroutine(printLetter());
+
+    }
+
+	IEnumerator printLetter()
 	{
         tmp_text.text = "";
-        dialogFinished = false;
+        sentenceFinished = false;
 		ac.Play();
-        foreach (string letter in textLines[currentLine].Split(" "))
+        foreach (string letter in textFiles[fileIndex].text.Split("\n")[currentLine].Split(" "))
 		{
 			foreach (char c in letter)
 			{
@@ -130,8 +93,11 @@ public class introDialogueHandler : MonoBehaviour
 
 			tmp_text.text += " ";
 		}
-		dialogFinished = true;
+        currentLine++;
+        sentenceFinished = true;
 		ac.Stop();
+
+
     }
 }
 
