@@ -13,6 +13,7 @@ public class LevelController : MonoBehaviour
     private Vector3 deathPos;
     public Vector3 respawnPoint;
     private Vector3 currPos;
+    public Vector3 overidePos =new Vector3();
     [SerializeField] private Vector3[] respawnPointList;
 
     private void Awake()
@@ -67,7 +68,14 @@ public class LevelController : MonoBehaviour
 
         if (res != -1)
         {
-            respawnPoint = new Vector3(respawnPoints[res].transform.position.x, respawnPoints[res].transform.position.y, 0);
+            if (overidePos == new Vector3())
+            {
+                respawnPoint = new Vector3(respawnPoints[res].transform.position.x, respawnPoints[res].transform.position.y, 0);
+            }
+            else
+            {
+                respawnPoint = overidePos;
+            }
         }
         else
         {

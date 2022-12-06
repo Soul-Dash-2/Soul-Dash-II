@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
 {
@@ -104,6 +105,10 @@ public class Enemy : MonoBehaviour
             if (transform.Find("LaserBeam") != null)
             {
                 transform.Find("LaserBeam").gameObject.SetActive(false);
+            }
+            if(transform.Find("Shield") != null)
+            {
+                transform.Find("Shield").gameObject.SetActive(false);
             }
                 if (expostionPrefab != null)
                 StartCoroutine(explode());

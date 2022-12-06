@@ -26,7 +26,6 @@ public class RepsawnPointController : MonoBehaviour
             // Debug.Log(triggeringObject.tag);
             if (triggeringObject.CompareTag("Player") && !ifTriggered)
             {
-
                 actived = true;
                 ifTriggered = true;
             }
