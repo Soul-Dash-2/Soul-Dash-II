@@ -234,7 +234,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 23.25, y: 3.3214111}
+  m_AnchoredPosition: {x: 23.25, y: 3.3215332}
   m_SizeDelta: {x: 1164.2146, y: 683.469}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &394445240
@@ -407,7 +407,9 @@ MonoBehaviour:
 
 
 
+
     Enemy AI & Design
+
 
 
 
@@ -415,8 +417,10 @@ MonoBehaviour:
 
 
 
+
     Level
     Developer
+
 
 
     Artist
@@ -715,57 +719,67 @@ MonoBehaviour:
 
     Phineas Ziegler
 
+    Bryan Jia
 
-    Ethan Lisy
-
-    Xochitl
-    Villalvazo
-
-
-    Edward Lou
-
-    Xochitl Villalvazo
-
-
-    Edward Lou
-
-
-    Ethan
-    Lisy
-
-    Jonathan Vilevac
-
-    Xochitl Villalvazo
-
-
-    Ethan Lisy
-
-    Jonathan
-    Vilevac
-
-    Xochitl Villalvazo
-
-
-    Edward Lou
-
-
-    Frederec Green
 
     Bryan
     Jia
 
-    Jonathan Vilevac
+    Ethan Lisy
 
     Xochitl Villalvazo
 
 
-    Lucien Lee
+    Edward Lou
+
+    Xochitl Villalvazo
+
+    Bryan
+    Jia
+
+
+    Edward Lou
+
+    Bryan Jia
+
+
+    Ethan Lisy
+
+    Jonathan Vilevac
 
     Xochitl
     Villalvazo
 
 
-    Edward Lou'
+    Ethan Lisy
+
+    Jonathan Vilevac
+
+    Xochitl Villalvazo
+
+
+    Edward
+    Lou
+
+
+    Frederec Green
+
+    Bryan Jia
+
+    Jonathan Vilevac
+
+    Xochitl Villalvazo
+
+
+    Lucien
+    Lee
+
+    Xochitl Villalvazo
+
+
+    Edward Lou
+
+    Bryan Jia'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
