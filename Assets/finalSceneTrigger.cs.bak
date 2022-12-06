@@ -8,13 +8,12 @@ public class finalSceneTrigger : MonoBehaviour
 	[SerializeField] private GameObject pos_obj;
 	private Vector3 final_pos;
 	private PlayerController player_ctrl;
-	public pauseScreenToggle pst;
+	[SerializeField] private pauseScreenToggle pst;
 	
     // Start is called before the first frame update
     void Start()
     {
 		player_ctrl = hero_ref.GetComponent<PlayerController>();
-		pst = hero_ref.GetComponent<pauseScreenToggle>();
         final_pos = pos_obj.transform.position;
     }
 
@@ -33,6 +32,7 @@ public class finalSceneTrigger : MonoBehaviour
 			player_ctrl.onDisable();
 			pst.RemoveGUI();
             hero_ref.transform.position = final_pos;
+			hero_ref.GetPlayerCamera().Shake(999999.99f,3.0f,5.0f);
             //GameObject.Find("LevelController").SendMessage("LoadNextScene", true);
         }
     }

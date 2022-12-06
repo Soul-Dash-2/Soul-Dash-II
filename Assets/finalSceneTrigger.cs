@@ -32,6 +32,7 @@ public class finalSceneTrigger : MonoBehaviour
 			player_ctrl.onDisable();
 			pst.RemoveGUI();
             hero_ref.transform.position = final_pos;
+			hero_ref.GetPlayerCamera().Shake(999.99f,1.0f,50.0f);
             //GameObject.Find("LevelController").SendMessage("LoadNextScene", true);
         }
     }
