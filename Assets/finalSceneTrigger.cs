@@ -9,6 +9,7 @@ public class finalSceneTrigger : MonoBehaviour
 	private Vector3 final_pos;
 	private PlayerController player_ctrl;
 	[SerializeField] private pauseScreenToggle pst;
+    [SerializeField] List<GameObject> enemyList;
 	
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,10 @@ public class finalSceneTrigger : MonoBehaviour
         Debug.Log(col.tag);
         if (col.CompareTag("Player"))
         {
+            foreach (GameObject enemy in enemyList)
+            {
+                enemy.SetActive(false);
+            }
 			//player_ctrl.Disable();
 			player_ctrl.onDisable();
 			pst.RemoveGUI();
