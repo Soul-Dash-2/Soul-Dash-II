@@ -197,8 +197,11 @@ public class SandwormManager : MonoBehaviour
                 p.letDash();
             }
             p.GetPlayerCamera().Shake(2f, 0.75f, 10f);
-            finalDialogueTrigger.GetComponent<BoxCollider2D>().enabled = true;
-            finalSceneTrigger.GetComponent<BoxCollider2D>().enabled = true;
+            if (finalDialogueTrigger != null && finalSceneTrigger != null)
+            {
+                finalDialogueTrigger.GetComponent<BoxCollider2D>().enabled = true;
+                finalSceneTrigger.GetComponent<BoxCollider2D>().enabled = true;
+            }
             Destroy(this.gameObject);
         }
         damageToTime[dmg] = 0;
