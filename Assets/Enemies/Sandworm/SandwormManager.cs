@@ -17,7 +17,6 @@ public class SandwormManager : MonoBehaviour
     private Transform player;
     [SerializeField] float coolDown;
     [SerializeField] GameObject finalSceneTrigger;
-    [SerializeField] GameObject finalDialogueTrigger;
 
     private List<GameObject> sandwormBody = new List<GameObject>();
     private bool playerInSight;
@@ -197,9 +196,8 @@ public class SandwormManager : MonoBehaviour
                 p.letDash();
             }
             p.GetPlayerCamera().Shake(2f, 0.75f, 10f);
-            if (finalDialogueTrigger != null && finalSceneTrigger != null)
+            if (finalSceneTrigger != null)
             {
-                finalDialogueTrigger.GetComponent<BoxCollider2D>().enabled = true;
                 finalSceneTrigger.GetComponent<BoxCollider2D>().enabled = true;
             }
             Destroy(this.gameObject);
