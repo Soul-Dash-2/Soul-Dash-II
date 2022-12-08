@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -402,48 +402,52 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Gameplay Developer
+  m_text: 'Instructor
+
+
+
+    Map Design
 
 
 
 
 
-    Enemy AI & Design
-
-
-
-
-    Level Design
-
-
-
-
-    Level
-    Developer
-
-
-
-    Artist
-
-
-
-
-    Concept Art
-
-
-
-
-    Music & SFX Director
-
-
-    Story
-    Writer
+    Gameplay Developer
 
 
 
 
 
-    User Interface & User Experience
+    Enemy
+    AI
+
+
+
+    Environment & Character Design
+
+
+
+
+    Animation
+
+
+
+
+
+
+
+    Music &
+    SFX Director
+
+
+
+    Story Writer
+
+
+
+
+
+    User Interface
 
 
 
@@ -456,11 +460,13 @@ MonoBehaviour:
 
 
 
-    To
-    be continued...
+    Thanks
+    for playing!
 
 
-    Thanks for playing!'
+
+
+    To be continued'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -716,73 +722,93 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Frederec Green
+  m_text: 'Michael Fu
 
-    Lucien Lee
 
-    Phineas Ziegler
 
     Bryan Jia
-
-
-    Bryan
-    Jia
-
-    Ethan Lisy
-
-    Xochitl Villalvazo
-
 
     Edward Lou
 
     Xochitl Villalvazo
 
-    Bryan
-    Jia
-
-
-    Edward Lou
-
-    Bryan Jia
-
-
-    Ethan Lisy
-
-    Jonathan Vilevac
-
-    Xochitl
-    Villalvazo
-
-
-    Ethan Lisy
-
-    Jonathan Vilevac
-
-    Xochitl Villalvazo
-
-
-    Edward
-    Lou
+    Jonathan
+    Vilevac
 
 
     Frederec Green
 
     Bryan Jia
 
+    Lucien Lee
+
+    Phineas Ziegler
+
+
+    Bryan
+    Jia
+
+    Nick Du
+
+
+    Ethan Lisy
+
     Jonathan Vilevac
 
     Xochitl Villalvazo
 
 
-    Lucien
-    Lee
+    Ethan
+    Lisy
+
+    Jonathan Vilevac
 
     Xochitl Villalvazo
+
+    Bryan Jia
+
+    Frederec
+    Green
+
+    Nick Du
 
 
     Edward Lou
 
-    Bryan Jia'
+    Nick Du
+
+
+    Frederec Green
+
+    Bryan
+    Jia
+
+    Jonathan Vilevac
+
+    Xochitl Villalvazo
+
+
+    Lucien Lee
+
+    Xochitl
+    Villalvazo
+
+
+    Edward Lou
+
+    Bryan Jia
+
+
+
+
+
+
+
+
+
+
+
+    ...'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CreditsEnd : MonoBehaviour
 {
     public string sceneToLoad;
-    private float timer = 15f;
+    private float timer = 18f;
 
     private void Update()
     {
