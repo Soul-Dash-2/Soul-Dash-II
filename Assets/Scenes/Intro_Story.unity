@@ -1490,8 +1490,6 @@ MonoBehaviour:
   textLines: []
   tmp_text: {fileID: 68735074}
   currentLine: 0
-  playerChoice: 0
-  canTransition: 0
   ac: {fileID: 1777626883}
 --- !u!82 &1777626883
 AudioSource:
@@ -1598,7 +1596,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4128425305289455506, guid: 60d187499ab264e1287cb7f2dc1d6104, type: 3}
       propertyPath: m_Volume
-      value: 0.656
+      value: 0.894
       objectReference: {fileID: 0}
     - target: {fileID: 4128425305289455506, guid: 60d187499ab264e1287cb7f2dc1d6104, type: 3}
       propertyPath: m_audioClip
