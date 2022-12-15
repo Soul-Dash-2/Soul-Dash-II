@@ -56,6 +56,10 @@ public class introDialogueHandler : MonoBehaviour
 
 
     }
+    public void Button_skip()
+    {
+        SceneManager.LoadScene("Map_Screen");
+    }
 
 
 	public void Button_Yes()
