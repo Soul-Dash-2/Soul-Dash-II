@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,18 +12,20 @@ public class dashEffects : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hero = GameObject.FindGameObjectWithTag("Player");
+        hero = GameObject.Find("Hero");
         _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        PlayerController pc = hero.GetComponent<PlayerController>();
         Vector3 leftPos = new Vector3(0.481999993f, -0.184f, 0);
         Vector3 rightPos = new Vector3(-0.481999993f, -0.184f, 0);
         if (hero.GetComponent<PlayerController>().isDashing)
         {
             StartCoroutine(StartEffect());
+
         }
 
         if(hero.GetComponent<PlayerController>().movingRight == true)

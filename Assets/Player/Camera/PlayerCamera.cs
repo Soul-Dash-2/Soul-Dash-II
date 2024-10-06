@@ -79,7 +79,8 @@ public class PlayerCamera : MonoBehaviour
         Vector2 shakeSum = Vector2.zero;
 
         // get the sum of all shakes and turn them into the final shake vector
-        LinkedList<ShakeInstance> newShakes = new LinkedList<ShakeInstance>();
+        LinkedList<ShakeInstance> newShakes = new();
+        
         foreach (ShakeInstance shake in shakes)
         {
             if (shake.Update(Time.deltaTime))
@@ -89,7 +90,8 @@ public class PlayerCamera : MonoBehaviour
             }
         }
         shakes = newShakes;
-        if (shakes.Count > 1) shakeSum /= (shakes.Count - 1);
+        if (shakes.Count > 1) 
+            shakeSum /= (shakes.Count - 1);
         SetPosition(new Vector2(pos.x + movement.x + shakeSum.x, pos.y + movement.y + shakeSum.y));
     }
 
