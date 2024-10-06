@@ -33,7 +33,6 @@ public class ghostTrigger : MonoBehaviour
             Animator animator = currGhost.GetComponent<Animator>();
             animator.runtimeAnimatorController = aoc;
             aoc["defaultAnim"] = anim;
-            Debug.LogWarning(aoc["defaultAnim"]);
             StartCoroutine(endDemo());
 
 

@@ -15,7 +15,6 @@ public class introDialogueHandler : MonoBehaviour
     public TextMeshProUGUI tmp_text;
     public int currentLine;
     private bool sentenceFinished;
-    private bool dialogFinished;
     [SerializeField] AudioSource ac;
     private int currLineNumber;
 
@@ -27,7 +26,6 @@ public class introDialogueHandler : MonoBehaviour
         fileIndex = 0;
         currentLine = 0;
         playerOptions.SetActive(false);
-        dialogFinished = false;
         StartCoroutine(printLetter());
 
     }

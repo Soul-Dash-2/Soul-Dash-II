@@ -27,7 +27,6 @@ public class EyeballController : MonoBehaviour
     bool attackLeft = true;
     bool ableToDealDamage = false;
     int fireCounter = 0;
-    float laserhitLeangth = 10000f;
     // Bit shift the index of the layer (8) to get a bit mask
     int layerMask = 1 << 8;
 

@@ -11,14 +11,11 @@ public class PlayerCamera : MonoBehaviour
         private float currentTime;
         private float scale;
         private float seed;
-        private float decreaseFactor;
-        private bool falloff;
 
         private Vector2 shake;
 
         public ShakeInstance(float duration, float amplitude, float scale)
         {
-            falloff = true;
             this.duration = duration;
             this.amplitude = amplitude * (Screen.width * 0.0015f);
             this.scale = scale;

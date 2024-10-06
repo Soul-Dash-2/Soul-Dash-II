@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     private Material norm;
     public Material white;
     private bool hasDead = false;
-    public GameObject? expostionPrefab;
+    public GameObject expostionPrefab;
 
     [SerializeField] String prefabName;
     private GameObject enemyPrefab;

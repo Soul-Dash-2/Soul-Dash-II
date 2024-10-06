@@ -31,14 +31,12 @@ public class PlayerController : MonoBehaviour
     private Sword sword;
 
     // Private
-    private bool isGrounded;            // is the player touching a ground object?
     private float movementFactor;       // a value between -1 and 1, which determines the direction the player moves
     private bool canDash;               // true if the player is allowed to dash
     public bool isDashing;             // true while the player is dashing
     private bool isJumping;             // true after the player has executed a jump
     private bool isCrouching;           // true when player is crouching
     private bool isFastFalling;         // true while player is fastfalling
-    private bool isTouching;            // true while player is touching anything
     private bool canGlide;              // true while the player has the ability to glide --> granted by eyeball dash
     private bool isTouchingWallGround;   // true while player is touching the wall or the ground
     private bool isInvisible;           // true while player is invisible (after goblin dash)
@@ -209,12 +207,10 @@ public class PlayerController : MonoBehaviour
     // Event which occurs when leaving a colliding object
     void OnCollisionExit2D(Collision2D collision)
     {
-        isTouching = false;
         isTouchingWallGround = false;
         // if the previously collided object was the ground, set isGrounded false
         if (collision.gameObject.CompareTag("Ground"))
         {
-            isGrounded = false;
         }
     }
 
@@ -224,14 +220,12 @@ public class PlayerController : MonoBehaviour
         // if the previously collided object was the ground, set isGrounded false
         if (groundDetector.OnGround())
         {
-            isGrounded = true;
             canGlide = false;
             canDash = true;
             isJumping = false;
             isFastFalling = false;
             fallSpeed = maxFallSpeed;
             isCrouching = false;
-            isTouching = true;
             _animator.SetBool("isFalling", false);
         }
 

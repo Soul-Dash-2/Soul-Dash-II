@@ -7,9 +7,7 @@ public class LevelController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] string[] levelList;
-    [SerializeField] private int waitTime = 2;
     [SerializeField] Vector3 defaultPos;
-    int currLevel = 0;
     private Vector3 deathPos;
     public Vector3 respawnPoint;
     private Vector3 currPos;

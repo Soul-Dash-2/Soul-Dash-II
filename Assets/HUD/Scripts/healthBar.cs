@@ -18,11 +18,9 @@ public class healthBar : MonoBehaviour
 	private float shields;
 	private float maxShields;
     private float fill_width;
-    private float fixed_angle;
 
     void Start()
     {
-        fixed_angle = 0.0f;
 		maxShields = (float) target.GetComponent<Enemy>().getShields();
 		shields = maxShields;
         maxHealth = (float) target.GetComponent<Enemy>().getHealth();
